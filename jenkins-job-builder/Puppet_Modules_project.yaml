@@ -1,0 +1,16 @@
+
+- project:
+    name: files
+    repo_name: puppet-files
+    github-url: https://github.com
+    github-org: snemetz
+    jobs:
+      - 'Puppet_Module_{name}'
+
+- project:
+    name: site_workflow
+    repo_name: puppet_module_site_workflow
+    github-url: https://github.com
+    github-org: devops-workflow
+    jobs:
+      - 'Puppet_Module_{name}'

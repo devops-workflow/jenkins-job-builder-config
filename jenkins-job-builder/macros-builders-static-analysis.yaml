@@ -1,0 +1,78 @@
+# Macros for static analysis
+#   documentation, syntax, style, 
+
+# These do not work
+# !include-raw is early processed instead of late - Can that be changed?
+# Otherwise need macros for each language
+
+# Doc: pp, readme
+# Style: pp
+# Syntax: erb, pp, rb, yaml
+
+#-----------------------------
+# Check Documentation macros
+#-----------------------------
+
+- builder:
+    name: doc-pp
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/doc-pp.sh
+
+- builder:
+    name: doc-readme
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/doc-readme.sh
+
+#-----------------------------
+# Check Style macros
+#-----------------------------
+
+- builder:
+    name: style-pp
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/style-pp.sh
+
+#-----------------------------
+# Check Syntax macros
+#-----------------------------
+
+- builder:
+    name: syntax-erb
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/syntax-erb.sh
+
+- builder:
+    name: syntax-pp
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/syntax-pp.sh
+
+- builder:
+    name: syntax-rb
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/syntax-rb.sh
+
+- builder:
+    name: syntax-yaml
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/syntax-yaml.sh
+
+#-----------------------------
+# Unit test  macros
+#-----------------------------
+#- builder:
+#    name: unittest-puppet
+

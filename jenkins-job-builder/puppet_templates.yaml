@@ -1,0 +1,84 @@
+
+- project:
+    name: puppet-templates
+    github-url: https://github.com
+    github-org: devops-workflow
+    repo-name: puppet_module_site_workflow
+    hipchat-token: 
+    hipchat-room-id: 1767523
+    jobs:
+      - Puppet_Template_module_NEW
+
+- job-template:
+    name: Puppet_Template_hiera
+    builders:
+      - syntax-yaml:
+
+- job-template:
+    name: Puppet_Template_module_NEW
+    disabled: true
+    node: 'NodeLabel1 || NodeLabel2'
+    properties:
+      - github:
+          url: {github-url}/{github-org}/{repo-name}
+      - 'custom-icon-{icon}':
+          icon: 231faffc37b1fe36bc4c6ef08021d1af188586f2.png
+    scm:
+      - 'github-{repo_name}':
+    builders:
+      - doc-readme:
+      - syntax-pp:
+      - syntax-rb:
+      - syntax-erb:
+      - style-pp:
+      - doc-pp:
+      - 'puppet-module-job-description':
+      - 'puppet-module-param-downstream':
+    publishers:
+      - github-notifier
+      - claim-build
+      - warnings:
+          console-log-parsers:
+            -  Puppet-Lint
+      - 'anchorchain-{file}':
+          file: anchor
+      - 'email-template-{template}':
+          template: emailext-template-1435433763855
+      - 'hipchat-{hipchat-room-id}':
+#      - trigger-parameterized-builds:
+#          project: test
+#          condition: stable
+#          property-file: parameters.txt
+    triggers:
+      - pollscm: '*/4 * * * *'
+    wrappers:
+      - 'project-desc-{file}':
+          file: project_description
+
+- job-template:
+    name: Puppet_Control_{name}
+
+- job-template:
+    name: Puppet_Hiera_{name}
+
+- job-template:
+    name: Puppet_Module_{name}
+    #node: 'NodeLabel1 || NodeLabel2'
+    properties:
+      - github:
+          url: {github-url}/{github-org}/{repo_name}/
+      - 'custom-icon-{icon}':
+           icon: 231faffc37b1fe36bc4c6ef08021d1af188586f2.png
+    scm:
+      - 'github-{repo_name}':
+    builders:
+      - builders-from: "Puppet_Template_module"
+    publishers:
+      - 'publishers-from-{project}':
+          project: Puppet_Template_module
+    triggers:
+      - pollscm: '*/4 * * * *'
+    wrappers:
+      - 'project-desc-{file}':
+           file: project_description
+

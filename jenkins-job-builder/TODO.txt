@@ -1,0 +1,18 @@
+Job-templates
+- Puppet_Control_{name}
+- Puppet_Hiera_{name}
+- Puppet_Module_{name}
+
+Jobs
+- Puppet_Template_hiera
+- Puppet_Template_module
+- Puppet_Control_XXX
+- Puppet_Hiera_XXX
+- Puppet_Module_XXX
+- Puppet_Env ??
+
+RAW implementations for
+- Anchor Chain
+- Custom Icon
+- Publishers From
+- ...

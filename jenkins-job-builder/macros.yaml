@@ -1,0 +1,145 @@
+
+# DSL Builder does not work for targets. Use raw until this is fixed
+#- builder:
+#    name: dsl-{target}
+#    builders:
+#      - dsl:
+#          target: {target}
+#          ignore-existing: "false"
+#          removed-job-action: "DISABLE"
+#          removed-view-action: "DELETE"
+#          lookup-strategy: "SEED_JOB"
+- builder:
+    name: dsl-{target}
+    builders:
+      - raw:
+          xml: |
+            <javaposse.jobdsl.plugin.ExecuteDslScripts plugin="job-dsl@1.35">
+              <targets>{target}</targets>
+              <usingScriptText>false</usingScriptText>
+              <ignoreExisting>false</ignoreExisting>
+              <removedJobAction>DISABLE</removedJobAction>
+              <removedViewAction>DELETE</removedViewAction>
+              <lookupStrategy>SEED_JOB</lookupStrategy>
+              <additionalClasspath></additionalClasspath>
+            </javaposse.jobdsl.plugin.ExecuteDslScripts>
+
+- builder:
+    name: puppet-module-job-description
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/puppet-module-description.sh
+
+- builder:
+    name: puppet-module-param-downstream
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/puppet-module-param-downstream.sh
+
+- property:
+    name: custom-icon-{icon}
+    properties:
+      - raw:
+          xml: |
+            <jenkins.plugins.jobicon.CustomIconProperty plugin="custom-job-icon@0.2">
+              <iconfile>{icon}</iconfile>
+            </jenkins.plugins.jobicon.CustomIconProperty>
+
+- publisher:
+    name: anchorchain-{file}
+    publishers:
+      - raw:
+          xml: |
+            <ru.snowleos.jenkins.anchorchain.LinksPublisher plugin="AnchorChain@1.0">
+              <name>{file}</name>
+            </ru.snowleos.jenkins.anchorchain.LinksPublisher>
+
+- publisher:
+    name: email-template-{template}
+    publishers:
+      - raw:
+          xml: |
+            <org.jenkinsci.plugins.emailext__template.ExtendedEmailTemplatePublisher plugin="emailext-template@0.4">
+              <templateIds>
+                <org.jenkinsci.plugins.emailext__template.TemplateId>
+                  <templateId>{template}</templateId>
+                </org.jenkinsci.plugins.emailext__template.TemplateId>
+              </templateIds>
+            </org.jenkinsci.plugins.emailext__template.ExtendedEmailTemplatePublisher>
+
+- publisher:
+    name: hipchat-{hipchat-room-id}
+    publishers:
+      - raw:
+          xml: |
+            <jenkins.plugins.hipchat.HipChatNotifier plugin="hipchat@0.1.9">
+              <token>{hipchat-token}</token>
+              <room>{hipchat-room-id}</room>
+              <startNotification>true</startNotification>
+              <notifySuccess>true</notifySuccess>
+              <notifyAborted>true</notifyAborted>
+              <notifyNotBuilt>true</notifyNotBuilt>
+              <notifyUnstable>true</notifyUnstable>
+              <notifyFailure>true</notifyFailure>
+              <notifyBackToNormal>true</notifyBackToNormal>
+              <startJobMessage>$JOB_NAME #$BUILD_NUMBER $STATUS ($CHANGES_OR_CAUSE) (&lt;a href=&quot;$URL&quot;&gt;Open&lt;/a&gt;)</startJobMessage>
+              <completeJobMessage>$JOB_NAME #$BUILD_NUMBER $STATUS after $DURATION (&lt;a href=&quot;$URL&quot;&gt;Open&lt;/a&gt;)</completeJobMessage>
+            </jenkins.plugins.hipchat.HipChatNotifier>
+
+# Getting errors with this, so using raw for now
+#      - trigger-parameterized-builds:
+#          project: test
+#          condition: stable
+#          property-file: parameters.txt
+- publisher:
+    name: param-build-trigger-{project}
+    # TODO: define lots of option - maybe many macros until plugin
+    publishers:
+      - raw:
+          xml: |
+            <hudson.plugins.parameterizedtrigger.BuildTrigger plugin="parameterized-trigger@2.27">
+              <configs>
+                <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+                  <configs class="empty-list"/>
+                  <projects>{project}</projects>
+                  <condition>SUCCESS</condition>
+                  <triggerWithNoParameters>false</triggerWithNoParameters>
+                </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+              </configs>
+            </hudson.plugins.parameterizedtrigger.BuildTrigger>
+
+- publisher:
+    name: publishers-from-{project}
+    publishers:
+      - raw:
+          xml: |
+            <hudson.plugins.templateproject.ProxyPublisher plugin="template-project@1.4.2">
+              <projectName>{project}</projectName>
+            </hudson.plugins.templateproject.ProxyPublisher>
+
+- scm:
+    name: github-{repo_name}
+    scm:
+      - git:
+          url: {github-url}/{github-org}/{repo_name}.git
+          branches:
+            - origin/master
+          refspec: '+refs/heads/master:refs/remotes/origin/master'
+          browser: githubweb
+          browser-url: {github-url}/{github-org}/{repo_name}
+          wipe-workspace: false
+          skip-tag: true
+
+- wrapper:
+    name: project-desc-{file}
+    wrappers:
+      - raw:
+          xml: |
+            <org.jenkinsCi.plugins.projectDescriptionSetter.DescriptionSetterWrapper plugin="project-description-setter@1.1">
+              <charset>UTF-8</charset>
+              <projectDescriptionFilename>{file}</projectDescriptionFilename>
+              <disableTokens>false</disableTokens>
+            </org.jenkinsCi.plugins.projectDescriptionSetter.DescriptionSetterWrapper>
+

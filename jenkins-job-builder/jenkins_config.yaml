@@ -1,0 +1,18 @@
+
+# Jobs for configuring Jenkins itself - Not application build jobs
+
+- job:
+    name: Jenkins_UI_Views
+    description: |
+        <p><b>Create all defined Jenkins Views</b></p>
+    properties:
+      - github:
+          url: https://github.com/devops-workflow/jenkins-dsls/
+    scm:
+      - 'github-{repo-name}':
+          repo-name: jenkins-dsls
+          github-url: https://github.com
+          github-org: devops-workflow
+    builders:
+      - 'dsl-{target}':
+          target: DSLs/views-*.dsl

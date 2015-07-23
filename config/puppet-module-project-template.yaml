@@ -1,0 +1,8 @@
+
+- project:
+    name: -NAME-
+    repo_name: -REPO-
+    github-url: -URL_WEB-
+    github-org: -ORG-
+    jobs:
+      - 'Puppet_Module_{name}'
