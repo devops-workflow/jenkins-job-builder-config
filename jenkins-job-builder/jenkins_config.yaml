@@ -3,7 +3,7 @@
 
 - job:
     name: Jenkins_UI_Views
-    # TODO: Add url trigegr
+    # TODO: Add url trigger
     description: |
         <p><b>Create all defined Jenkins Views</b></p>
     properties:
@@ -17,3 +17,23 @@
     builders:
       - 'dsl-{target}':
           target: DSLs/views-*.dsl
+
+- job:
+    name: Jenkins_Job_Builder
+    description: |
+        Job to build all other jobs with Jenkins Job Builder
+    properties:
+      - github:
+          url: https://github.com/devops-workflow/jenkins-job-builder-config/
+    scm:
+      - 'github-{repo-name}':
+          repo-name: jenkins-job-builder-config
+          github-url: https://github.com
+          github-org: devops-workflow
+    builders:
+      - shell: |
+            ./run-jjb.sh
+    triggers:
+      - pollscm: '*/5 * * * *'
+
+# name: Jenkins_Auto_Job_Builder

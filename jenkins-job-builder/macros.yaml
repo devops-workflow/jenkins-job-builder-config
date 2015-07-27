@@ -69,6 +69,17 @@
               </templateIds>
             </org.jenkinsci.plugins.emailext__template.ExtendedEmailTemplatePublisher>
 
+#hipchat:
+#  enabled: true
+#  rooms: {hipchat-room-id}
+#  notify-start: true
+#  notify-success: true
+#  notify-aborted: true
+#  notify-not-built: true
+#  notify-unstable: true
+#  notify-failure: true
+#  notify-back-to-normal: true
+
 - publisher:
     name: hipchat-{hipchat-room-id}
     publishers:
