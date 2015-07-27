@@ -9,6 +9,7 @@
     icon: puppetlabs.png
     hipchat-token:
     hipchat-room-id: 1234567
+    template: emailext-template-1435433763855
     jobs:
       - Puppet_Template_module_NEW
 
@@ -22,6 +23,7 @@
     anchorchain-file: anchor
     desc-file: project_description
     icon: puppetlabs.png
+    template: emailext-template-1435433763855
     disabled: true
     #node: 'NodeLabel1 || NodeLabel2'
     properties:
@@ -47,7 +49,6 @@
             -  Puppet-Lint
       - 'anchorchain-{anchorchain-file}':
       - 'email-template-{template}':
-          template: emailext-template-1435433763855
       - 'hipchat-{hipchat-room-id}':
 #      - trigger-parameterized-builds:
 #          project: "test"
