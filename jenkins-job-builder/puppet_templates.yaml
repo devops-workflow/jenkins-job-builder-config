@@ -65,19 +65,18 @@
     name: Puppet_Module_{name}
     project: Puppet_Template_module
     desc-file: project_description
+    icon: puppetlabs.png
     #node: 'NodeLabel1 || NodeLabel2'
     properties:
       - github:
           url: "{github-url}/{github-org}/{repo_name}/"
       - 'custom-icon-{icon}':
-          icon: puppetlabs.png
     scm:
       - 'github-{repo_name}':
     builders:
       - builders-from: "Puppet_Template_module"
     publishers:
       - 'publishers-from-{project}':
-          project: Puppet_Template_module
     triggers:
       - pollscm: '*/4 * * * *'
     wrappers:
