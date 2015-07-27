@@ -134,12 +134,12 @@
     name: github-{repo_name}
     scm:
       - git:
-          url: {github-url}/{github-org}/{repo_name}.git
+          url: "{github-url}/{github-org}/{repo_name}.git"
           branches:
             - origin/master
           refspec: '+refs/heads/master:refs/remotes/origin/master'
           browser: githubweb
-          browser-url: {github-url}/{github-org}/{repo_name}
+          browser-url: "{github-url}/{github-org}/{repo_name}"
           wipe-workspace: false
           skip-tag: true
 
