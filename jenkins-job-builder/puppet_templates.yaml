@@ -66,7 +66,7 @@
     #node: 'NodeLabel1 || NodeLabel2'
     properties:
       - github:
-          url: {github-url}/{github-org}/{repo_name}/
+          url: "{github-url}/{github-org}/{repo_name}/"
       - 'custom-icon-{icon}':
            icon: puppetlabs.png
     scm:
