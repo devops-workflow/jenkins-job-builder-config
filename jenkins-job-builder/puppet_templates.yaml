@@ -5,7 +5,7 @@
     github-org: devops-workflow
     repo-name: puppet_module_site_workflow
     hipchat-token: 
-    hipchat-room-id: 1767523
+    hipchat-room-id: 1234567
     jobs:
       - Puppet_Template_module_NEW
 
@@ -46,8 +46,8 @@
           template: emailext-template-1435433763855
       - 'hipchat-{hipchat-room-id}':
 #      - trigger-parameterized-builds:
-#          project: test
-#          condition: stable
+#          project: "test"
+#          condition: "STABLE"
 #          property-file: parameters.txt
     triggers:
       - pollscm: '*/4 * * * *'

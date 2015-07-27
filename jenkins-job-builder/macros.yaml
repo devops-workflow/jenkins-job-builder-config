@@ -91,7 +91,7 @@
 # Getting errors with this, so using raw for now
 #      - trigger-parameterized-builds:
 #          project: test
-#          condition: stable
+#          condition: STABLE
 #          property-file: parameters.txt
 - publisher:
     name: param-build-trigger-{project}

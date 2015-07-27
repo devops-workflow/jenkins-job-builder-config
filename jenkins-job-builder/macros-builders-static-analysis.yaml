@@ -1,10 +1,6 @@
 # Macros for static analysis
 #   documentation, syntax, style, 
 
-# These do not work
-# !include-raw is early processed instead of late - Can that be changed?
-# Otherwise need macros for each language
-
 # Doc: pp, readme
 # Style: pp
 # Syntax: erb, pp, rb, yaml

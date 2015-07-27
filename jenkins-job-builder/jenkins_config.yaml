@@ -3,6 +3,7 @@
 
 - job:
     name: Jenkins_UI_Views
+    # TODO: Add url trigegr
     description: |
         <p><b>Create all defined Jenkins Views</b></p>
     properties:
