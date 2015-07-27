@@ -3,7 +3,7 @@
     name: puppet-templates
     github-url: https://github.com
     github-org: devops-workflow
-    repo-name: puppet_module_site_workflow
+    repo_name: puppet_module_site_workflow
     anchorchain-file: anchor
     desc-file: project_description
     icon: puppetlabs.png
@@ -26,7 +26,7 @@
     #node: 'NodeLabel1 || NodeLabel2'
     properties:
       - github:
-          url: "{github-url}/{github-org}/{repo-name}"
+          url: "{github-url}/{github-org}/{repo_name}"
       - 'custom-icon-{icon}':
     scm:
       - 'github-{repo_name}':
