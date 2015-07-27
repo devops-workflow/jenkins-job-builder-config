@@ -10,7 +10,7 @@
       - github:
           url: https://github.com/devops-workflow/jenkins-dsls/
     scm:
-      - 'github-{repo-name}':
+      - 'github-{repo_name}':
           repo-name: jenkins-dsls
           github-url: https://github.com
           github-org: devops-workflow
@@ -26,7 +26,7 @@
       - github:
           url: https://github.com/devops-workflow/jenkins-job-builder-config/
     scm:
-      - 'github-{repo-name}':
+      - 'github-{repo_name}':
           repo-name: jenkins-job-builder-config
           github-url: https://github.com
           github-org: devops-workflow
