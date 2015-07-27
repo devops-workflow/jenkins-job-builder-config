@@ -16,13 +16,15 @@
 
 - job-template:
     name: Puppet_Template_module_NEW
+    anchorchain-file: anchor
+    desc-file: project_description
+    icon: puppetlabs.png
     disabled: true
     #node: 'NodeLabel1 || NodeLabel2'
     properties:
       - github:
           url: "{github-url}/{github-org}/{repo-name}"
       - 'custom-icon-{icon}':
-          icon: puppetlabs.png
     scm:
       - 'github-{repo_name}':
     builders:
@@ -40,8 +42,7 @@
       - warnings:
           console-log-parsers:
             -  Puppet-Lint
-      - 'anchorchain-{file}':
-          file: anchor
+      - 'anchorchain-{anchorchain-file}':
       - 'email-template-{template}':
           template: emailext-template-1435433763855
       - 'hipchat-{hipchat-room-id}':
@@ -52,8 +53,7 @@
     triggers:
       - pollscm: '*/4 * * * *'
     wrappers:
-      - 'project-desc-{file}':
-          file: project_description
+      - 'project-desc-{desc-file}':
 
 - job-template:
     name: Puppet_Control_{name}
@@ -64,6 +64,7 @@
 - job-template:
     name: Puppet_Module_{name}
     project: Puppet_Template_module
+    desc-file: project_description
     #node: 'NodeLabel1 || NodeLabel2'
     properties:
       - github:
@@ -80,6 +81,5 @@
     triggers:
       - pollscm: '*/4 * * * *'
     wrappers:
-      - 'project-desc-{file}':
-          file: project_description
+      - 'project-desc-{desc-file}':
 

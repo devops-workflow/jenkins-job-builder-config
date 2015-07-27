@@ -48,12 +48,12 @@
             </jenkins.plugins.jobicon.CustomIconProperty>
 
 - publisher:
-    name: anchorchain-{file}
+    name: anchorchain-{anchorchain-file}
     publishers:
       - raw:
           xml: |
             <ru.snowleos.jenkins.anchorchain.LinksPublisher plugin="AnchorChain@1.0">
-              <name>{file}</name>
+              <name>{anchorchain-file}</name>
             </ru.snowleos.jenkins.anchorchain.LinksPublisher>
 
 - publisher:
@@ -144,13 +144,13 @@
           skip-tag: true
 
 - wrapper:
-    name: project-desc-{file}
+    name: project-desc-{desc-file}
     wrappers:
       - raw:
           xml: |
             <org.jenkinsCi.plugins.projectDescriptionSetter.DescriptionSetterWrapper plugin="project-description-setter@1.1">
               <charset>UTF-8</charset>
-              <projectDescriptionFilename>{file}</projectDescriptionFilename>
+              <projectDescriptionFilename>{desc-file}</projectDescriptionFilename>
               <disableTokens>false</disableTokens>
             </org.jenkinsCi.plugins.projectDescriptionSetter.DescriptionSetterWrapper>
 
