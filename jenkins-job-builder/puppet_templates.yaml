@@ -63,6 +63,7 @@
 
 - job-template:
     name: Puppet_Module_{name}
+    project: Puppet_Template_module
     #node: 'NodeLabel1 || NodeLabel2'
     properties:
       - github:
