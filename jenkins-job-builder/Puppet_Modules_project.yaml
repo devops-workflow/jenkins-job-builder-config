@@ -13,5 +13,6 @@
     repo_name: puppet_module_site_workflow
     github-url: https://github.com
     github-org: devops-workflow
+    desc-file: project_description
     jobs:
       - 'Puppet_Module_{name}'
