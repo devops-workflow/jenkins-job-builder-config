@@ -22,7 +22,7 @@
       - github:
           url: {github-url}/{github-org}/{repo-name}
       - 'custom-icon-{icon}':
-          icon: 231faffc37b1fe36bc4c6ef08021d1af188586f2.png
+          icon: puppetlabs.png
     scm:
       - 'github-{repo_name}':
     builders:
@@ -68,7 +68,7 @@
       - github:
           url: {github-url}/{github-org}/{repo_name}/
       - 'custom-icon-{icon}':
-           icon: 231faffc37b1fe36bc4c6ef08021d1af188586f2.png
+           icon: puppetlabs.png
     scm:
       - 'github-{repo_name}':
     builders:
