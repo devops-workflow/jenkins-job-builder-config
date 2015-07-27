@@ -4,7 +4,7 @@
     github-url: https://github.com
     github-org: devops-workflow
     repo-name: puppet_module_site_workflow
-    hipchat-token: 
+    hipchat-token:
     hipchat-room-id: 1234567
     jobs:
       - Puppet_Template_module_NEW
@@ -17,10 +17,10 @@
 - job-template:
     name: Puppet_Template_module_NEW
     disabled: true
-    node: 'NodeLabel1 || NodeLabel2'
+    #node: 'NodeLabel1 || NodeLabel2'
     properties:
       - github:
-          url: {github-url}/{github-org}/{repo-name}
+          url: "{github-url}/{github-org}/{repo-name}"
       - 'custom-icon-{icon}':
           icon: puppetlabs.png
     scm:
