@@ -4,6 +4,9 @@
     github-url: https://github.com
     github-org: devops-workflow
     repo-name: puppet_module_site_workflow
+    anchorchain-file: anchor
+    desc-file: project_description
+    icon: puppetlabs.png
     hipchat-token:
     hipchat-room-id: 1234567
     jobs:
