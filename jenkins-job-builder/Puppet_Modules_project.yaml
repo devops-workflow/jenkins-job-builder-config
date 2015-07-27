@@ -4,6 +4,7 @@
     repo_name: puppet-files
     github-url: https://github.com
     github-org: snemetz
+    file: project_description_files
     jobs:
       - 'Puppet_Module_{name}'
 
