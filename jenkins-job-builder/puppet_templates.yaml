@@ -68,7 +68,7 @@
       - github:
           url: "{github-url}/{github-org}/{repo_name}/"
       - 'custom-icon-{icon}':
-           icon: puppetlabs.png
+          icon: puppetlabs.png
     scm:
       - 'github-{repo_name}':
     builders:
@@ -80,5 +80,5 @@
       - pollscm: '*/4 * * * *'
     wrappers:
       - 'project-desc-{file}':
-           file: project_description
+          file: project_description
 
