@@ -9,6 +9,8 @@
     properties:
       - github:
           url: https://github.com/devops-workflow/jenkins-dsls/
+      - 'custom-icon':
+          custom-icon: jenkins.png
     scm:
       - 'github':
           github-repo: jenkins-dsls
@@ -25,6 +27,8 @@
     properties:
       - github:
           url: https://github.com/devops-workflow/jenkins-job-builder-config/
+      - 'custom-icon':
+          custom-icon: jenkins.png
     scm:
       - 'github':
           github-repo: jenkins-job-builder-config
