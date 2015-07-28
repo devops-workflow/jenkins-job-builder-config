@@ -1,21 +1,22 @@
 
 # DSL Builder does not work for targets. Use raw until this is fixed
 #- builder:
-#    name: dsl-{target}
+#    name: dsl-target
 #    builders:
 #      - dsl:
-#          target: {target}
+#          target: {dsl-target}
 #          ignore-existing: "false"
 #          removed-job-action: "DISABLE"
 #          removed-view-action: "DELETE"
 #          lookup-strategy: "SEED_JOB"
 - builder:
-    name: dsl-{target}
+    name: dsl-target
+    # Variables: dsl-target
     builders:
       - raw:
           xml: |
             <javaposse.jobdsl.plugin.ExecuteDslScripts plugin="job-dsl@1.35">
-              <targets>{target}</targets>
+              <targets>{dsl-target}</targets>
               <usingScriptText>false</usingScriptText>
               <ignoreExisting>false</ignoreExisting>
               <removedJobAction>DISABLE</removedJobAction>
@@ -39,16 +40,18 @@
             - ./scripts/puppet-module-param-downstream.sh
 
 - property:
-    name: custom-icon-{icon}
+    name: custom-icon
+    # Variables: custom-icon
     properties:
       - raw:
           xml: |
             <jenkins.plugins.jobicon.CustomIconProperty plugin="custom-job-icon@0.2">
-              <iconfile>{icon}</iconfile>
+              <iconfile>{custom-icon}</iconfile>
             </jenkins.plugins.jobicon.CustomIconProperty>
 
 - publisher:
-    name: anchorchain-{anchorchain-file}
+    name: anchorchain
+    # Variables: anchorchain-file
     publishers:
       - raw:
           xml: |
@@ -57,14 +60,15 @@
             </ru.snowleos.jenkins.anchorchain.LinksPublisher>
 
 - publisher:
-    name: email-template-{template}
+    name: email-template
+    # Variables: email-template
     publishers:
       - raw:
           xml: |
             <org.jenkinsci.plugins.emailext__template.ExtendedEmailTemplatePublisher plugin="emailext-template@0.4">
               <templateIds>
                 <org.jenkinsci.plugins.emailext__template.TemplateId>
-                  <templateId>{template}</templateId>
+                  <templateId>{email-template}</templateId>
                 </org.jenkinsci.plugins.emailext__template.TemplateId>
               </templateIds>
             </org.jenkinsci.plugins.emailext__template.ExtendedEmailTemplatePublisher>
@@ -81,7 +85,8 @@
 #  notify-back-to-normal: true
 
 - publisher:
-    name: hipchat-{hipchat-room-id}
+    name: hipchat
+    # Variables: hipchat-token, hipchat-room-id
     publishers:
       - raw:
           xml: |
@@ -122,7 +127,8 @@
             </hudson.plugins.parameterizedtrigger.BuildTrigger>
 
 - publisher:
-    name: publishers-from-{project}
+    name: publishers-from
+    # Variables: project
     publishers:
       - raw:
           xml: |
@@ -131,20 +137,22 @@
             </hudson.plugins.templateproject.ProxyPublisher>
 
 - scm:
-    name: github-{repo_name}
+    name: github
+    # Variables: github-url, github-org, github-repo
     scm:
       - git:
-          url: "{github-url}/{github-org}/{repo_name}.git"
+          url: "{github-url}/{github-org}/{github-repo}.git"
           branches:
             - origin/master
           refspec: '+refs/heads/master:refs/remotes/origin/master'
           browser: githubweb
-          browser-url: "{github-url}/{github-org}/{repo_name}"
+          browser-url: "{github-url}/{github-org}/{github-repo}"
           wipe-workspace: false
           skip-tag: true
 
 - wrapper:
-    name: project-desc-{desc-file}
+    name: project-desc
+    # Variables: desc-file
     wrappers:
       - raw:
           xml: |

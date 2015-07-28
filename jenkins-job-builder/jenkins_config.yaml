@@ -10,12 +10,12 @@
       - github:
           url: https://github.com/devops-workflow/jenkins-dsls/
     scm:
-      - 'github-{repo_name}':
-          repo_name: jenkins-dsls
+      - 'github':
+          github-repo: jenkins-dsls
           github-url: https://github.com
           github-org: devops-workflow
     builders:
-      - 'dsl-{target}':
+      - 'dsl-target':
           target: DSLs/views-*.dsl
 
 - job:
@@ -26,8 +26,8 @@
       - github:
           url: https://github.com/devops-workflow/jenkins-job-builder-config/
     scm:
-      - 'github-{repo_name}':
-          repo_name: jenkins-job-builder-config
+      - 'github':
+          github-repo: jenkins-job-builder-config
           github-url: https://github.com
           github-org: devops-workflow
     builders:

@@ -3,13 +3,9 @@
     name: puppet-templates
     github-url: https://github.com
     github-org: devops-workflow
-    repo_name: puppet_module_site_workflow
-    anchorchain-file: anchor
-    desc-file: project_description
-    icon: puppetlabs.png
+    github-repo: puppet_module_site_workflow
     hipchat-token:
     hipchat-room-id: 1234567
-    template: emailext-template-1435433763855
     jobs:
       - Puppet_Template_module_NEW
 
@@ -22,16 +18,16 @@
     name: Puppet_Template_module_NEW
     anchorchain-file: anchor
     desc-file: project_description
-    icon: puppetlabs.png
-    template: emailext-template-1435433763855
+    custom-icon: puppetlabs.png
+    email-template: emailext-template-1435433763855
     disabled: true
     #node: 'NodeLabel1 || NodeLabel2'
     properties:
       - github:
-          url: "{github-url}/{github-org}/{repo_name}"
-      - 'custom-icon-{icon}':
+          url: "{github-url}/{github-org}/{github-repo}"
+      - 'custom-icon':
     scm:
-      - 'github-{repo_name}':
+      - 'github':
     builders:
       - doc-readme:
       - syntax-pp:
@@ -47,9 +43,9 @@
       - warnings:
           console-log-parsers:
             -  Puppet-Lint
-      - 'anchorchain-{anchorchain-file}':
-      - 'email-template-{template}':
-      - 'hipchat-{hipchat-room-id}':
+      - 'anchorchain':
+      - 'email-template':
+      - 'hipchat':
 #      - trigger-parameterized-builds:
 #          project: "test"
 #          condition: "STABLE"
@@ -57,7 +53,7 @@
     triggers:
       - pollscm: '*/4 * * * *'
     wrappers:
-      - 'project-desc-{desc-file}':
+      - 'project-desc':
 
 - job-template:
     name: Puppet_Control_{name}
@@ -69,20 +65,20 @@
     name: Puppet_Module_{name}
     project: Puppet_Template_module
     desc-file: project_description
-    icon: puppetlabs.png
+    custom-icon: puppetlabs.png
     #node: 'NodeLabel1 || NodeLabel2'
     properties:
       - github:
-          url: "{github-url}/{github-org}/{repo_name}/"
-      - 'custom-icon-{icon}':
+          url: "{github-url}/{github-org}/{github-repo}/"
+      - 'custom-icon':
     scm:
-      - 'github-{repo_name}':
+      - 'github':
     builders:
       - builders-from: "Puppet_Template_module"
     publishers:
-      - 'publishers-from-{project}':
+      - 'publishers-from':
     triggers:
       - pollscm: '*/4 * * * *'
     wrappers:
-      - 'project-desc-{desc-file}':
+      - 'project-desc':
 
