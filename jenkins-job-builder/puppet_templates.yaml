@@ -25,6 +25,9 @@
           custom-icon: puppetlabs.png
     scm:
       - 'github':
+          github-url: "{github-url}"
+          github-org: "{github-org}"
+          github-repo: "{github-repo}"
     builders:
       - doc-readme:
       - syntax-pp:
@@ -45,6 +48,8 @@
       - 'email-template':
           email-template: emailext-template-1435433763855
       - 'hipchat':
+          hipchat-token: "{hipchat-token}"
+          hipchat-room-id: "{hipchat-room-id}"
 #      - trigger-parameterized-builds:
 #          project: "test"
 #          condition: "STABLE"
