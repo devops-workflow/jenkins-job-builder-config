@@ -4,6 +4,8 @@
     github-repo: puppet-files
     github-url: https://github.com
     github-org: snemetz
+    hipchat-token: TOKEN-Files
+    hipchat-room-id: 1234567
     jobs:
       - 'Puppet_Module_{name}'
 
@@ -12,5 +14,7 @@
     github-repo: puppet_module_site_workflow
     github-url: https://github.com
     github-org: devops-workflow
+    hipchat-token: TOKEN-Workflow
+    hipchat-room-id: 1234567
     jobs:
       - 'Puppet_Module_{name}'

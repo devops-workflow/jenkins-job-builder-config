@@ -141,12 +141,12 @@
     # Variables: github-url, github-org, github-repo
     scm:
       - git:
-          url: "{github-url}/{github-org}/{github-repo}.git"
+          url: '{github-url}/{github-org}/{github-repo}.git'
           branches:
             - origin/master
           refspec: '+refs/heads/master:refs/remotes/origin/master'
           browser: githubweb
-          browser-url: "{github-url}/{github-org}/{github-repo}"
+          browser-url: '{github-url}/{github-org}/{github-repo}'
           wipe-workspace: false
           skip-tag: true
 
