@@ -1,4 +1,4 @@
-#set -x
+set +x
 ###
 ### TODO: Need to be rewritten
 ###
@@ -16,6 +16,6 @@ if [[ "${JOB_NAME}" == PuppetDev* ]]; then
 fi
 
 echo "branchName=$branchName" >> parameters.txt
-echo "DEBUG: done building downstream parameters"
+#echo "DEBUG: done building downstream parameters"
 set +x
 
