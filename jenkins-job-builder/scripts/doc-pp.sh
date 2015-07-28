@@ -1,7 +1,7 @@
 set +x
 # Test Puppet Doc
 # puppet doc --outputdir /var/www/puppetdocs/ --mode rdoc
-@ /opt/puppet/bin or /usr/local/bin/
+# /opt/puppet/bin or /usr/local/bin/
 echo 'xxxxxxxxxxxxxxxxx';echo 'Executing the Puppet Doc testing:'
 find . -name '*.pp' -type f | xargs -r -n 1 -t /opt/puppet/bin/puppet doc --outputdir ./puppetdocs/ --mode rdoc
 
