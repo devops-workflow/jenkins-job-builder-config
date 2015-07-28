@@ -1,4 +1,5 @@
-set +x
+#set +x
+set -x
 # Style Check - Puppet Lint
 # puppet-lint --with-filename .
 echo 'xxxxxxxxxxxxxxxxx';echo 'Executing the Puppet Lint testing:'
@@ -8,6 +9,7 @@ if [ -f /opt/puppet/bin/puppet-lint ]; then
 else
   LINT='puppet-lint'
 fi
+echo "DEBUG: LINT=$LINT="
 find . -name '*.pp' -type f | xargs -r -n 1 -t $LINT --log-format '%{path}:%{linenumber}:%{check}:%{KIND}:%{message}' --no-autoloader_layout-check --with-filename
 
 # Another method
