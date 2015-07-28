@@ -80,10 +80,10 @@
           github-org: "{github-org}"
           github-repo: "{github-repo}"
     builders:
-      - builders-from: "Puppet_Template_module"
+      - builders-from: "Puppet_Template_module_NEW"
     publishers:
       - 'publishers-from':
-          project: Puppet_Template_module
+          project: Puppet_Template_module_NEW
     triggers:
       - pollscm: '*/4 * * * *'
     wrappers:
