@@ -4,7 +4,7 @@
     github-url: https://github.com
     github-org: devops-workflow
     github-repo: puppet_module_site_workflow
-    hipchat-token:
+    hipchat-token: TOKEN
     hipchat-room-id: 1234567
     jobs:
       - Puppet_Template_module_NEW
@@ -16,16 +16,13 @@
 
 - job-template:
     name: Puppet_Template_module_NEW
-    anchorchain-file: anchor
-    desc-file: project_description
-    custom-icon: puppetlabs.png
-    email-template: emailext-template-1435433763855
     disabled: true
     #node: 'NodeLabel1 || NodeLabel2'
     properties:
       - github:
           url: "{github-url}/{github-org}/{github-repo}"
       - 'custom-icon':
+          custom-icon: puppetlabs.png
     scm:
       - 'github':
     builders:
@@ -44,7 +41,9 @@
           console-log-parsers:
             -  Puppet-Lint
       - 'anchorchain':
+          anchorchain-file: anchor
       - 'email-template':
+          email-template: emailext-template-1435433763855
       - 'hipchat':
 #      - trigger-parameterized-builds:
 #          project: "test"
@@ -54,6 +53,7 @@
       - pollscm: '*/4 * * * *'
     wrappers:
       - 'project-desc':
+          desc-file: project_description
 
 - job-template:
     name: Puppet_Control_{name}
@@ -63,22 +63,22 @@
 
 - job-template:
     name: Puppet_Module_{name}
-    project: Puppet_Template_module
-    desc-file: project_description
-    custom-icon: puppetlabs.png
     #node: 'NodeLabel1 || NodeLabel2'
     properties:
       - github:
           url: "{github-url}/{github-org}/{github-repo}/"
       - 'custom-icon':
+          custom-icon: puppetlabs.png
     scm:
       - 'github':
     builders:
       - builders-from: "Puppet_Template_module"
     publishers:
       - 'publishers-from':
+          project: Puppet_Template_module
     triggers:
       - pollscm: '*/4 * * * *'
     wrappers:
       - 'project-desc':
+          desc-file: project_description
 
