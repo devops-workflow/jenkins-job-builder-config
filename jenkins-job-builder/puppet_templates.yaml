@@ -7,7 +7,7 @@
     hipchat-token: TOKEN
     hipchat-room-id: 1234567
     jobs:
-      - Puppet_Template_module_NEW
+      - Puppet_Template_module
 
 - job-template:
     name: Puppet_Template_hiera
@@ -15,7 +15,7 @@
       - syntax-yaml:
 
 - job-template:
-    name: Puppet_Template_module_NEW
+    name: Puppet_Template_module
     disabled: true
     #node: 'NodeLabel1 || NodeLabel2'
     properties:
@@ -80,10 +80,10 @@
           github-org: "{github-org}"
           github-repo: "{github-repo}"
     builders:
-      - builders-from: "Puppet_Template_module_NEW"
+      - builders-from: "Puppet_Template_module"
     publishers:
       - 'publishers-from':
-          project: Puppet_Template_module_NEW
+          project: Puppet_Template_module
     triggers:
       - pollscm: '*/4 * * * *'
     wrappers:
