@@ -71,6 +71,9 @@
           custom-icon: puppetlabs.png
     scm:
       - 'github':
+          github-url: "{github-url}"
+          github-org: "{github-org}"
+          github-repo: "{github-repo}"
     builders:
       - builders-from: "Puppet_Template_module"
     publishers:
