@@ -14,9 +14,9 @@
           github-repo: jenkins-dsls
           github-url: https://github.com
           github-org: devops-workflow
-#    builders:
-#      - 'dsl-target':
-#          dsl-target: DSLs/views-*.dsl
+    builders:
+      - 'dsl-target':
+          dsl-target: DSLs/views-*.dsl
 
 - job:
     name: Jenkins_Job_Builder
