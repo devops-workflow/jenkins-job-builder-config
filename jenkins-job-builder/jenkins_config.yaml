@@ -16,7 +16,7 @@
           github-org: devops-workflow
     builders:
       - 'dsl-target':
-          target: DSLs/views-*.dsl
+          dsl-target: DSLs/views-*.dsl
 
 - job:
     name: Jenkins_Job_Builder
