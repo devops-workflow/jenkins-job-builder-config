@@ -7,6 +7,7 @@ dir_icons=userContent/customIcon
 # Anchor Chain file format:
 # name, url, icon
 # Site wide icons will be in userContent/customIcon
+#echo -e &quot;Wiki-SysAdmin\thttps://wiki.com/display/SystemAdmin/Home\thttps://wiki.com/s/1725/1/_/images/logo/confluence_16.png&quot; > links
 
 #if [ ! -f $file_anchorchain ]; then
   # Create new file
@@ -14,19 +15,19 @@ dir_icons=userContent/customIcon
   #cat <<ANCHOR > $file_anchorchain
 # Ticketing Project
 # Jira
-echo "Project-Jira, http://url.com, ${dir_icons}/jira-logo.png" > $file_anchorchain
+echo -e "Project-Jira\thttp://url.com\t${dir_icons}/jira-logo.png" > $file_anchorchain
 # Documentation
 # Confluence
-echo "Project-Confluence, http://url.com, ${dir_icons}/confluence-logo.png" >> $file_anchorchain
+echo -e "Project-Confluence\thttp://url.com\t${dir_icons}/confluence-logo.png" >> $file_anchorchain
 
 # Notification channel / chat
 # Hipchat
-echo "Project-Hipchat, http://url.com, ${dir_icons}/hipchat-logo.png" >> $file_anchorchain
+echo -e "Project-Hipchat\thttp://url.com\t${dir_icons}/hipchat-logo.png" >> $file_anchorchain
 
 # Monitoring
 
 # Metrics
-echo "Project-Grafana, http://url.com, ${dir_icons}/grafana-logo.png" >> $file_anchorchain
+echo -e "Project-Grafana\thttp://url.com\t${dir_icons}/grafana-logo.png" >> $file_anchorchain
 #else
   # Update existing file
   
