@@ -17,6 +17,10 @@
 - job-template:
     name: Puppet_Template_module
     disabled: true
+    description: |
+      <p><b>This job is managed by puppet and will be overwritten.</b></p>
+      <p><b>Do not edit this job through the web</b></p>
+      lint:ignore:HardcodedScriptChecker
     #node: 'NodeLabel1 || NodeLabel2'
     properties:
       - github:
@@ -35,6 +39,7 @@
       - syntax-erb:
       - style-pp:
       - doc-pp:
+      - 'anchorchain-file':
       - 'puppet-module-job-description':
       - 'puppet-module-param-downstream':
     publishers:

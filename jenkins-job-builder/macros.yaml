@@ -1,4 +1,11 @@
 
+- builder:
+    name: anchorchain-file
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/anchor-chain.sh
+
 # DSL Builder does not work for targets. Use raw until this is fixed
 #- builder:
 #    name: dsl-target
