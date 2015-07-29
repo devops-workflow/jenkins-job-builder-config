@@ -2,7 +2,8 @@ set +x
 echo 'Creating/Updating AnchorChain file'
 # Create or modify anchor chain file to create links for a job to its related resources
 file_anchorchain=anchor
-dir_icons=userContent/customIcon
+#dir_icons=userContent/customIcon
+dir_icons=customIcon
 
 # Anchor Chain file format:
 # name, url, icon
