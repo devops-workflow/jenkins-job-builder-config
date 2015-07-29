@@ -14,19 +14,19 @@ dir_icons=userContent/customIcon
   #cat <<ANCHOR > $file_anchorchain
 # Ticketing Project
 # Jira
-echo "Project Jira,http://url,${dir_icons}/jira-logo.png" >> $file_anchorchain
+echo "Project-Jira,http://url,${dir_icons}/jira-logo.png" > $file_anchorchain
 # Documentation
 # Confluence
-echo "Project Confluence,http://url,${dir_icons}/confluence-logo.png" >> $file_anchorchain
+echo "Project-Confluence,http://url.com,${dir_icons}/confluence-logo.png" >> $file_anchorchain
 
 # Notification channel / chat
 # Hipchat
-echo "Project Hipchat,http://url,${dir_icons}/hipchat-logo.png" >> $file_anchorchain
+echo "Project-Hipchat,http://url.com,${dir_icons}/hipchat-logo.png" >> $file_anchorchain
 
 # Monitoring
 
 # Metrics
-echo "Project Grafana,http://url,${dir_icons}/grafana-logo.png" >> $file_anchorchain
+echo "Project-Grafana,http://url.com,${dir_icons}/grafana-logo.png" >> $file_anchorchain
 #else
   # Update existing file
   
