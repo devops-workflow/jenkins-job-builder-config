@@ -46,12 +46,11 @@ echo "DEBUG: json=$json"
 echo "$json" | jq '.'
 elements=$(( $(echo "$json" | jq '.links | length') - 1))
 for Link in $(seq 0 $elements); do
-  echo "Link $Link = $(echo "$json" | jq ".links[$Link].link")"
   E=$(echo "$json" | jq ".links[$Link].link")
   echo "Link $Link == $E"
   name=$(echo "$E" | grep '"name"' | cut -d: -f2 | sed 's/^[ ]*//;s/\"//g;s/,$//')
-  url=$(echo "$E" | grep '"url"' | cut -d: -f2- | sed s/\"//g)
-  icon=$(echo "$E" | grep '"icon"' | cut -d: -f2 | sed s/\"//g | sed s/.$//)
+  url=$(echo "$E" | grep '"url"' | cut -d: -f2- | sed 's/^[ ]*//;s/\"//g;s/,$//')
+  icon=$(echo "$E" | grep '"icon"' | cut -d: -f2 | sed 's/^[ ]*//;s/\"//g;s/,$//')
   echo -e "DEBUG: Results: -$name-\t-$url-\t-$icon-"
 done
 
