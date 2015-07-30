@@ -7,13 +7,21 @@
     hipchat-token: TOKEN
     hipchat-room-id: 1234567
     link_1:
-      name: link-1
-      url: http://link-1.com
-      icon: link-1.png
+      name: Project Confluence
+      url: http://url.com
+      icon: confluence.png
     link_2:
-      name: link-2
-      url: http://link-2.com
-      icon: link-2.png
+      name: Project Grafana
+      url: http://url.com
+      icon: grafana.png
+    link_3:
+      name: Project Hipchat
+      url: http://url.com
+      icon: hipchat.png
+    link_4:
+      name: Project Jira
+      url: http://url.com
+      icon: jira.png
     jobs:
       - Puppet_Template_module
 
@@ -51,6 +59,8 @@
           custom-obj:
             - link: '{obj:link_1}'
             - link: '{obj:link_2}'
+            - link: '{obj:link_3}'
+            - link: '{obj:link_4}'
           custom-val: NewValue
       - 'puppet-module-job-description':
       - 'puppet-module-param-downstream':

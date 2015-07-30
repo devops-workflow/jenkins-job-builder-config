@@ -34,16 +34,16 @@ dir_icons=/userContent/customIcon
 #else
   # Update existing file
 
-echo "DEBUG: custom-val={custom-val}"
-echo "DEBUG: custom-obj={custom-obj}"
+#echo "DEBUG: custom-val={custom-val}"
+#echo "DEBUG: custom-obj={custom-obj}"
 # Object is json array
 
 start=$(echo -e "\x7b")
 body=$(echo "'links' : {custom-obj}" | sed s/\'/\"/g)
 end=$(echo -e "\x7d")
 json="$start $body $end"
-echo "DEBUG: json=$json"
-echo "$json" | jq '.'
+#echo "DEBUG: json=$json"
+#echo "$json" | jq '.'
 elements=$(( $(echo "$json" | jq '.links | length') - 1))
 for Link in $(seq 0 $elements); do
   E=$(echo "$json" | jq ".links[$Link].link")
@@ -51,7 +51,7 @@ for Link in $(seq 0 $elements); do
   name=$(echo "$E" | grep '"name"' | cut -d: -f2 | sed 's/^[ ]*//;s/\"//g;s/,$//')
   url=$(echo "$E" | grep '"url"' | cut -d: -f2- | sed 's/^[ ]*//;s/\"//g;s/,$//')
   icon=$(echo "$E" | grep '"icon"' | cut -d: -f2 | sed 's/^[ ]*//;s/\"//g;s/,$//')
-  echo -e "DEBUG: Results: -$name-\t-$url-\t-$icon-"
+  echo -e "DEBUG: Anchor chain line: $name\t$url\t$dir_icons/$icon"
 done
 
 if [ "{custom-val}" != "{custom-val}" ]; then
