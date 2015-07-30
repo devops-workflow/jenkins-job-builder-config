@@ -61,7 +61,6 @@
             - link: '{obj:link_2}'
             - link: '{obj:link_3}'
             - link: '{obj:link_4}'
-          custom-val: NewValue
       - 'puppet-module-job-description':
       - 'puppet-module-param-downstream':
     publishers:
