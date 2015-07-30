@@ -35,6 +35,7 @@
           github-url: https://github.com
           github-org: devops-workflow
     builders:
+      - syntax-bash:
       - shell: |
             ./run-jjb.sh
     triggers:

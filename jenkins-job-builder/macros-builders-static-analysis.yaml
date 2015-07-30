@@ -3,7 +3,7 @@
 
 # Doc: pp, readme
 # Style: pp
-# Syntax: erb, pp, rb, yaml
+# Syntax: bash, erb, pp, rb, yaml
 
 #-----------------------------
 # Check Documentation macros
@@ -37,6 +37,13 @@
 #-----------------------------
 # Check Syntax macros
 #-----------------------------
+
+- builder:
+    name: syntax-bash
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/syntax-bash.sh
 
 - builder:
     name: syntax-erb
