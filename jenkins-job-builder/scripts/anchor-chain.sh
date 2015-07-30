@@ -38,6 +38,7 @@ echo "DEBUG: custom-val={custom-val}"
 echo "DEBUG: custom-obj={custom-obj}"
 # Object is json array
 frag="{\'links\'"
+
 json=$(echo "$frag : {custom-obj}}" | sed s/\'/\"/g)
 echo "DEBUG: json=$json"
 echo "$json" | jq '.'
