@@ -21,10 +21,10 @@ dir_icons=/userContent/customIcon
   # Create new file
   # TODO: change to HERE doc
 #  cat <<ANCHOR > $file_anchorchain
-#Project-Jira	http://url.com	${dir_icons}/jira.png
-#Project-Confluence	http://url.com	${dir_icons}/confluence.png
-#Project-Hipchat	http://url.com	${dir_icons}/hipchat.png
-#Project-Grafana	http://url.com	${dir_icons}/grafana.png
+#Project-Jira	http://url.com	$dir_icons/jira.png
+#Project-Confluence	http://url.com	$dir_icons/confluence.png
+#Project-Hipchat	http://url.com	$dir_icons/hipchat.png
+#Project-Grafana	http://url.com	$dir_icons/grafana.png
 #ANCHOR
 
   echo -e "Project-Jira\thttp://url.com\t${dir_icons}/jira.png" > $file_anchorchain
