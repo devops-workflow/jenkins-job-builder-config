@@ -36,6 +36,13 @@ dir_icons=/userContent/customIcon
 
 echo "DEBUG: custom-val={custom-val}"
 echo "DEBUG: custom-obj={custom-obj}"
+# Object is json array
+# [{'link': {'url': 'http://link-1.com', 'name': 'link-1', 'icon': 'link-1.png'}},
+#  {'link': {'url': 'http://link-2.com', 'name': 'link-2', 'icon': 'link-2.png'}}]
+json="{\"links\": $(echo {custom-obj} | sed s/\'/\"/g)}"
+echo "DEBUG: json=$json"
+echo "$json" | jq '.'"
+
 if [ "{custom-val}" != "{custom-val}" ]; then
   echo "DEBUG: Got a value: {custom-val}"
 fi
