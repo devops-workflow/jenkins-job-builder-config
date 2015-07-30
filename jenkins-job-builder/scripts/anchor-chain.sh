@@ -46,7 +46,13 @@ echo "DEBUG: json=$json"
 echo "$json" | jq '.'
 elements=$(( $(echo "$json" | jq '.links | length') - 1))
 for Link in $(seq 0 $elements); do
-  echo "Link $Link = $(echo \"$json\" | jq \".links[$Link]\")"
+  echo "Link $Link = $(echo "$json" | jq ".links[$Link].link")"
+  E=$(echo "$json" | jq ".links[$Link].link")
+  echo "Link $Link == $E"
+  name=$(echo "$E" | grep '"name"' | cut -d: -f2)
+  url=$(echo "$E" | grep '"url"' | cut -d: -f2)
+  icon=$(echo "$E" | grep '"icon"' | cut -d: -f2)
+  echo -e "DEBUG: Results: $name\t$url\t$icon"
 done
 
 if [ "{custom-val}" != "{custom-val}" ]; then
