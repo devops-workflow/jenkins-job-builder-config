@@ -45,7 +45,7 @@ json="$start $body $end"
 echo "DEBUG: json=$json"
 echo "$json" | jq '.'
 elements=$(( $(echo "$json" | jq '.links | length') - 1))
-for Link in {0..$elements}; do
+for Link in $(seq 0 $elements); do
   echo "Link=$Link"
 done
 
