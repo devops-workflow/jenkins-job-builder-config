@@ -50,9 +50,9 @@ for Link in $(seq 0 $elements); do
   E=$(echo "$json" | jq ".links[$Link].link")
   echo "Link $Link == $E"
   name=$(echo "$E" | grep '"name"' | cut -d: -f2 | sed s/\"//g | sed s/.$//)
-  url=$(echo "$E" | grep '"url"' | cut -d: -f2-)
-  icon=$(echo "$E" | grep '"icon"' | cut -d: -f2)
-  echo -e "DEBUG: Results: $name\t$url\t$icon"
+  url=$(echo "$E" | grep '"url"' | cut -d: -f2- | sed s/\"//g)
+  icon=$(echo "$E" | grep '"icon"' | cut -d: -f2 | sed s/\"//g | sed s/.$//)
+  echo -e "DEBUG: Results: -$name-\t-$url-\t-$icon-"
 done
 
 if [ "{custom-val}" != "{custom-val}" ]; then
