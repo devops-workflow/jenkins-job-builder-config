@@ -38,7 +38,10 @@ echo "DEBUG: custom-val={custom-val}"
 echo "DEBUG: custom-obj={custom-obj}"
 # Object is json array
 
-json=$(echo "'links' : {custom-obj}" | sed s/\'/\"/g)
+start=$(echo -e "\x7b")
+body=$(echo "'links' : {custom-obj}" | sed s/\'/\"/g)
+end=$(echo -e "\x7d")
+json="$start $body $end"
 echo "DEBUG: json=$json"
 echo "$json" | jq '.'
 
