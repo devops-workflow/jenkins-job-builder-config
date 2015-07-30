@@ -37,7 +37,8 @@ dir_icons=/userContent/customIcon
 echo "DEBUG: custom-val={custom-val}"
 echo "DEBUG: custom-obj={custom-obj}"
 # Object is json array
-json=$(echo "{\'links\' : {custom-obj}}" | sed s/\'/\"/g)
+frag="{\'links\'"
+json=$(echo "$frag : {custom-obj}}" | sed s/\'/\"/g)
 echo "DEBUG: json=$json"
 echo "$json" | jq '.'
 
