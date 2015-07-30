@@ -35,6 +35,6 @@ dir_icons=/userContent/customIcon
   # Update existing file
 
 echo "DEBUG: {custom-val\}={custom-val}"
-if [ "{custom-val\}" != "{custom-val} ]; then
+if [ "{custom-val\}" != "{custom-val}" ]; then
   echo "DEBUG: Got a value: {custom-val}"
 fi
