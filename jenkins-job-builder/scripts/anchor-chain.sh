@@ -44,6 +44,10 @@ end=$(echo -e "\x7d")
 json="$start $body $end"
 echo "DEBUG: json=$json"
 echo "$json" | jq '.'
+elements=$(( $(echo "$json" | jq '.links | length') - 1))
+for Link in {0..$elements}; do
+  echo "Link=$Link"
+done
 
 if [ "{custom-val}" != "{custom-val}" ]; then
   echo "DEBUG: Got a value: {custom-val}"
