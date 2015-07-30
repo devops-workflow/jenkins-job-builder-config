@@ -27,10 +27,10 @@ dir_icons=/userContent/customIcon
 #Project-Grafana	http://url.com	$dir_icons/grafana.png
 #ANCHOR
 
-  echo -e "Project-Jira\thttp://url.com\t$dir_icons/jira.png" > $file_anchorchain
-  echo -e "Project-Confluence\thttp://url.com\t$dir_icons/confluence.png" >> $file_anchorchain
-  echo -e "Project-Hipchat\thttp://url.com\t$dir_icons/hipchat.png" >> $file_anchorchain
-  echo -e "Project-Grafana\thttp://url.com\t$dir_icons/grafana.png" >> $file_anchorchain
+#  echo -e "Project-Jira\thttp://url.com\t$dir_icons/jira.png" > $file_anchorchain
+#  echo -e "Project-Confluence\thttp://url.com\t$dir_icons/confluence.png" >> $file_anchorchain
+#  echo -e "Project-Hipchat\thttp://url.com\t$dir_icons/hipchat.png" >> $file_anchorchain
+#  echo -e "Project-Grafana\thttp://url.com\t$dir_icons/grafana.png" >> $file_anchorchain
 #else
   # Update existing file
 
@@ -39,19 +39,21 @@ dir_icons=/userContent/customIcon
 # Object is json array
 
 start=$(echo -e "\x7b")
-body=$(echo "'links' : {custom-obj}" | sed s/\'/\"/g)
+body=$(echo "'links' : {anchorchain-links}" | sed s/\'/\"/g)
 end=$(echo -e "\x7d")
 json="$start $body $end"
 #echo "DEBUG: json=$json"
 #echo "$json" | jq '.'
 elements=$(( $(echo "$json" | jq '.links | length') - 1))
+cp /dev/null $file_anchorchain
 for Link in $(seq 0 $elements); do
   E=$(echo "$json" | jq ".links[$Link].link")
-  echo "Link $Link == $E"
+  #echo "Link $Link == $E"
   name=$(echo "$E" | grep '"name"' | cut -d: -f2 | sed 's/^[ ]*//;s/\"//g;s/,$//')
   url=$(echo "$E" | grep '"url"' | cut -d: -f2- | sed 's/^[ ]*//;s/\"//g;s/,$//')
   icon=$(echo "$E" | grep '"icon"' | cut -d: -f2 | sed 's/^[ ]*//;s/\"//g;s/,$//')
   echo -e "DEBUG: Anchor chain line: $name\t$url\t$dir_icons/$icon"
+  echo -e "$name\t$url\t$dir_icons/$icon" >> $file_anchorchain
 done
 
 if [ "{custom-val}" != "{custom-val}" ]; then
