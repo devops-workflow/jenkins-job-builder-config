@@ -46,7 +46,7 @@ echo "DEBUG: json=$json"
 echo "$json" | jq '.'
 elements=$(( $(echo "$json" | jq '.links | length') - 1))
 for Link in $(seq 0 $elements); do
-  echo "Link=$Link"
+  echo "Link $Link = $(echo "$json" | jq '.links[$Link]')"
 done
 
 if [ "{custom-val}" != "{custom-val}" ]; then
