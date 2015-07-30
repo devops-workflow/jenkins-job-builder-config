@@ -27,10 +27,10 @@ dir_icons=/userContent/customIcon
 #Project-Grafana	http://url.com	$dir_icons/grafana.png
 #ANCHOR
 
-  echo -e "Project-Jira\thttp://url.com\t${dir_icons}/jira.png" > $file_anchorchain
-  echo -e "Project-Confluence\thttp://url.com\t${dir_icons}/confluence.png" >> $file_anchorchain
-  echo -e "Project-Hipchat\thttp://url.com\t${dir_icons}/hipchat.png" >> $file_anchorchain
-  echo -e "Project-Grafana\thttp://url.com\t${dir_icons}/grafana.png" >> $file_anchorchain
+  echo -e "Project-Jira\thttp://url.com\t$dir_icons/jira.png" > $file_anchorchain
+  echo -e "Project-Confluence\thttp://url.com\t$dir_icons/confluence.png" >> $file_anchorchain
+  echo -e "Project-Hipchat\thttp://url.com\t$dir_icons/hipchat.png" >> $file_anchorchain
+  echo -e "Project-Grafana\thttp://url.com\t$dir_icons/grafana.png" >> $file_anchorchain
 #else
   # Update existing file
 
