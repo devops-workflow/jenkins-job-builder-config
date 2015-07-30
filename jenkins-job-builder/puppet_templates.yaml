@@ -6,6 +6,14 @@
     github-repo: puppet_module_site_workflow
     hipchat-token: TOKEN
     hipchat-room-id: 1234567
+    link_1:
+      name: link-1
+      url: http://link-1.com
+      icon: link-1.png
+    link_2:
+      name: link-2
+      url: http://link-2.com
+      icon: link-2.png
     jobs:
       - Puppet_Template_module
 
@@ -40,14 +48,6 @@
       - style-pp:
       - doc-pp:
       - 'anchorchain-file':
-          link_1:
-            name: link-1
-            url: http://link-1.com
-            icon: link-1.png
-          link_2:
-            name: link-2
-            url: http://link-2.com
-            icon: link-2.png
           custom-obj:
             - link: '{obj:link_1}'
             - link: '{obj:link_2}'
