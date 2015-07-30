@@ -40,6 +40,7 @@
       - style-pp:
       - doc-pp:
       - 'anchorchain-file':
+          custom-val: NewValue
       - 'puppet-module-job-description':
       - 'puppet-module-param-downstream':
     publishers:
