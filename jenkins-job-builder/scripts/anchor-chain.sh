@@ -34,9 +34,6 @@ dir_icons=/userContent/customIcon
 #else
   # Update existing file
 
-#echo "DEBUG: custom-val={custom-val}"
-#echo "DEBUG: custom-obj={custom-obj}"
-# Object is json array
 
 start=$(echo -e "\x7b")
 body=$(echo "'links' : {anchorchain-links}" | sed s/\'/\"/g)
