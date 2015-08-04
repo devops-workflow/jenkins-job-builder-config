@@ -1,6 +1,9 @@
 set +x
 # Syntax check - Ruby
 # ruby -c <file.rb>
+# TODO:
+# - create output that can be parsed by Jenkins warnings plugin
+
 echo 'xxxxxxxxxxxxxxxxx';echo 'Executing the Ruby Syntax check:'
 if [ -f /opt/puppet/bin/ruby ]; then
   # Puppet Enterprise

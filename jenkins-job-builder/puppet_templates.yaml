@@ -68,7 +68,8 @@
       - claim-build
       - warnings:
           console-log-parsers:
-            -  Puppet-Lint
+            - Puppet-Lint
+            - "Custom Puppet Syntax"
       - 'anchorchain':
           anchorchain-file: anchor
       - 'email-template':
