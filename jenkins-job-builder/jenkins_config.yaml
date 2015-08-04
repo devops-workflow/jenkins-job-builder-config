@@ -38,6 +38,11 @@
       - syntax-bash:
       - shell: |
             ./run-jjb.sh
+    publishers:
+      - claim-build
+      - warnings:
+          console-log-parsers:
+            - "Custom Bash Syntax"
     triggers:
       - pollscm: '*/5 * * * *'
 
