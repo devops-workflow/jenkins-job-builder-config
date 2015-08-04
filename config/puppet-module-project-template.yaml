@@ -1,7 +1,7 @@
 
 - project:
     name: -NAME-
-    repo_name: -REPO-
+    github-repo: -REPO-
     github-url: -URL_WEB-
     github-org: -ORG-
     jobs:
