@@ -8,7 +8,7 @@ if [ -f /opt/puppet/bin/puppet-lint ]; then
 else
   LINT='puppet-lint'
 fi
-find . -name '*.pp' -type f | xargs -r -n 1 -t $LINT --log-format '%{path}:%{linenumber}:%{check}:%{KIND}:%{message}' --no-autoloader_layout-check --with-filename
+find . -name '*.pp' -type f | xargs -r -n 1 -t $LINT --log-format '%{path}:%{line}:%{check}:%{KIND}:%{message}' --no-autoloader_layout-check --with-filename
 
 # Another method
 #find . -iname *.pp -exec puppet-lint --log-format '%{path}:%{linenumber}:%{check}:%{KIND}:%{message}' {} \;
