@@ -78,9 +78,10 @@
           hipchat-token: "{hipchat-token}"
           hipchat-room-id: "{hipchat-room-id}"
 #      - trigger-parameterized-builds:
-#          project: "test"
-#          condition: "STABLE"
-#          property-file: parameters.txt
+#          project: 'test'
+#          condition: 'STABLE'
+#          property-file: $WORKSPACE/parameters.txt
+#          fail-on-missing: true
     triggers:
       - pollscm: '*/4 * * * *'
     wrappers:

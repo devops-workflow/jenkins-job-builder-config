@@ -8,6 +8,14 @@
       - 'Puppet_Module_{name}'
 
 - project:
+    name: profiles
+    github-repo: puppet_module_profiles
+    github-url: https://github.com
+    github-org: devops-workflow
+    jobs:
+      - 'Puppet_Module_{name}'
+
+- project:
     name: site_workflow
     github-repo: puppet_module_site_workflow
     github-url: https://github.com
