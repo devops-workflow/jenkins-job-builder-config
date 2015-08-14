@@ -35,8 +35,9 @@ fi
 declare -A existing_jobs
 if [ -f ${path_projects} ]; then
    # Read job/repo list
-   for R in $(grep repo_name: ${path_projects} | awk '{ print $2 }'); do
+   for R in $(grep github-repo: ${path_projects} | awk '{ print $2 }'); do
      existing_jobs[$R]=1
+     #echo "Build hash: key=$R value=${existing_jobs[$R]}"
    done
 fi
 
@@ -46,11 +47,12 @@ for REPO in $(curl -s -k $auth $url_api/users/$org/repos  | grep \"name\": | sed
   echo "Processing: ${REPO}"
   if ! [[ $REPO =~ $repo_pattern ]]; then
     # Skip if does not match repository name pattern
+    #echo "Skipping: Pattern not match: $REPO"
     continue
   fi
   if [ -n "${existing_jobs[$REPO]}" ]; then
     # Skip if already have a job defined for the repository
-    echo "Job exists: $REPO"
+    #echo "Skipping: Job exists: $REPO"
     continue
   fi
   # Validate repository

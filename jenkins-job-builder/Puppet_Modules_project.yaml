@@ -22,3 +22,11 @@
     github-org: devops-workflow
     jobs:
       - 'Puppet_Module_{name}'
+
+- project:
+    name: zookeeper
+    github-repo: puppet_module_zookeeper
+    github-url: https://github.com
+    github-org: devops-workflow
+    jobs:
+      - 'Puppet_Module_{name}'
