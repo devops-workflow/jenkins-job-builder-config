@@ -8,7 +8,7 @@ if [ -f /opt/puppet/bin/puppet ]; then
 else
   PUPPET_BIN='puppet'
 fi
-PUPPET_OPTS=''
+PUPPET_OPTS='--storeconfigs'
 
 echo -n 'Puppet version: '; $PUPPET_BIN --version
 #find . -name '*.pp' -type f | xargs -r -n 1 -t $PUPPET_BIN parser validate
