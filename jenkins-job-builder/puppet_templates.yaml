@@ -70,6 +70,7 @@
           console-log-parsers:
             - Puppet-Lint
             - "Custom Puppet Syntax"
+          run-always: true
       - 'anchorchain':
           anchorchain-file: anchor
       - 'email-template':
