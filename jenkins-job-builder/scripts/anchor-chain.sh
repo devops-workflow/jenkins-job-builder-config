@@ -9,6 +9,12 @@ echo 'Creating/Updating AnchorChain file'
 # Notification channel / chat: Hipchat
 # Monitoring: 
 # Metrics: grafana
+#
+# TODO:
+#	Move links array to top template in JJB, may change how data structure is passed into script
+#	Support for existing file in repo to override or merge with ones in JJB definition
+#	Define file format for repo file - It should define name and link, but not icon. Script should add icon
+#
 
 file_anchorchain=anchor
 dir_icons=/userContent/customIcon
