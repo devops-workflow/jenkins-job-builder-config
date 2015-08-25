@@ -31,7 +31,7 @@ start=$(echo -e "\x7b")
 body=$(echo "'links' : {anchorchain-links}" | sed s/\'/\"/g)
 end=$(echo -e "\x7d")
 json="$start $body $end"
-#echo "DEBUG: json=$json"
+echo "DEBUG: json=$json"
 #echo "$json" | jq '.'
 elements=$(( $(echo "$json" | jq '.links | length') - 1))
 cp /dev/null $file_anchorchain

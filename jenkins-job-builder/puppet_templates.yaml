@@ -22,6 +22,19 @@
       name: Project Jira
       url: http://url.com
       icon: jira.png
+    anchorchain-links:
+      - 'Project Confluence':
+        url: http://url.com
+        icon: confluence.png
+      - 'Project Grafana':
+        url: http://url.com
+        icon: grafana.png
+      - 'Project Hipchat':
+        url: http://url.com
+        icon: hipchat.png
+      - 'Project Jira':
+        url: http://url.com
+        icon: jira.png
     jobs:
       - Puppet_Template_module
 
@@ -56,11 +69,11 @@
       - style-pp:
       - doc-pp:
       - 'anchorchain-file':
-          anchorchain-links:
-            - link: '{obj:link_1}'
-            - link: '{obj:link_2}'
-            - link: '{obj:link_3}'
-            - link: '{obj:link_4}'
+          anchorchain-links: '{obj:anchorchain-links}'
+          #  - link: '{obj:link_1}'
+          #  - link: '{obj:link_2}'
+          #  - link: '{obj:link_3}'
+          #  - link: '{obj:link_4}'
       - 'puppet-module-job-description':
       - 'puppet-module-param-downstream':
     publishers:
