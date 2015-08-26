@@ -23,16 +23,16 @@
       url: http://url.com
       icon: jira.png
     anchorchain-links:
-      - 'Project Confluence':
+      - name: Project Confluence
         url: http://url.com
         icon: confluence.png
-      - 'Project Grafana':
+      - name: Project Grafana
         url: http://url.com
         icon: grafana.png
-      - 'Project Hipchat':
+      - name: Project Hipchat
         url: http://url.com
         icon: hipchat.png
-      - 'Project Jira':
+      - name: Project Jira
         url: http://url.com
         icon: jira.png
     jobs:
