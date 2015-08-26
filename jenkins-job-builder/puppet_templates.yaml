@@ -69,12 +69,12 @@
       - style-pp:
       - doc-pp:
       - 'anchorchain-file':
-          anchorchain-links: '{obj:anchorchain-array}'
-          #anchorchain-links:
-          #  - link: '{obj:link_1}'
-          #  - link: '{obj:link_2}'
-          #  - link: '{obj:link_3}'
-          #  - link: '{obj:link_4}'
+          #anchorchain-links: '{obj:anchorchain-array}'
+          anchorchain-links:
+            - link: '{obj:link_1}'
+            - link: '{obj:link_2}'
+            - link: '{obj:link_3}'
+            - link: '{obj:link_4}'
       - 'puppet-module-job-description':
       - 'puppet-module-param-downstream':
     publishers:
