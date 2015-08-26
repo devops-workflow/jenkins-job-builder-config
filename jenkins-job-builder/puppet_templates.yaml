@@ -22,7 +22,7 @@
       name: Project Jira
       url: http://url.com
       icon: jira.png
-    anchorchain-links:
+    anchorchain-array:
       - name: Project Confluence
         url: http://url.com
         icon: confluence.png
@@ -69,7 +69,7 @@
       - style-pp:
       - doc-pp:
       - 'anchorchain-file':
-          anchorchain-links: '{obj:anchorchain-links}'
+          anchorchain-links: '{obj:anchorchain-array}'
           #  - link: '{obj:link_1}'
           #  - link: '{obj:link_2}'
           #  - link: '{obj:link_3}'
