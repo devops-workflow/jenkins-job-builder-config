@@ -1,9 +1,21 @@
+
+OS Image Workflows
+- validate source files -> build images (Packer) -> test images
+- File types to test: bash, kickstart (ks.cfg), json
+
+Puppet Workflows - All Puppet workflows should rebuild documentation at some point
+- Puppet control: static testing -> build documentation
+- Puppet module: static testing and unit test -> acceptance test (deployed on clean VM) -> integration test (deployed in full environment)
+- Puppet Hiera: static testing ->
+
 Job-templates
+- Packer_{name}
 - Puppet_Control_{name}
 - Puppet_Hiera_{name}
 - Puppet_Module_{name}
 
 Jobs
+- Packer_XXX
 - Puppet_Template_hiera
 - Puppet_Template_module
 - Puppet_Control_XXX
