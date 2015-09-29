@@ -8,7 +8,10 @@
 #   For validating file contents
 #	jq - https://stedolan.github.io/jq/
 
-# TODO: make these parameters and support a config file
+# TODO:
+#	make these parameters and support a config file
+#	create wrapper script to run with multiple config file. 2 parameters: config file dir & config file name pattern
+#	Idea: have a dir of config files & templates. Wrapper processes all config files found.
 token=
 # domain=github.com
 org=devops-workflow

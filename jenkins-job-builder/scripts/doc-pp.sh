@@ -3,9 +3,9 @@ set +x
 # puppet doc --outputdir /var/www/puppetdocs/ --mode rdoc
 # TODO:
 #	Support for Puppet Doc and Strings
-#	petems/puppet-doc-lint - Test for RDoc coverage
-#	Metadata json validation: metadata-json-lint
-#	Build so output (warnings/alerts/metris) can be consumed in Jenkins
+#	Test for RDoc coverage: http://github.com/petems/puppet-doc-lint
+#	Metadata json validation: https://github.com/puppet-community/metadata-json-lint
+#	Build so output (warnings/alerts/metrics) can be consumed in Jenkins
 #
 # /opt/puppet/bin or /usr/local/bin/
 echo 'xxxxxxxxxxxxxxxxx';echo 'Executing the Puppet Doc testing:'
