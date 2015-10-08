@@ -3,7 +3,7 @@
     name: files
     github-repo: puppet-files
     github-url: https://github.com
-    github-org: snemetz
+    github-org: devops-workflow 
     jobs:
       - 'Puppet_Module_{name}'
 
