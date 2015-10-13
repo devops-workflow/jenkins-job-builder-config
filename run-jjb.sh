@@ -6,4 +6,4 @@
 #jenkins-jobs --conf ../jenkins_jobs.ini -l DEBUG  update .
 #jenkins-jobs --conf ../jenkins_jobs.ini update .
 
-jenkins-jobs --conf /etc/jenkins_jobs/jenkins_jobs.ini update jenkins-job-builder/
+jenkins-jobs --conf /etc/jenkins_jobs/jenkins_jobs.ini update $(dirname $0)/jenkins-job-builder/
