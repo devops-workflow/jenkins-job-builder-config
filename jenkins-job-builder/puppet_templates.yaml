@@ -22,6 +22,23 @@
       name: Project Jira
       url: http://url.com
       icon: jira.png
+    anchorchain-hash:
+      link_1:
+        name: Project Confluence
+        url: http://url.com
+        icon: confluence.png
+      link_2:
+        name: Project Grafana
+        url: http://url.com
+        icon: grafana.png
+      link_3:
+        name: Project Hipchat
+        url: http://url.com
+        icon: hipchat.png
+      link_4:
+        name: Project Jira
+        url: http://url.com
+        icon: jira.png
     anchorchain-array:
       - name: Project Confluence
         url: http://url.com
@@ -70,11 +87,12 @@
       - doc-pp:
       - 'anchorchain-file':
           #anchorchain-links: '{obj:anchorchain-array}'
-          anchorchain-links:
-            - link: '{obj:link_1}'
-            - link: '{obj:link_2}'
-            - link: '{obj:link_3}'
-            - link: '{obj:link_4}'
+          anchorchain-links: '{obj:anchorchain-hash}'
+          #anchorchain-links:
+          #  - link: '{obj:link_1}'
+          #  - link: '{obj:link_2}'
+          #  - link: '{obj:link_3}'
+          #  - link: '{obj:link_4}'
       - 'puppet-module-job-description':
       - 'puppet-module-param-downstream':
     publishers:
