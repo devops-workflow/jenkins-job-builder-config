@@ -158,6 +158,21 @@
           wipe-workspace: false
           skip-tag: true
 
+- trigger:
+    name: files-found-folder
+    # Variables: cron, path, include
+    triggers:
+      - raw:
+          xml: |
+            <org.jenkinsci.plugins.fstrigger.triggers.FolderContentTrigger plugin="fstrigger@0.39">
+              <spec>{cron}</spec>
+              <path>{path}</path>
+              <includes>{include}</includes>
+              <excludeCheckLastModificationDate>false</excludeCheckLastModificationDate>
+              <excludeCheckContent>false</excludeCheckContent>
+              <excludeCheckFewerOrMoreFiles>false</excludeCheckFewerOrMoreFiles>
+            </org.jenkinsci.plugins.fstrigger.triggers.FolderContentTrigger>
+
 - wrapper:
     name: project-desc
     # Variables: desc-file

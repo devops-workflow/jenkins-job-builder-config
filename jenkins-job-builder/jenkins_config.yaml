@@ -46,4 +46,31 @@
     triggers:
       - pollscm: '*/5 * * * *'
 
+- job:
+    name: Jenkins_Display_icons
+    description: |
+        Display all the available icons for use in jobs
+    properties:
+      - github:
+          url: https://github.com/devops-workflow/jenkins-display-icons/
+      - 'custom-icon':
+          custom-icon: jenkins.png
+    scm:
+      - 'github':
+          github-repo: jenkins-display-icons
+          github-url: https://github.com
+          github-org: devops-workflow
+    builders:
+      - syntax-bash:
+      - shell: ./generate_icons_page.sh
+    publishers:
+      - html-publisher:
+          name: "Icons"
+          files: "icons.html"
+    triggers:
+      - 'files-found-folder':
+          cron: "H * * * *"
+          path: "$JENKINS_HOME/userContent/customIcon"
+          include: "*.png"
+
 # name: Jenkins_Auto_Job_Builder
