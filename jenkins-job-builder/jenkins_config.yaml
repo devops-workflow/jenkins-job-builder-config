@@ -66,6 +66,7 @@
     publishers:
       - html-publisher:
           name: "Icons"
+          dir: "."
           files: "icons.html"
     triggers:
       - 'files-found-folder':
