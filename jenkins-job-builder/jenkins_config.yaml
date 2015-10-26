@@ -62,7 +62,7 @@
           github-org: devops-workflow
     builders:
       - syntax-bash:
-      - shell: ./generate_icons_page.sh
+      - shell: ./generate-icons-page.sh
     publishers:
       - html-publisher:
           name: "Icons"
