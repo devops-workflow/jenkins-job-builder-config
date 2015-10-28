@@ -26,7 +26,7 @@
         Job to build all other jobs with Jenkins Job Builder
     parameters:
       - string:
-          name: job_name
+          name: remote_job_name
           default: "NO-JOB"
           description: "Jenkins job to get job build definition from"
     properties:
@@ -42,7 +42,7 @@
     builders:
       - syntax-bash:
       - shell: |
-            ./run-jjb.sh $job_name
+            ./run-jjb.sh $remote_job_name
     publishers:
       - claim-build
       - warnings:
