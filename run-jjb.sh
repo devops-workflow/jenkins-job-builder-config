@@ -31,6 +31,6 @@ if [ $# -gt 0 ] && [ "$1" != "NO-JOB" ]; then
   fi
 else
   # System mode
-  jenkins-jobs -r --conf /etc/jenkins_jobs/jenkins_jobs.ini update $jjb_base
+  jenkins-jobs --conf /etc/jenkins_jobs/jenkins_jobs.ini update -r $jjb_base
   # jenkins-jobs --conf /etc/jenkins_jobs/jenkins_jobs.ini update $(dirname $0)/jenkins-job-builder/
 fi
