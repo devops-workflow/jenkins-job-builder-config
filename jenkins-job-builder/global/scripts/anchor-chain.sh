@@ -16,9 +16,13 @@ echo 'Creating/Updating AnchorChain file'
 # Metrics: grafana
 #
 # TODO:
-#	Move links array to top template in JJB, may change how data structure is passed into script. JJB doesn't support :(
+#	Move links array to top template in JJB, may change how data structure is passed into script.
+#		JJB doesn't support :(
 #	Support for existing file in repo to override or merge with ones in JJB definition
-#	Define file format for repo file - It should define name and link, but not icon. Script should add icon
+#		DONE -override
+#	DONE -Define file format for repo file - It should define name and link, but not icon. Script should add icon
+#		except format includes icon
+#	DONE -Support no data via JJB and doing nothing if all data sources are missing
 #
 
 file_anchorchain=anchor
@@ -29,6 +33,8 @@ dir_icons=/userContent/customIcon
 # name <tab> url <tab> icon
 # Site wide icons will be in userContent/customIcon
 
+jjb_links="{anchorchain-links}"
+
 if [ -f $file_override ]; then
   cp /dev/null $file_anchorchain
   while read line || [[ -n "$line" ]]; do
@@ -38,10 +44,11 @@ if [ -f $file_override ]; then
     echo -e "DEBUG: Anchor chain line: $title\t$url\t$dir_icons/$icon"
     echo -e "$title\t$url\t$dir_icons/$icon" >> $file_anchorchain
   done < $file_override
-elif [ ! -f $file_anchorchain ]; then
+# elif [ ! -f $file_anchorchain ] && [ -n "$jjb_links" ]; then
+elif [ -n "$jjb_links" ]; then
   # Create new file from JJB definition
   start=$(echo -e "\x7b")
-  body=$(echo "'links' : {anchorchain-links}" | sed s/\'/\"/g)
+  body=$(echo "'links' : $jjb_links" | sed s/\'/\"/g)
   end=$(echo -e "\x7d")
   json="$start $body $end"
   echo "DEBUG: json=$json"
