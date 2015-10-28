@@ -47,6 +47,22 @@
           !include-raw:
             - ./scripts/puppet-module-param-downstream.sh
 
+- builder:
+    name: remote-jjb-definition
+    builders:
+      - conditional-step:
+          condition-kind: files-match
+          include-pattern: build_data/jjb/*.yaml
+          condition-basedir: workspace
+          steps:
+            - trigger-builds:
+              - project:
+                  - "Jenkins_Job_Builder"
+                current-parameters: false
+                predefined-parameters:
+                  remote_job_name=$JOB_NAME
+                block: false
+
 - property:
     name: custom-icon
     # Variables: custom-icon
