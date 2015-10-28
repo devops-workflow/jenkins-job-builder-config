@@ -52,7 +52,7 @@
     builders:
       - conditional-step:
           condition-kind: files-match
-          include-pattern: build_data/jjb/*.yaml
+          include-pattern: "build_data/jjb/*.yaml"
           condition-basedir: workspace
           steps:
             - trigger-builds:
