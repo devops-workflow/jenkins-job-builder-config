@@ -22,7 +22,7 @@ if [ $# -gt 0 ] && [ "$1" != "NO-JOB" ]; then
     echo "ERROR: Not running on Jenkins Master"
     exit 2
   fi
-  dir_job_jjb=$dir_jobs_base/$job/workspace/$dir_config/jjb
+  dir_job_jjb=$dir_jobs_base/$job/workspace/$dir_config_job/jjb
   if [ -d "$dir_job_jjb" ]; then
     jenkins-jobs --conf /etc/jenkins_jobs/jenkins_jobs.ini update -r ${jjb_global}:${dir_job_jjb}
   else
