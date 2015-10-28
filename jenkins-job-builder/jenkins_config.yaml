@@ -24,6 +24,11 @@
     name: Jenkins_Job_Builder
     description: |
         Job to build all other jobs with Jenkins Job Builder
+    parameters:
+      - string:
+          name: job_name
+          default: "NO-JOB"
+          description: "Jenkins job to get job build definition from"
     properties:
       - github:
           url: https://github.com/devops-workflow/jenkins-job-builder-config/
@@ -37,7 +42,7 @@
     builders:
       - syntax-bash:
       - shell: |
-            ./run-jjb.sh
+            ./run-jjb.sh $job_name
     publishers:
       - claim-build
       - warnings:
