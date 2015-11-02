@@ -5,13 +5,16 @@ OS Image Workflows
 
 Puppet Workflows - All Puppet workflows should rebuild documentation at some point
 - Puppet control: static testing -> build documentation
+-- Test Puppetfile (w/ r10k), site.pp (w/ puppet), hiera *.yaml, environment.conf
+-- Test branches that have been updated
 - Puppet module: static testing and unit test -> acceptance test (deployed on clean VM) -> integration test (deployed in full environment)
 -- setup simplecov for test coverage
 -- Add full testing for Ruby code
 --- rubocop - Ruby static code analyzer
+-- Puppet metadata testing: metadata-json-lint
 -- Update skeleton with upstream changes
 - Puppet Hiera: static testing ->
-- Puppet metadata testing: metadata-json-lint
+-- Test *.yaml
 
 Job-templates
 - Packer_{name}
