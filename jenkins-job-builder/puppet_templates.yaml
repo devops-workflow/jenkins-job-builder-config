@@ -55,6 +55,14 @@
     jobs:
       - Puppet_Template_module
 
+- project:
+    name: master
+    github-repo: puppet-r10k
+    github-url: https://github.com
+    github-org: snemetz
+    jobs:
+      - 'Puppet_Control_{name}'
+
 - job-template:
     name: Puppet_Template_hiera
     builders:
