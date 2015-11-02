@@ -3,7 +3,7 @@
 
 # Doc: pp, readme
 # Style: pp
-# Syntax: bash, erb, pp, rb, yaml
+# Syntax: bash, erb, pp, puppetfile, rb, yaml
 
 #-----------------------------
 # Check Documentation macros
@@ -58,6 +58,13 @@
       - shell:
           !include-raw:
             - ./scripts/syntax-pp.sh
+
+- builder:
+    name: syntax-puppetfile
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/syntax-puppetfile.sh
 
 - builder:
     name: syntax-rb

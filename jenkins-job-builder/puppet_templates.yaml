@@ -123,6 +123,22 @@
 
 - job-template:
     name: Puppet_Control_{name}
+    properties:
+      - github:
+          url: "{github-url}/{github-org}/{github-repo}/"
+      - 'custom-icon':
+          custom-icon: puppetlabs.png
+    scm:
+      - 'github':
+          github-url: "{github-url}"
+          github-org: "{github-org}"
+          github-repo: "{github-repo}"
+    builders:
+      - doc-readme:
+      - syntax-pp:
+      - syntax-puppetfile:
+      - syntax-yaml:
+      - style-pp:
 
 - job-template:
     name: Puppet_Hiera_{name}
