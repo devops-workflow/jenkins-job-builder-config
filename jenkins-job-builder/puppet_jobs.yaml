@@ -57,7 +57,7 @@
             - "-DenableJobRegex=.*"
             # - "-Dviews=true"
             # - "-DnestedView=Puppet-Branches"
-            - "-DdryRun=true"
+            # - "-DdryRun=true"
             - "--info"
             - "--stacktrace"
           tasks: syncWithRepo
