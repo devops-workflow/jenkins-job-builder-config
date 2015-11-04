@@ -19,6 +19,8 @@
     builders:
       - 'dsl-target':
           dsl-target: DSLs/views-*.dsl
+    triggers:
+      - pollscm: '*/15 * * * *'
 
 - job:
     name: Jenkins_Job_Builder
