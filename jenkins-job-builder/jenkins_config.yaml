@@ -47,9 +47,10 @@
             ./run-jjb.sh $remote_job_name
     publishers:
       - claim-build
-      - warnings:
-          console-log-parsers:
-            - "Custom Bash Syntax"
+      # Unknown issue with warnings
+      #- warnings:
+      #    console-log-parsers:
+      #      - "Custom Bash Syntax"
     triggers:
       - pollscm: '*/5 * * * *'
 
