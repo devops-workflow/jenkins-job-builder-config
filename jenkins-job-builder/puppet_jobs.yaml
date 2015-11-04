@@ -1,5 +1,5 @@
 - job:
-    name: Puppet_Control_Template
+    name: Puppet_Control-Template
     project-type: freestyle
     defaults: global
     description: Template for managing branch jobs
