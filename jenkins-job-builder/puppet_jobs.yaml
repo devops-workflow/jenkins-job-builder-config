@@ -1,0 +1,63 @@
+- job:
+    name: Puppet_Control_Template
+    project-type: freestyle
+    defaults: global
+    description: Template for managing branch jobs
+    disabled: true
+    properties:
+      - github:
+          # url: "{github-url}/{github-org}/{github-repo}/"
+          url: "https://github.com/snemetz/puppet-r10k/"
+      - 'custom-icon':
+          custom-icon: puppetlabs.png
+    scm:
+      # Create new macro with branch or extend existing github macro
+      - git:
+          url: "https://github.com/snemetz/puppet-r10k.git"
+          branches:
+            - "origin/Template"
+          name: origin
+          refspec: "+refs/heads/Template:refs/remotes/origin/Template"
+          skip-tag: true
+          wipe-workspace: false
+    builders:
+      - doc-readme:
+      - syntax-pp:
+      - syntax-puppetfile:
+      - syntax-yaml:
+      - style-pp:
+`
+- job:
+    name: Puppet_Control-Template-sync-with-repo
+    project-type: freestyle
+    defaults: global
+    description: Manages branch jobs
+    properties:
+      - github:
+          url: "https://github.com/devops-workflow/jenkins-build-per-branch/"
+      - 'custom-icon':
+          custom-icon: puppetlabs.png
+    scm:
+      - git:
+          url: "https://github.com/devops-workflow/jenkins-build-per-branch.git"
+          branches:
+            - "*/develop"
+          skip-tag: true
+          wipe-workspace: false
+    builders:
+      - gradle:
+          gradle-name: "Gradle 2.5"
+          switches:
+            - "-DjenkinsUrl=http://localhost:8080/"
+            - "-DallowSelfsignedSslCerts=true"
+            - "-DgitUrl=https://github.com/snemetz/puppet-r10k.git"
+            - "-DtemplateJobPrefix=Puppet_Control-"
+            - "-DtemplateBranchName=Template"
+            - "-DbranchNameRegex=production|stage|v.*"
+            - "-DenableJobRegex=.*"
+            # - "-Dviews=true"
+            # - "-DnestedView=Puppet-Branches"
+            - "-DdryRun=true"
+            - "--info"
+            - "--stacktrace"
+          tasks: syncWithRepo

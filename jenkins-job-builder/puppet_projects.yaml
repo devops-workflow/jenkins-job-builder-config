@@ -1,0 +1,66 @@
+
+- project:
+    name: puppet-templates
+    github-url: https://github.com
+    github-org: devops-workflow
+    github-repo: puppet_module_site_workflow
+    hipchat-token: TOKEN
+    hipchat-room-id: 1234567
+    link_1:
+      name: Project Confluence
+      url: http://url.com
+      icon: confluence.png
+    link_2:
+      name: Project Grafana
+      url: http://url.com
+      icon: grafana.png
+    link_3:
+      name: Project Hipchat
+      url: http://url.com
+      icon: hipchat.png
+    link_4:
+      name: Project Jira
+      url: http://url.com
+      icon: jira.png
+    anchorchain-hash:
+      link_1:
+        name: Project Confluence
+        url: http://url.com
+        icon: confluence.png
+      link_2:
+        name: Project Grafana
+        url: http://url.com
+        icon: grafana.png
+      link_3:
+        name: Project Hipchat
+        url: http://url.com
+        icon: hipchat.png
+      link_4:
+        name: Project Jira
+        url: http://url.com
+        icon: jira.png
+    anchorchain-array:
+      - name: Project Confluence
+        url: http://url.com
+        icon: confluence.png
+      - name: Project Grafana
+        url: http://url.com
+        icon: grafana.png
+      - name: Project Hipchat
+        url: http://url.com
+        icon: hipchat.png
+      - name: Project Jira
+        url: http://url.com
+        icon: jira.png
+    jobs:
+      - Puppet_Template_module
+
+#- project:
+#    name: Template
+#    github-repo: puppet-r10k
+#    github-url: https://github.com
+#    github-org: snemetz
+#    # Set disabled: true
+#    jobs:
+#      - 'Puppet_Control_{name}'
+
