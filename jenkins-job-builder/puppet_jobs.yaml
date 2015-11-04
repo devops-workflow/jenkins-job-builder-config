@@ -22,10 +22,39 @@
           wipe-workspace: false
     builders:
       - doc-readme:
+      - syntax-bash:
       - syntax-pp:
       - syntax-puppetfile:
       - syntax-yaml:
       - style-pp:
+    publishers:
+#      - github-notifier
+      - claim-build
+      # Warnings config not being applied. used to work. Version issue?
+      #- warnings:
+      #    console-log-parsers:
+      #      - Puppet-Lint
+      #      - "Custom Bash Syntax"
+      #      - "Custom Puppet Syntax"
+      #    run-always: true
+      - 'anchorchain':
+          anchorchain-file: anchor
+#      - 'email-template':
+#          email-template: emailext-template-1435433763855
+#      - 'hipchat':
+#          hipchat-token: "{hipchat-token}"
+#          hipchat-room-id: "{hipchat-room-id}"
+#      - trigger-parameterized-builds:
+#          project: 'test'
+#          condition: 'STABLE'
+#          property-file: $WORKSPACE/parameters.txt
+#          fail-on-missing: true
+#    triggers:
+#      - pollscm: '*/4 * * * *'
+    wrappers:
+      - 'project-desc':
+          desc-file: project_description
+
 
 - job:
     name: Puppet_Control-Template-sync-with-repo
@@ -45,6 +74,7 @@
           skip-tag: true
           wipe-workspace: false
     builders:
+      # Does this handle updating jobs when the template changes?
       - gradle:
           gradle-name: "Gradle 2.5"
           switches:
@@ -55,6 +85,9 @@
             - "-DtemplateBranchName=Template"
             - "-DbranchNameRegex=production|stage|v.*"
             - "-DenableJobRegex=.*"
+            # - "-DstartOnCreate=true"
+            # NO - deleted itself, but not template or valid branches
+            # - "-DdeleteOld=true"
             # - "-Dviews=true"
             # - "-DnestedView=Puppet-Branches"
             # - "-DdryRun=true"
