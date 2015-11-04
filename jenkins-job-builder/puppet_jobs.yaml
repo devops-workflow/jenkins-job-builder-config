@@ -26,7 +26,7 @@
       - syntax-puppetfile:
       - syntax-yaml:
       - style-pp:
-`
+
 - job:
     name: Puppet_Control-Template-sync-with-repo
     project-type: freestyle
