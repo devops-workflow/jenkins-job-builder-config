@@ -55,9 +55,8 @@
       - 'project-desc':
           desc-file: project_description
 
-
 - job:
-    name: Puppet_Control-Template-sync-with-repo
+    name: Puppet_Control_Sync_Branches
     project-type: freestyle
     defaults: global
     description: Manages branch jobs
