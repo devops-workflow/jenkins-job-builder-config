@@ -31,12 +31,12 @@
 #      - github-notifier
       - claim-build
       # Warnings config not being applied. used to work. Version issue?
-      #- warnings:
-      #    console-log-parsers:
-      #      - Puppet-Lint
-      #      - "Custom Bash Syntax"
-      #      - "Custom Puppet Syntax"
-      #    run-always: true
+      - warnings:
+          console-log-parsers:
+            - Puppet-Lint
+            - "Custom Bash Syntax"
+            - "Custom Puppet Syntax"
+          run-always: true
       - 'anchorchain':
           anchorchain-file: anchor
 #      - 'email-template':
@@ -85,8 +85,8 @@
             - "-DbranchNameRegex=production|stage|v.*"
             - "-DenableJobRegex=.*"
             # - "-DstartOnCreate=true"
-            # NO - deleted itself, but not template or valid branches
-            # - "-DdeleteOld=true"
+            # Be careful with job naming. Will manage all jobs that start with the prefix
+            - "-DdeleteOld=true"
             # - "-Dviews=true"
             # - "-DnestedView=Puppet-Branches"
             # - "-DdryRun=true"
