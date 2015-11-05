@@ -41,13 +41,12 @@
     publishers:
       - github-notifier
       - claim-build
-      # Warnings config not being applied. used to work. Version issue?
-      #- warnings:
-      #    console-log-parsers:
-      #      - Puppet-Lint
-      #      - "Custom Bash Syntax"
-      #      - "Custom Puppet Syntax"
-      #    run-always: true
+      - warnings:
+          console-log-parsers:
+            - Puppet-Lint
+            - "Custom Bash Syntax"
+            - "Custom Puppet Syntax"
+          run-always: true
       - 'anchorchain':
           anchorchain-file: anchor
       - 'email-template':

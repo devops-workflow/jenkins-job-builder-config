@@ -30,7 +30,6 @@
     publishers:
 #      - github-notifier
       - claim-build
-      # Warnings config not being applied. used to work. Version issue?
       - warnings:
           console-log-parsers:
             - Puppet-Lint
