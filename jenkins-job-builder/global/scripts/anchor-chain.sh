@@ -28,6 +28,7 @@ echo 'Creating/Updating AnchorChain file'
 file_anchorchain=anchor
 file_override=sidebar-links.txt
 dir_icons=/userContent/customIcon
+dir_config=ci_data
 
 # Anchor Chain file format:
 # name <tab> url <tab> icon
@@ -35,7 +36,7 @@ dir_icons=/userContent/customIcon
 
 jjb_links="{anchorchain-links}"
 
-if [ -f $file_override ]; then
+if [ -f "$dir_config/$file_override" ]; then
   cp /dev/null $file_anchorchain
   while read line || [[ -n "$line" ]]; do
     title=$(echo $line | cut -d\; -f1)
@@ -43,7 +44,7 @@ if [ -f $file_override ]; then
     icon=$(echo $line | cut -d\; -f3)
     echo -e "DEBUG: Anchor chain line: $title\t$url\t$dir_icons/$icon"
     echo -e "$title\t$url\t$dir_icons/$icon" >> $file_anchorchain
-  done < $file_override
+  done < "$dir_config/$file_override"
 # elif [ ! -f $file_anchorchain ] && [ -n "$jjb_links" ]; then
 elif [ -n "$jjb_links" ]; then
   # Create new file from JJB definition

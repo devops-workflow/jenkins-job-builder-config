@@ -6,7 +6,7 @@
 #	1) system mode - build all jobs in this (jenkins-job-builder) repo
 #	2) job mode - build jobs in a different repo with macros and templates from this repo
 
-dir_config_job=build_data
+dir_config_job=ci_data
 jjb_base=$WORKSPACE/jenkins-job-builder
 jjb_global=$jjb_base/global
 dir_jobs_base=$JENKINS_HOME/jobs

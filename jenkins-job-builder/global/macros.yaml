@@ -34,6 +34,13 @@
             </javaposse.jobdsl.plugin.ExecuteDslScripts>
 
 - builder:
+    name: job-description
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/description.sh
+
+- builder:
     name: puppet-module-job-description
     builders:
       - shell:
