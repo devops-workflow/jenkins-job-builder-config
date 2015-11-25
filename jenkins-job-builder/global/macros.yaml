@@ -209,3 +209,26 @@
               <disableTokens>false</disableTokens>
             </org.jenkinsCi.plugins.projectDescriptionSetter.DescriptionSetterWrapper>
 
+- wrapper:
+    name: pyenv
+    # Variables: python_version,
+    # Possible variables: pyenv_root, pip_list, git_branch, ignore_local, git_repo 
+    # TODO:
+    #   change $HOME to $JENKINS_HOME
+    wrappers:
+      - raw:
+          xml: |
+            <ruby-proxy-object>
+              <ruby-object ruby-class="Jenkins::Tasks::BuildWrapperProxy" pluginid="pyenv">
+                <pluginid pluginid="pyenv" ruby-class="String">pyenv</pluginid>
+                <object ruby-class="PyenvWrapper" pluginid="pyenv">
+                  <pyenv__root pluginid="pyenv" ruby-class="String">$HOME/.pyenv</pyenv__root>
+                  <pip__list pluginid="pyenv" ruby-class="String">tox</pip__list>
+                  <pyenv__revision pluginid="pyenv" ruby-class="String">master</pyenv__revision>
+                  <version pluginid="pyenv" ruby-class="String">{python_version}</version>
+                  <ignore__local__version ruby-class="TrueClass" pluginid="pyenv"/>
+                  <pyenv__repository pluginid="pyenv" ruby-class="String">https://github.com/yyuu/pyenv.git</pyenv__repository>
+                </object>
+              </ruby-object>
+            </ruby-proxy-object>
+
