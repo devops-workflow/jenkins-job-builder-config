@@ -1,0 +1,35 @@
+- job:
+    name: Tool-PyEnv
+    project-type: matrix
+    description: Install PyEnv and PyEnv-virtualenv
+    #execution-strategy:
+    #  # this handles any groovy expression
+    #  # Can use labels and axis variables
+    #  combination-filter: |
+    #    (os=="centos" && ! os=="master" )
+    axes:
+      - axis:
+         type: label-expression
+         name: node
+         values:
+          - CentOS && ! master
+    #  - axis:
+    #     type: slave
+    #     name: label
+    #     values:
+    #      - CentOS
+    #  - axis:
+    #     type: user-defined
+    #     name: python_version
+    #     values:
+    #       - 2.7.10
+    #       - 3.5.0
+    builders:
+      - shell:
+          !include-raw:
+            - ./global//scripts/pyenv-plugins.sh
+    wrapper:
+      - pyenv:
+          python_version: 2.7.10
+
+
