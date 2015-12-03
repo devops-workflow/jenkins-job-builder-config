@@ -31,6 +31,11 @@
           name: remote_job_name
           default: "NO-JOB"
           description: "Jenkins job to get job build definition from"
+      # Add node parameter. Must run on same node as job that called it
+      #- label:
+      #    name: node
+      #    default: master
+      #    description: "The node where the job will run"
     properties:
       - github:
           url: https://github.com/devops-workflow/jenkins-job-builder-config/
@@ -45,6 +50,31 @@
       - syntax-bash:
       - shell: |
             ./run-jjb.sh $remote_job_name
+      # If job and jjb made changes, trigger calling job
+      # 1) if job and find text in console log
+      # 2) tee jjb output to file (jjb.log). Grep text in file
+      #- conditional-step:
+      #    condition-kind: and
+      #    condition-operands:
+      #        - condition-kind: not
+      #          condition-operand:
+      #              condition-kind: strings-match
+      #              condition-string1: $remote_job_name
+      #              condition-string2: "NO-JOB"
+      #              condition-case-insensitive: false
+      #        #- condition-kind: text-finder (not currently supported by JJB)
+      #        - condition-kind: shell
+      #          condition-command: "grep -E 'Number of jobs updated:\S+[1-9]' jjb.log"
+      #          # Src line: INFO:root:Number of jobs updated: 0
+      #    steps:
+      #      - trigger-builds:
+      #        - project:
+      #            - $remote_job_name
+      #          current-parameters: false
+      #          # make sure it doesn't run jjb again
+      #          predefined-parameters:
+      #            remote_job_name=$JOB_NAME
+      #          block: false
     publishers:
       - claim-build
       # Unknown issue with warnings

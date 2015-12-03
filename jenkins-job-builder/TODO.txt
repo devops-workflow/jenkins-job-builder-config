@@ -1,4 +1,8 @@
 
+Move all jobs other than jenkins related to other repos
+setup bootstrap method for new repos with job definition
+add job definition validation: ensure correct job name, certain sections exist
+
 OS Image Workflows
 - validate source files -> build images (Packer) -> test images
 - File types to test: bash, kickstart (ks.cfg), json

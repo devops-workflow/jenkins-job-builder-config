@@ -10,6 +10,7 @@ dir_config_job=ci_data
 jjb_base=$WORKSPACE/jenkins-job-builder
 jjb_global=$jjb_base/global
 dir_jobs_base=$JENKINS_HOME/jobs
+jjb_job=$WORKSPACE/jjb.log
 
 if [ $# -gt 0 ] && [ "$1" != "NO-JOB" ]; then
   # Job Mode
@@ -24,7 +25,7 @@ if [ $# -gt 0 ] && [ "$1" != "NO-JOB" ]; then
   fi
   dir_job_jjb=$dir_jobs_base/$job/workspace/$dir_config_job/jjb
   if [ -d "$dir_job_jjb" ]; then
-    jenkins-jobs --conf /etc/jenkins_jobs/jenkins_jobs.ini update -r ${jjb_global}:${dir_job_jjb}
+    jenkins-jobs --conf /etc/jenkins_jobs/jenkins_jobs.ini update -r ${jjb_global}:${dir_job_jjb} | tee $jjb_log
   else
     echo "ERROR: Job's jjb directory not found! $dir_job_jjb"
     exit 3
