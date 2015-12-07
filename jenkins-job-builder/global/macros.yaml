@@ -91,6 +91,86 @@
               <name>{anchorchain-file}</name>
             </ru.snowleos.jenkins.anchorchain.LinksPublisher>
 
+#- publisher:
+#    name: email-general
+#    # Variables: 
+#    publishers:
+#      # May use templates because this isn't as flexible as the actual plugin
+#      - email-ext:
+#          # for pulling from a file
+#          recipients: ${PROPFILE,file="ci_data/email.properties",property="always"}
+#          subject: $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!
+#          body: |
+#            $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+#             
+#            Check console output at $BUILD_URL to view the results.
+#          always: false
+#          aborted: true
+#          failure: true
+#          first-failure: true
+#          fixed: true
+#          improvement: true
+#          not-built: true
+#          regression: true
+#          second-failure: true
+#          still-failing: true
+#          still-unstable: true
+#          success: false
+#          unstable: true
+#          send-to:
+#            - developers
+#            - culprits
+#      # Build raw macro to do what is desired
+#      - raw:
+#          xml: |
+#            <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40.5">
+#            <recipientList>$DEFAULT_RECIPIENTS</recipientList>
+#            <configuredTriggers>
+#              <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
+#                <email>
+#                  <recipientList></recipientList>
+#                  <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+#                  <body>$PROJECT_DEFAULT_CONTENT</body>
+#                  <recipientProviders>
+#                    <hudson.plugins.emailext.plugins.recipients.DevelopersRecipientProvider/>
+#                    <hudson.plugins.emailext.plugins.recipients.CulpritsRecipientProvider/>
+#                  </recipientProviders>
+#                  <attachmentsPattern></attachmentsPattern>
+#                  <attachBuildLog>false</attachBuildLog>
+#                  <compressBuildLog>false</compressBuildLog>
+#                  <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
+#                  <contentType>project</contentType>
+#                </email>
+#              </hudson.plugins.emailext.plugins.trigger.FailureTrigger>
+#              <hudson.plugins.emailext.plugins.trigger.AlwaysTrigger>
+#                <email>
+#                  <recipientList>${PROPFILE,file=&quot;email.props&quot;,property=&quot;always&quot;}</recipientList>
+#                  <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+#                  <body>$PROJECT_DEFAULT_CONTENT</body>
+#                  <recipientProviders>
+#                    <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
+#                  </recipientProviders>
+#                  <attachmentsPattern></attachmentsPattern>
+#                  <attachBuildLog>false</attachBuildLog>
+#                  <compressBuildLog>false</compressBuildLog>
+#                  <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
+#                  <contentType>project</contentType>
+#                </email>
+#              </hudson.plugins.emailext.plugins.trigger.AlwaysTrigger>
+#            </configuredTriggers>
+#            <contentType>default</contentType>
+#            <defaultSubject>$DEFAULT_SUBJECT</defaultSubject>
+#            <defaultContent>$DEFAULT_CONTENT</defaultContent>
+#            <attachmentsPattern></attachmentsPattern>
+#            <presendScript>$DEFAULT_PRESEND_SCRIPT</presendScript>
+#            <attachBuildLog>false</attachBuildLog>
+#            <compressBuildLog>false</compressBuildLog>
+#            <replyTo>$DEFAULT_REPLYTO</replyTo>
+#            <saveOutput>false</saveOutput>
+#            <disabled>false</disabled>
+#          </hudson.plugins.emailext.ExtendedEmailPublisher>
+
+
 - publisher:
     name: email-template
     # Variables: email-template
@@ -157,6 +237,16 @@
                 </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
               </configs>
             </hudson.plugins.parameterizedtrigger.BuildTrigger>
+
+- publisher:
+    name: pragmatic-programmer-tips
+    publishers:
+      - raw:
+          xml: |
+            <jenkins.plugins.pragprog.PragprogBuildStep plugin="pragprog@1.0.4">
+              <displayLanguageCode>en</displayLanguageCode>
+              <indicateBuildResult>true</indicateBuildResult>
+            </jenkins.plugins.pragprog.PragprogBuildStep>
 
 - publisher:
     name: publishers-from
