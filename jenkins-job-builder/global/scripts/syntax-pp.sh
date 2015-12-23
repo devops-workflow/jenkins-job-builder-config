@@ -10,6 +10,9 @@ else
 fi
 PUPPET_OPTS='--storeconfigs'
 
+# Fix for Jenkins
+unset GEM_PATH
+
 echo -n 'Puppet version: '; $PUPPET_BIN --version
 #find . -name '*.pp' -type f | xargs -r -n 1 -t $PUPPET_BIN parser validate
 
