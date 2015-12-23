@@ -8,6 +8,10 @@ if [ -f /opt/puppet/bin/puppet-lint ]; then
 else
   LINT=$(whereis -b puppet-lint | cut -d: -f2 | cut -c2-)
 fi
+
+# Jenkins fix
+unset GEM_PATH
+
 find . -name '*.pp' -type f | xargs -r -n 1 -t $LINT --log-format '%{path}:%{line}:%{check}:%{KIND}:%{message}' --no-autoloader_layout-check --with-filename
 
 # Another method
