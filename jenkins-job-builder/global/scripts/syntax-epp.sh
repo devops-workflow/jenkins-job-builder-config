@@ -8,7 +8,8 @@ if [ -f /opt/puppet/bin/puppet ]; then
   # Puppet Enterprise
   PUPPET='/opt/puppet/bin/puppet'
 else
-  PUPPET=$(whereis -b puppet | cut -d: -f2 | cut -c2-)
+  #PUPPET=$(whereis -b puppet | cut -d: -f2 | cut -c2-)
+  PUPPET=puppet
 fi
 
 # Jenkins fix

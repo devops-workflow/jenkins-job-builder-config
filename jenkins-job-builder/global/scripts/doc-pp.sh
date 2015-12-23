@@ -12,7 +12,8 @@ if [ -f /opt/puppet/bin/puppet ]; then
   PUPPET='/opt/puppet/bin/puppet'
   LINT='/opt/puppet/bin/metadata-json-lint'
 else
-  PUPPET=$(whereis -b puppet | cut -d: -f2 | cut -c2-)
+  # PUPPET=$(whereis -b puppet | cut -d: -f2 | cut -c2-)
+  PUPPET=puppet
   LINT=$(whereis -b metadata-json-lint | cut -d: -f2 | cut -c2-)
 fi
 
