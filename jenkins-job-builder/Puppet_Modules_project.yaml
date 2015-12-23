@@ -30,3 +30,35 @@
     github-org: devops-workflow
     jobs:
       - 'Puppet_Module_{name}'
+
+- project:
+    name: btsync
+    github-repo: puppet_module_btsync
+    github-url: https://github.com
+    github-org: devops-workflow
+    jobs:
+      - 'Puppet_Module_{name}'
+
+- project:
+    name: cobbler
+    github-repo: puppet_module_cobbler
+    github-url: https://github.com
+    github-org: devops-workflow
+    jobs:
+      - 'Puppet_Module_{name}'
+
+- project:
+    name: consul
+    github-repo: puppet_module_consul
+    github-url: https://github.com
+    github-org: devops-workflow
+    jobs:
+      - 'Puppet_Module_{name}'
+
+- project:
+    name: jenkins_job_builder
+    github-repo: puppet_module_jenkins_job_builder
+    github-url: https://github.com
+    github-org: devops-workflow
+    jobs:
+      - 'Puppet_Module_{name}'
