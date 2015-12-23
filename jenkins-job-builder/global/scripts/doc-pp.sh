@@ -7,17 +7,24 @@ set +x
 #	Metadata json validation: https://github.com/puppet-community/metadata-json-lint
 #	Build so output (warnings/alerts/metrics) can be consumed in Jenkins
 #
-# /opt/puppet/bin or /usr/local/bin/
+if [ -f /opt/puppet/bin/puppet ]; then
+  # Puppet Enterprise
+  PUPPET='/opt/puppet/bin/puppet'
+  LINT='/opt/puppet/bin/metadata-json-lint'
+else
+  PUPPET=$(whereis -b puppet | cut -d: -f2 | cut -c2-)
+  LINT=$(whereis -b metadata-json-lint | cut -d: -f2 | cut -c2-)
+fi
 
-dir_puppet=/opt/puppet/bin
-cmd_puppet=${dir_puppet}/puppet
+# Jenkins fix
+unset GEM_PATH
 
 echo 'xxxxxxxxxxxxxxxxx';echo 'Executing the Puppet Doc testing:'
-find . -name '*.pp' -type f | xargs -r -n 1 -t ${cmd_puppet} doc --outputdir ./puppetdocs/ --mode rdoc
+find . -name '*.pp' -type f | xargs -r -n 1 -t ${PUPPET} doc --outputdir ./puppetdocs/ --mode rdoc
 
 if [ -f metadata.json ]; then
   echo 'xxxxxxxxxxxxxxxxx';echo 'Executing the Puppet Metadata testing:'
-  ${dir_puppet}/metadata-json-lint metadata.json
+  ${LINT} metadata.json
 fi
 
 #set +x

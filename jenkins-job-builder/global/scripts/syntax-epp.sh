@@ -4,13 +4,17 @@ set +x
 # TODO:
 # - create output that can be parsed by Jenkins warnings plugin
 
-echo 'xxxxxxxxxxxxxxxxx';echo 'Executing the EPP Syntax check:'
 if [ -f /opt/puppet/bin/puppet ]; then
   # Puppet Enterprise
   PUPPET='/opt/puppet/bin/puppet'
 else
-  PUPPET='puppet'
+  PUPPET=$(whereis -b puppet | cut -d: -f2 | cut -c2-)
 fi
+
+# Jenkins fix
+unset GEM_PATH
+
+echo 'xxxxxxxxxxxxxxxxx';echo 'Executing the EPP Syntax check:'
 
 # puppet epp validate <file | module/template>
 # Can render the template and then do testing on the results

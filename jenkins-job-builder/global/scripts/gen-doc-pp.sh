@@ -13,6 +13,16 @@ set +x
 #	PuppetDoc, 
 #	Strings (built on YARN) https://github.com/puppetlabs/puppetlabs-strings
 #
+if [ -f /opt/puppet/bin/puppet ]; then
+  # Puppet Enterprise
+  PUPPET='/opt/puppet/bin/puppet'
+else
+  PUPPET=$(whereis -b puppet | cut -d: -f2 | cut -c2-)
+fi
+
+# Jenkins fix
+unset GEM_PATH
+
 echo 'Documentation Generation: Puppet for $env'
 
 ## NOT usable yet
@@ -40,7 +50,7 @@ rm -f modules/limits/spec/fixtures/modules/limits/manifests/limits.pp
 ### Dummy manifests folder.
 #! [ -d manifests/ ] && mkdir manifests/
 ### Generate docs
-puppet doc --mode rdoc --manifestdir manifests/ --modulepath ./modules/ --outputdir puppetdoc
+${PUPPET} doc --mode rdoc --manifestdir manifests/ --modulepath ./modules/ --outputdir puppetdoc
 
 ### Fix docs to remove the complete workspace from all the file paths.
 #if [ -d ${WORKSPACE}/doc/files/${WORKSPACE}/modules ]; then
