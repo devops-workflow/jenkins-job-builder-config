@@ -6,7 +6,7 @@ if [ -f /opt/puppet/bin/puppet-lint ]; then
   # Puppet Enterprise
   LINT='/opt/puppet/bin/puppet-lint'
 else
-  LINT='puppet-lint'
+  LINT=$(whereis puppet-lint)
 fi
 find . -name '*.pp' -type f | xargs -r -n 1 -t $LINT --log-format '%{path}:%{line}:%{check}:%{KIND}:%{message}' --no-autoloader_layout-check --with-filename
 
