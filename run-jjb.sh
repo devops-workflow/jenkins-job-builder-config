@@ -5,12 +5,21 @@
 # 2 run modes:
 #	1) system mode - build all jobs in this (jenkins-job-builder) repo
 #	2) job mode - build jobs in a different repo with macros and templates from this repo
+#
+# Parameters:
+#   Remote Job Name
+#   Flush Cache
 
 dir_config_job=ci_data
 jjb_base=$WORKSPACE/jenkins-job-builder
 jjb_global=$jjb_base/global
 dir_jobs_base=$JENKINS_HOME/jobs
 jjb_job=$WORKSPACE/jjb.log
+CacheFlush=''
+
+if [ $# -gt 1 ] && [ "$2" = "flush" ]; then
+  CacheFlush='--flush-cache'
+fi
 
 if [ $# -gt 0 ] && [ "$1" != "NO-JOB" ]; then
   # Job Mode
@@ -32,6 +41,6 @@ if [ $# -gt 0 ] && [ "$1" != "NO-JOB" ]; then
   fi
 else
   # System mode
-  jenkins-jobs --conf /etc/jenkins_jobs/jenkins_jobs.ini update -r $jjb_base
+  jenkins-jobs ${CacheFlush} --conf /etc/jenkins_jobs/jenkins_jobs.ini update -r $jjb_base
   # jenkins-jobs --conf /etc/jenkins_jobs/jenkins_jobs.ini update $(dirname $0)/jenkins-job-builder/
 fi

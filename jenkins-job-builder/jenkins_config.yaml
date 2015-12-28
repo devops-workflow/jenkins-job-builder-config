@@ -31,6 +31,12 @@
           name: remote_job_name
           default: "NO-JOB"
           description: "Jenkins job to get job build definition from"
+      - choice:
+          name: jjb_cache
+          choices:
+            - use
+            - flush
+          description: "Can use to flush cache"
       # Add node parameter. Must run on same node as job that called it
       #- label:
       #    name: node
@@ -49,7 +55,7 @@
     builders:
       - syntax-bash:
       - shell: |
-            ./run-jjb.sh $remote_job_name
+            ./run-jjb.sh $remote_job_name $jjb_cache
       # If job and jjb made changes, trigger calling job
       # 1) if job and find text in console log
       # 2) tee jjb output to file (jjb.log). Grep text in file
