@@ -4,6 +4,7 @@
     defaults: global
     description: Template for managing branch jobs
     disabled: true
+    node: Puppet
     properties:
       - github:
           # url: "{github-url}/{github-org}/{github-repo}/"

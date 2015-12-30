@@ -6,6 +6,7 @@
     # TODO: Add url trigger
     description: |
         <p><b>Create all defined Jenkins Views</b></p>
+    node: master
     properties:
       - github:
           url: https://github.com/devops-workflow/jenkins-dsls/
@@ -94,6 +95,7 @@
     name: Jenkins_Display_icons
     description: |
         Display all the available icons for use in jobs
+    node: master
     properties:
       - github:
           url: https://github.com/devops-workflow/jenkins-display-icons/
