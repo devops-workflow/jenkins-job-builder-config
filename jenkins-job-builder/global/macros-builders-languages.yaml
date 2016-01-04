@@ -1,0 +1,9 @@
+# Macros for building/compiling languages
+
+- builder:
+    name: build-make
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/build-make.sh
+

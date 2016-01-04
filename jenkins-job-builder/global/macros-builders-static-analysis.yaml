@@ -24,6 +24,17 @@
             - ./scripts/doc-readme.sh
 
 #-----------------------------
+# Static Code Analysis macros
+#-----------------------------
+
+- builder:
+    name: static-analysis-c
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/static-analysis-c.sh
+
+#-----------------------------
 # Check Style macros
 #-----------------------------
 
