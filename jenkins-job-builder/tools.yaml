@@ -24,6 +24,9 @@
     #     values:
     #       - 2.7.10
     #       - 3.5.0
+    properties:
+      - 'custom-icon':
+          custom-icon: tools.png
     builders:
       - shell:
           !include-raw:
