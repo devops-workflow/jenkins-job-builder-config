@@ -21,7 +21,7 @@
       - 'dsl-target':
           dsl-target: DSLs/views-*.dsl
     triggers:
-      - pollscm: '*/15 * * * *'
+      - pollscm: 'H/15 * * * *'
 
 - job:
     name: Jenkins_Job_Builder
@@ -90,7 +90,7 @@
       #    console-log-parsers:
       #      - "Custom Bash Syntax"
     triggers:
-      - pollscm: '*/5 * * * *'
+      - pollscm: 'H/5 * * * *'
 
 - job:
     name: Jenkins_Display_icons
