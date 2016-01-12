@@ -62,3 +62,11 @@
     github-org: devops-workflow
     jobs:
       - 'Puppet_Module_{name}'
+
+- project:
+    name: roles
+    github-repo: puppet_module_roles
+    github-url: https://github.com
+    github-org: devops-workflow
+    jobs:
+      - 'Puppet_Module_{name}'
