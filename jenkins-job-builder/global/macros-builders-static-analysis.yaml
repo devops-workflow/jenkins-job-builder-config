@@ -4,6 +4,7 @@
 # Doc: pp, readme
 # Style: pp
 # Syntax: bash, erb, pp, puppetfile, rb, yaml
+# Other: cloc
 
 #-----------------------------
 # Check Documentation macros
@@ -33,6 +34,13 @@
       - shell:
           !include-raw:
             - ./scripts/static-analysis-c.sh
+
+- builder:
+    name: cloc
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/cloc.sh
 
 #-----------------------------
 # Check Style macros

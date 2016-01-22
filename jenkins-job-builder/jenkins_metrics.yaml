@@ -1,0 +1,50 @@
+
+# Jobs for generating global metrics on the Jenkins server
+
+- job:
+    name: Jenkins_Metric-cloc
+    description: |
+        <p><b>Count lines of code and language for job on Jenkins server</b></p>
+    node: master
+    parameters:
+      - choice:
+          name: Count_Jobs
+          choices:
+            - ALL
+            - PROJECT
+            - GROUP
+          description: |
+              What jobs should be processed?
+              ALL     : All jobs on Jenkins server
+              PROJECT : a single job
+              GROUP   : a group of jobs
+      - string:
+          name: Project
+          default: ""
+          description: "If PROJECT is selected, this is the name of the job to process"
+      - string:
+          name: Include
+          default: ""
+          description: "If GROUP is selected, this is the pattern passed to find of jobs to include"
+      - string:
+          name: Exclude
+          default: ""
+          description: "If GROUP is selected, this is the pattern passed to find of jobs to exclude"
+    properties:
+      - github:
+          url: https://github.com/devops-workflow/jenkins_tool-cloc/
+      - 'custom-icon':
+          custom-icon: jenkins.png
+    scm:
+      - 'github':
+          github-repo: jenkins_tool-cloc
+          github-url: https://github.com
+          github-org: devops-workflow
+    builders:
+      - 'cloc':
+    triggers:
+      - timed: '@daily'
+    publishers:
+      - sloccount:
+          report-files: cloc.xml
+
