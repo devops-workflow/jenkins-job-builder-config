@@ -19,7 +19,7 @@
           github-org: devops-workflow
     builders:
       - 'dsl-target':
-          dsl-target: DSLs/views-*.dsl
+          dsl-target: DSLs/views*.dsl
     triggers:
       - pollscm: 'H/15 * * * *'
 
