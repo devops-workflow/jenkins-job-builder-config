@@ -16,7 +16,7 @@
       - 'custom-icon':
           custom-icon: jenkins.png
     builders:
-     - setup-python:
+     - 'setup-python':
 
 - job:
     name: Tool-Python-Example
@@ -40,28 +40,28 @@
          predefined-parameters:
            python_ver=$python_ver
            venv=$env
-    - shell: |
-        set +x
-        # Add support for slaves
-        export PYENV_ROOT="${JENKINS_HOME}/.pyenv"
-        export PATH="${PYENV_ROOT}/bin:${PATH}"
-        
-        ## Initialize PyEnv and virtualenv
-        eval "$(pyenv init -)"
-        eval "$(pyenv virtualenv-init -)"
-        export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-        
-        pyenv activate "${venv}"
-        
-        ## Validate
-        echo "PyEnv Versions"
-        pyenv versions
-        echo "Current Versions:"
-        pyenv version
-        python --version
-        pip --version
-        echo "Virtual Envs:"
-        pyenv virtualenvs
+     - shell: |
+         set +x
+         # Add support for slaves
+         export PYENV_ROOT="${JENKINS_HOME}/.pyenv"
+         export PATH="${PYENV_ROOT}/bin:${PATH}"
+         
+         ## Initialize PyEnv and virtualenv
+         eval "$(pyenv init -)"
+         eval "$(pyenv virtualenv-init -)"
+         export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+         
+         pyenv activate "${venv}"
+         
+         ## Validate
+         echo "PyEnv Versions"
+         pyenv versions
+         echo "Current Versions:"
+         pyenv version
+         python --version
+         pip --version
+         echo "Virtual Envs:"
+         pyenv virtualenvs
 
 - job:
     name: Tool-PyEnv
