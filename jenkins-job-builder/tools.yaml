@@ -1,4 +1,69 @@
 - job:
+    name: Tool-Python
+    project-type: freestyle
+    description: Setup PyEnv, PyEnv-virtualenv, Python version, and virtual environment
+    defaults: global
+    parameters:
+      - string:
+          name: python_ver
+          default: "2.7.11"
+          description: "Python version to ensure is available"
+      - string:
+          name: venv
+          default: test-env
+          description: "Python virtual environment to ensure is available"
+    properties:
+      - 'custom-icon':
+          custom-icon: jenkins.png
+    builders:
+     - setup-python:
+
+- job:
+    name: Tool-Python-Example
+    project-type: freestyle
+    description: Example of using a Python virtual environment
+    defaults: global
+    parameters:
+      - string:
+          name: python_ver
+          default: "2.7.10"
+          description: "Python version to ensure is available"
+      - string:
+          name: venv
+          default: test-env
+          description: "Python virtual environment to ensure is available"
+    builders:
+     - trigger-builds:
+       - project: "Tool-Python"
+         block: true
+         same-node: true
+         predefined-parameters:
+           python_ver=$python_ver
+           venv=$env
+    - shell: |
+        set +x
+        # Add support for slaves
+        export PYENV_ROOT="${JENKINS_HOME}/.pyenv"
+        export PATH="${PYENV_ROOT}/bin:${PATH}"
+        
+        ## Initialize PyEnv and virtualenv
+        eval "$(pyenv init -)"
+        eval "$(pyenv virtualenv-init -)"
+        export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+        
+        pyenv activate "${venv}"
+        
+        ## Validate
+        echo "PyEnv Versions"
+        pyenv versions
+        echo "Current Versions:"
+        pyenv version
+        python --version
+        pip --version
+        echo "Virtual Envs:"
+        pyenv virtualenvs
+
+- job:
     name: Tool-PyEnv
     project-type: matrix
     description: Install PyEnv and PyEnv-virtualenv

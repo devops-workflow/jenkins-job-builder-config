@@ -7,3 +7,10 @@
           !include-raw:
             - ./scripts/build-make.sh
 
+- builder:
+    name: setup-python
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/tool-python-setup.sh
+
