@@ -16,7 +16,13 @@ set +x
 
 ## Install PyEnv
 # Assume master ${JENKINS_HOME} - make work on slave also
-export PYENV_ROOT="${JENKINS_HOME}/.pyenv"
+if [ -d "${JENKINS_HOME}" ]; then
+  # or [ "${NODE_NAME}" = "master" ]
+  home=${JENKINS_HOME}
+else
+  home=${HOME}
+fi
+export PYENV_ROOT="${home}/.pyenv"
 export PATH="${PYENV_ROOT}/bin:${PATH}"
 if [ ! -d "${PYENV_ROOT}" ]; then
   echo "Installing PyEnv..."

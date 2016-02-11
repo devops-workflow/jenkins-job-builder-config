@@ -40,7 +40,7 @@
          block: true
          same-node: true
          # FIX: parameters need to be on seperate lines to work
-         predefined-parameters:
+         predefined-parameters: |
            python_ver=$python_ver;
            venv=$venv
      - shell: |
