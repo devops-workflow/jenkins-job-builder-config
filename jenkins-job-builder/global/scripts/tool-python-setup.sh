@@ -81,7 +81,7 @@ python --version
 pip --version
 echo "Virtual Envs:"
 pyenv virtualenvs
-echo "Installed Python packages:
+echo "Installed Python packages:"
 #pip list
 pip freeze
 
