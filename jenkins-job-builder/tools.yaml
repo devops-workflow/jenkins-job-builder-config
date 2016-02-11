@@ -38,7 +38,7 @@
          block: true
          same-node: true
          predefined-parameters:
-           python_ver=$python_ver
+           python_ver=$python_ver\n
            venv=$env
      - shell: |
          set +x
