@@ -48,12 +48,20 @@ export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 ## Install Python version. If needed
 if [ $(pyenv versions | grep ${python_ver} | wc -l) = 0 ]; then
   pyenv install ${python_ver}
+  if [ $(pyenv versions | grep ${python_ver} | wc -l) = 0 ]; then
+    echo "ERROR: failed to install Python ${python_ver}"
+    exit 1
+  fi
 fi
 
 ## Create Virtual Environment. If needed
 # Look at creating in local workspace
 if [ $(pyenv virtualenvs | grep ${venv} | wc -l) = 0 ]; then
   pyenv virtualenv "${python_ver}" "${venv}"
+  if [ $(pyenv virtualenvs | grep ${venv} | wc -l) = 0 ]; then
+    echo "ERROR: failed to create virtual environment ${python_ver} ${venv}"
+    exit 1
+  fi
 fi
 
 pyenv activate "${venv}"

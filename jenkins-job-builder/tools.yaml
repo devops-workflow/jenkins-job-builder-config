@@ -23,6 +23,8 @@
     project-type: freestyle
     description: Example of using a Python virtual environment
     defaults: global
+    # TODO: make work on slaves
+    node: master
     parameters:
       - string:
           name: python_ver
@@ -37,9 +39,10 @@
        - project: "Tool-Python"
          block: true
          same-node: true
+         # FIX: parameters need to be on seperate lines to work
          predefined-parameters:
-           python_ver=$python_ver\n
-           venv=$env
+           python_ver=$python_ver;
+           venv=$venv
      - shell: |
          set +x
          # Add support for slaves
