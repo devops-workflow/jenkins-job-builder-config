@@ -15,7 +15,6 @@ set +x
 #
 
 ## Install PyEnv
-# Assume master ${JENKINS_HOME} - make work on slave also
 if [ -d "${JENKINS_HOME}" ]; then
   # or [ "${NODE_NAME}" = "master" ]
   home=${JENKINS_HOME}
@@ -77,9 +76,12 @@ pip install --upgrade pip
 echo "PyEnv Versions"
 pyenv versions
 echo "Current Versions:"
-pyenv version
+echo -ne "pyenv version: " && pyenv version
 python --version
 pip --version
 echo "Virtual Envs:"
 pyenv virtualenvs
+echo "Installed Python packages:
+#pip list
+pip freeze
 
