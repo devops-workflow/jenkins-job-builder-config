@@ -16,7 +16,24 @@
       - 'custom-icon':
           custom-icon: jenkins.png
     builders:
-     - 'setup-python':
+      - 'python-setup':
+
+- job:
+    name: Tool-Python-Cleanup
+    project-type: freestyle
+    description: Remove PyEnv directory. Improve later to have options to remove specific items
+    defaults: global
+    parameters:
+      - node:
+          name: NODE
+          description: "Select node to remove Python from"
+          allow-multiselect: true
+          ignore-offline-nodes: true
+    properties:
+      - 'custom-icon':
+          custom-icon: jenkins.png
+    builders:
+      - 'python-cleanup':
 
 - job:
     name: Tool-Python-Example
@@ -35,41 +52,41 @@
           default: test-env
           description: "Python virtual environment to ensure is available"
     builders:
-     - trigger-builds:
-       - project: "Tool-Python"
-         block: true
-         same-node: true
-         # FIX: parameters need to be on seperate lines to work
-         predefined-parameters: |
-           python_ver=$python_ver
-           venv=$venv
-     - shell: |
-         set +x
-         if [ -d "${JENKINS_HOME}" ]; then
-           # or [ "${NODE_NAME}" = "master" ]
-           home=${JENKINS_HOME}
-         else
-           home=${HOME}
-         fi
-         export PYENV_ROOT="${home}/.pyenv"
-         export PATH="${PYENV_ROOT}/bin:${PATH}"
-         
-         ## Initialize PyEnv and virtualenv
-         eval "$(pyenv init -)"
-         eval "$(pyenv virtualenv-init -)"
-         export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-         
-         pyenv activate "${venv}"
-         
-         ## Validate
-         echo "PyEnv Versions"
-         pyenv versions
-         echo "Current Versions:"
-         pyenv version
-         python --version
-         pip --version
-         echo "Virtual Envs:"
-         pyenv virtualenvs
+      - trigger-builds:
+        - project: "Tool-Python"
+          block: true
+          same-node: true
+          # FIX: parameters need to be on seperate lines to work
+          predefined-parameters: |
+            python_ver=$python_ver
+            venv=$venv
+      - shell: |
+          set +x
+          if [ -d "${JENKINS_HOME}" ]; then
+            # or [ "${NODE_NAME}" = "master" ]
+            home=${JENKINS_HOME}
+          else
+            home=${HOME}
+          fi
+          export PYENV_ROOT="${home}/.pyenv"
+          export PATH="${PYENV_ROOT}/bin:${PATH}"
+          
+          ## Initialize PyEnv and virtualenv
+          eval "$(pyenv init -)"
+          eval "$(pyenv virtualenv-init -)"
+          export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+          
+          pyenv activate "${venv}"
+          
+          ## Validate
+          echo "PyEnv Versions"
+          pyenv versions
+          echo "Current Versions:"
+          pyenv version
+          python --version
+          pip --version
+          echo "Virtual Envs:"
+          pyenv virtualenvs
 
 - job:
     name: Tool-PyEnv

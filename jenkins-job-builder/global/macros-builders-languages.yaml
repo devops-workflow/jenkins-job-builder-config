@@ -8,7 +8,14 @@
             - ./scripts/build-make.sh
 
 - builder:
-    name: setup-python
+    name: python-cleanup
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/tool-python-cleanup.sh
+
+- builder:
+    name: python-setup
     builders:
       - shell:
           !include-raw:
