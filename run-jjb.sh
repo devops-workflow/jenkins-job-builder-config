@@ -11,7 +11,7 @@
 #   Flush Cache
 #   config file
 #
-# $0 NO-JOB [ flush [ <config file> ]
+# $0 NO-JOB [ <flush|use> [ <config file> ]
 # $0 NO-JOB [ <config file> ]
 # $0 <job name> [ <config file> ]
 
@@ -26,9 +26,9 @@ CacheFlush=''
 if [ $# -gt 1 ] && [ "$2" = "flush" ]; then
   CacheFlush='--flush-cache'
 fi
-if [ $# -gt 2 ] && [ "$2" = "flush" ]; then
+if [ $# -gt 2 ] && [[ $2 =~ ^(flush|use)$ ]]; then
   jjb_config=$3
-elif [ $# -gt 1 ] && [ "$2" != "flush" ]; then
+elif [ $# -gt 1 ] && ! [[ $2 =~ ^(flush|use)$ ]]; then
   jjb_config=$2
 else
   jjb_config='/etc/jenkins_jobs/jenkins_jobs.ini'
@@ -58,6 +58,6 @@ if [ $# -gt 0 ] && [ "$1" != "NO-JOB" ]; then
   fi
 else
   # System mode
-  jenkins-jobs ${CacheFlush} --conf /etc/jenkins_jobs/jenkins_jobs.ini update -r $jjb_base
+  jenkins-jobs ${CacheFlush} --conf ${jjb_config} update -r $jjb_base
   # jenkins-jobs --conf ${jjb_config} update $(dirname $0)/jenkins-job-builder/
 fi
