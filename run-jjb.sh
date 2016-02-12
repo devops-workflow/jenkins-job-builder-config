@@ -9,6 +9,12 @@
 # Parameters:
 #   Remote Job Name
 #   Flush Cache
+#   config file
+#
+# $0 NO-JOB [ flush [ <config file> ]
+# $0 NO-JOB [ <config file> ]
+# $0 <job name> [ <config file> ]
+
 
 dir_config_job=ci_data
 jjb_base=$WORKSPACE/jenkins-job-builder
@@ -19,6 +25,17 @@ CacheFlush=''
 
 if [ $# -gt 1 ] && [ "$2" = "flush" ]; then
   CacheFlush='--flush-cache'
+fi
+if [ $# -gt 2 ] && [ "$2" = "flush" ]; then
+  jjb_config=$3
+elif [ $# -gt 1 ] && [ "$2" != "flush" ]; then
+  jjb_config=$2
+else
+  jjb_config='/etc/jenkins_jobs/jenkins_jobs.ini'
+fi
+if [ ! -f "${jjb_config}" ]; then
+  echo "ERROR: jjb config file does not exist: ${jjb_config}"
+  exit 1
 fi
 
 if [ $# -gt 0 ] && [ "$1" != "NO-JOB" ]; then
@@ -34,7 +51,7 @@ if [ $# -gt 0 ] && [ "$1" != "NO-JOB" ]; then
   fi
   dir_job_jjb=$dir_jobs_base/$job/workspace/$dir_config_job/jjb
   if [ -d "$dir_job_jjb" ]; then
-    jenkins-jobs --conf /etc/jenkins_jobs/jenkins_jobs.ini update -r ${jjb_global}:${dir_job_jjb} | tee $jjb_log
+    jenkins-jobs --conf ${jjb_config} update -r ${jjb_global}:${dir_job_jjb} | tee $jjb_log
   else
     echo "ERROR: Job's jjb directory not found! $dir_job_jjb"
     exit 3
@@ -42,5 +59,5 @@ if [ $# -gt 0 ] && [ "$1" != "NO-JOB" ]; then
 else
   # System mode
   jenkins-jobs ${CacheFlush} --conf /etc/jenkins_jobs/jenkins_jobs.ini update -r $jjb_base
-  # jenkins-jobs --conf /etc/jenkins_jobs/jenkins_jobs.ini update $(dirname $0)/jenkins-job-builder/
+  # jenkins-jobs --conf ${jjb_config} update $(dirname $0)/jenkins-job-builder/
 fi

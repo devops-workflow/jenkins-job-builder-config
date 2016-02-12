@@ -14,6 +14,10 @@ set +x
 #     Look if can put in $WORKSPACE
 #
 
+if [ -f /usr/local/git/bin/git ]; then
+  export PATH=/usr/local/git/bin:${PATH}
+fi
+
 ## Install PyEnv
 if [ -d "${JENKINS_HOME}" ]; then
   # or [ "${NODE_NAME}" = "master" ]

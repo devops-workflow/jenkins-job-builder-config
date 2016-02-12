@@ -23,6 +23,7 @@
     project-type: freestyle
     description: Remove PyEnv directory. Improve later to have options to remove specific items
     defaults: global
+    # TODO: ? turn on concurent builds allowed
     parameters:
       - node:
           name: NODE
