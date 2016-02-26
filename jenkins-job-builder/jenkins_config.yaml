@@ -21,8 +21,11 @@
     builders:
       - 'dsl-target':
           dsl-target: DSLs/views*.dsl
+          # Change to 2 lines for 1 builder
       #- 'dsl-target':
-      #    dsl-target: DSLs/jobs*.dsl
+      #    dsl-target: |
+      #        DSLs/views*.dsl
+      #        DSLs/jobs*.dsl
     triggers:
       - pollscm: 'H/15 * * * *'
 
