@@ -6,7 +6,7 @@
     name: Jenkins_UI_Views
     # TODO: Add url trigger
     description: |
-        <p><b>Create all defined Jenkins Views</b></p>
+        <p><b>Create all DSL defined Jenkins Views and Jobs</b></p>
     node: master
     properties:
       - github:
