@@ -2,6 +2,7 @@
 # Jobs for configuring Jenkins itself - Not application build jobs
 
 - job:
+    # TODO: rename to Jenkins_DSL
     name: Jenkins_UI_Views
     # TODO: Add url trigger
     description: |
@@ -20,6 +21,8 @@
     builders:
       - 'dsl-target':
           dsl-target: DSLs/views*.dsl
+      #- 'dsl-target':
+      #    dsl-target: DSLs/jobs*.dsl
     triggers:
       - pollscm: 'H/15 * * * *'
 
@@ -120,5 +123,34 @@
           cron: "H * * * *"
           path: "$JENKINS_HOME/userContent/customIcon"
           include: "*.png"
+
+# TODO: Enable once control of these is removed from puppet
+# TODO: Move icons to new repo. As they will no longer be managed by puppet
+#- job:
+#    name: Jenkins_Update_icons
+#    description: |
+#        Update icons in Jenkins from Git repo
+#    node: master
+#    properties:
+#      - github:
+#          url: https://github.com/devops-workflow/puppet_module_site_workflow/tree/master/files/jenkins/images
+#      - 'custom-icon':
+#          custom-icon: jenkins.png
+#    scm:
+#      - 'github':
+#          github-repo: puppet_module_site_workflow
+#          github-url: https://github.com
+#          github-org: devops-workflow
+#    builders:
+#      - shell:
+#          !include-raw:
+#            - ./global/scripts/update-icons.sh
+#    publishers:
+#      - trigger-parameterized-builds:
+#          - project: Jenkins_Display_Icons
+#            condition: 'SUCCESS'
+#            trigger-with-no-params: True
+#    triggers:
+#      - pollscm: 'H/20 * * * *'
 
 # name: Jenkins_Auto_Job_Builder
