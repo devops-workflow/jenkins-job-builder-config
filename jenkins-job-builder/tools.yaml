@@ -14,7 +14,19 @@
           description: "Python virtual environment to ensure is available"
     properties:
       - 'custom-icon':
-          custom-icon: jenkins.png
+          custom-icon: tools.png
+      - sidebar:
+          url: https://www.python.org
+          text: Python Site
+          icon: /userContent/customIcon/python-page.png
+      - sidebar:
+          url: http://www.tutorialspoint.com/python/
+          text: Python Tutorial
+          icon: /userContent/customIcon/python-page.png
+      - sidebar:
+          url: http://www.learnpython.org
+          text: Python Interactive Tutorial
+          icon: /userContent/customIcon/python-page.png
     builders:
       - 'python-setup':
 
@@ -32,7 +44,7 @@
           ignore-offline-nodes: true
     properties:
       - 'custom-icon':
-          custom-icon: jenkins.png
+          custom-icon: tools.png
     builders:
       - 'python-cleanup':
 
@@ -52,6 +64,9 @@
           name: venv
           default: test-env
           description: "Python virtual environment to ensure is available"
+    properties:
+      - 'custom-icon':
+          custom-icon: python-page.png
     builders:
       - trigger-builds:
         - project: "Tool-Python"

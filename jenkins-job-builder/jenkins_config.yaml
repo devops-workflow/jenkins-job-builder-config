@@ -13,6 +13,14 @@
           url: https://github.com/devops-workflow/jenkins-dsls/
       - 'custom-icon':
           custom-icon: jenkins.png
+      - sidebar:
+          url: https://jenkinsci.github.io/job-dsl-plugin/
+          text: DSL API Viewer
+          icon: /userContent/customIcon/jenkins.png
+      - sidebar:
+          url: https://github.com/jenkinsci/job-dsl-plugin/wiki
+          text: DSL Wiki
+          icon: /userContent/customIcon/jenkins.png
     scm:
       - 'github':
           github-repo: jenkins-dsls
@@ -55,6 +63,10 @@
           url: https://github.com/devops-workflow/jenkins-job-builder-config/
       - 'custom-icon':
           custom-icon: jenkins.png
+      - sidebar:
+          url: http://docs.openstack.org/infra/jenkins-job-builder/index.html
+          text: JJB Documentaion
+          icon: /userContent/customIcon/jenkins.png
     scm:
       - 'github':
           github-repo: jenkins-job-builder-config
