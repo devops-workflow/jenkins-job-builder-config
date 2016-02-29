@@ -12,6 +12,14 @@
           url: "{github-url}/{github-org}/{github-repo}"
       #- 'custom-icon':
       #    custom-icon: puppetlabs.png
+      - sidebar:
+          url: http://www.cprogramming.com/
+          text: C/C++
+          icon: /userContent/customIcon/tools.png
+      - sidebar:
+          url: https://www.gnu.org/software/make/
+          text: Make
+          icon: /userContent/customIcon/gnu.png
     scm:
       - 'github':
           github-url: "{github-url}"

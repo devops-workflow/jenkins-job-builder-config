@@ -5,6 +5,7 @@
     node: Puppet
 
 - job-template:
+    # TODO: Add sidebar links: puppetlabs, forge
     name: Puppet_Template_module
     disabled: true
     description: |
@@ -67,6 +68,7 @@
           desc-file: project_description
 
 - job-template:
+    # TODO: Add sidebar links: puppetlabs, r10k, 
     name: Puppet_Control_{name}
     node: Puppet
     properties:
@@ -90,6 +92,7 @@
     name: Puppet_Hiera_{name}
 
 - job-template:
+    # TODO: Add sidebar links: puppetlabs, forge
     name: Puppet_Module_{name}
     node: Puppet
     properties:

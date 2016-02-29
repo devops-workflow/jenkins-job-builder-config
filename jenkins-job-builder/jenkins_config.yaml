@@ -18,8 +18,24 @@
           text: DSL API Viewer
           icon: /userContent/customIcon/jenkins.png
       - sidebar:
+          url: http://job-dsl.herokuapp.com/
+          text: DSL Console
+          icon: /userContent/customIcon/jenkins.png
+      - sidebar:
           url: https://github.com/jenkinsci/job-dsl-plugin/wiki
           text: DSL Wiki
+          icon: /userContent/customIcon/jenkins.png
+      - sidebar:
+          url: http://www.groovy-lang.org/
+          text: Groovy
+          icon: /userContent/customIcon/jenkins.png
+      - sidebar:
+          url: https://groovyconsole.appspot.com/
+          text: Groovy Console
+          icon: /userContent/customIcon/jenkins.png
+      - sidebar:
+          url: http://www.groovy-lang.org/documentation.html
+          text: Groovy Documentation
           icon: /userContent/customIcon/jenkins.png
     scm:
       - 'github':
@@ -140,7 +156,9 @@
           include: "*.png"
 
 # TODO: Enable once control of these is removed from puppet
-# TODO: Move icons to new repo. As they will no longer be managed by puppet
+# TODO: Move icons to new repo and put update & display scripts there. As they will no longer be managed by puppet
+# TODO: Have update also display the icons.
+# TODO: add links for icon sources: images.google.com, iconarchive.com, iconfinder.com
 #- job:
 #    name: Jenkins_Update_icons
 #    description: |

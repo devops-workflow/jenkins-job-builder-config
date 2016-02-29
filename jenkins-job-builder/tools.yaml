@@ -1,4 +1,11 @@
+
+# TODO: Create jobs for other virtual environments
+#   Eval plugins, but if not support as desired create jobs
+#   node.js, ruby,
 - job:
+    # TODO:
+    #   New args: global/local(workspace) venv location (figure out how), purge(t/f) remove venv first
+    #   If python version changes for venv, rm and recreate
     name: Tool-Python
     project-type: freestyle
     description: Setup PyEnv, PyEnv-virtualenv, Python version, and virtual environment
@@ -26,6 +33,18 @@
       - sidebar:
           url: http://www.learnpython.org
           text: Python Interactive Tutorial
+          icon: /userContent/customIcon/python-page.png
+      - sidebar:
+          url: https://github.com/yyuu/pyenv
+          text: PyEnv Repo
+          icon: /userContent/customIcon/python-page.png
+      - sidebar:
+          url: https://github.com/yyuu/pyenv-virtualenv
+          text: PyEnv-virtualenv Repo
+          icon: /userContent/customIcon/python-page.png
+      - sidebar:
+          url: https://virtualenv.pypa.io/en/latest/
+          text: Virtualenv Documentation
           icon: /userContent/customIcon/python-page.png
     builders:
       - 'python-setup':

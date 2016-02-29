@@ -65,6 +65,8 @@ fi
 
 ## Create Virtual Environment. If needed
 # Look at creating in local workspace
+# FIX: need to make sure python version of venv is the one requested
+#   if not remove old and create new
 if [ $(pyenv virtualenvs | grep ${venv} | wc -l) = 0 ]; then
   pyenv virtualenv "${python_ver}" "${venv}"
   if [ $(pyenv virtualenvs | grep ${venv} | wc -l) = 0 ]; then
