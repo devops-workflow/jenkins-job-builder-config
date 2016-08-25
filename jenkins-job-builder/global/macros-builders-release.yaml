@@ -1,0 +1,47 @@
+
+# Macros for the Release/Deployment workflow
+
+#-----------------------------
+# Configuration and data integration macros
+#-----------------------------
+
+- builder:
+    name: integration-commit-erb
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/integration-commit-erb.sh
+- builder:
+    name: integration-commit-hiera
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/integration-commit-hiera.sh
+- builder:
+    name: integration-setup-erb
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/integration-setup-erb.sh
+- builder:
+    name: integration-setup-hiera
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/integration-setup-hiera.sh
+- builder:
+    name: integration-setup-params
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/integration-setup-params.sh
+
+#-----------------------------
+# Tracking
+#-----------------------------
+- builder:
+    name: build-docker-tracking
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/build-docker-tracking.sh

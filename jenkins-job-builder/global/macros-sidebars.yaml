@@ -1,0 +1,188 @@
+# Macros that affect the Jenkins UI
+#  sidebar links
+#
+# Languages: C, Java, Groovy, Node.js, Python, Ruby, Puppet
+# Build tools: make, maven, gulp, 
+# Groupings: JavaMaven, CMake, NodeGulp
+# Packaging: rpmbuild, rpmlint + troubleshooting
+# Jenkins Tools: DSL, JJB,
+# Others: kickstart, packer, yaml, json, 
+# Test tools 
+
+###
+### Sidebar link sets
+###
+
+- property:
+    name: sidebar-c
+    properties:
+      - sidebar:
+          url: http://www.cprogramming.com/
+          text: C/C++
+          icon: /userContent/customIcon/tools.png
+
+- property:
+    name: sidebar-dsl
+    properties:
+      - sidebar:
+          url: https://jenkinsci.github.io/job-dsl-plugin/
+          text: DSL API Viewer
+          icon: /userContent/customIcon/jenkins.png
+      - sidebar:
+          url: http://job-dsl.herokuapp.com/
+          text: DSL Console
+          icon: /userContent/customIcon/jenkins.png
+      - sidebar:
+          url: https://github.com/jenkinsci/job-dsl-plugin/wiki
+          text: DSL Wiki
+          icon: /userContent/customIcon/jenkins.png
+ 
+- property:
+    name: sidebar-groovy
+    properties:
+      - sidebar:
+          url: http://www.groovy-lang.org/
+          text: Groovy
+          icon: /userContent/customIcon/jenkins.png
+      - sidebar:
+          url: https://groovyconsole.appspot.com/
+          text: Groovy Console
+          icon: /userContent/customIcon/jenkins.png
+      - sidebar:
+          url: http://www.groovy-lang.org/documentation.html
+          text: Groovy Documentation
+          icon: /userContent/customIcon/jenkins.png
+
+- property:
+    name: sidebar-gulp
+    properties:
+      - sidebar:
+          url: http://gulpjs.com/
+          text: Gulp
+          icon: /userContent/customIcon/nodejs.png
+
+# java
+#https://www.java.com/en/
+
+- property:
+    name: sidebar-jjb
+    properties:
+      - sidebar:
+          url: http://docs.openstack.org/infra/jenkins-job-builder/index.html
+          text: JJB Documentaion
+          icon: /userContent/customIcon/jenkins.png
+
+- property:
+    name: sidebar-make
+    properties:
+      - sidebar:
+          url: https://www.gnu.org/software/make/
+          text: Make
+          icon: /userContent/customIcon/gnu.png
+
+# maven
+#https://maven.apache.org/
+
+- property:
+    name: sidebar-node
+    properties:
+      - sidebar:
+          url: https://nodejs.org/
+          text: Node.js
+          icon: /userContent/customIcon/nodejs.png
+
+# packer
+
+- property:
+    name: sidebar-puppet
+    properties:
+      # pupetlabs, forge
+# https://puppetlabs.com/
+# https://forge.puppetlabs.com/
+# http://docs.puppetlabs.com/
+#puppet-lint - http://puppet-lint.com
+
+- property:
+    name: sidebar-python
+    properties:
+      - sidebar:
+          url: https://www.python.org
+          text: Python Site
+          icon: /userContent/customIcon/python-page.png
+      - sidebar:
+          url: http://www.tutorialspoint.com/python/
+          text: Python Tutorial
+          icon: /userContent/customIcon/python-page.png
+      - sidebar:
+          url: http://www.learnpython.org
+          text: Python Interactive Tutorial
+          icon: /userContent/customIcon/python-page.png
+
+- property:
+    name: sidebar-python-analysis
+    properties:
+      - sidebar:
+          url: https://wiki.openstack.org/wiki/Security/Projects/Bandit
+          text: Bandit
+          icon: /userContent/customIcon/python-page.png
+      - sidebar:
+          url: https://pypi.python.org/pypi/flake8
+          text: Flake8
+          icon: /userContent/customIcon/python-page.png
+
+- property:
+    name: sidebar-pyenv
+    properties:
+      - sidebar:
+          url: https://github.com/yyuu/pyenv
+          text: PyEnv Repo
+          icon: /userContent/customIcon/python-page.png
+      - sidebar:
+          url: https://github.com/yyuu/pyenv-virtualenv
+          text: PyEnv-virtualenv Repo
+          icon: /userContent/customIcon/python-page.png
+      - sidebar:
+          url: https://virtualenv.pypa.io/en/latest/
+          text: Virtualenv Documentation
+          icon: /userContent/customIcon/python-page.png
+
+- property:
+    name: sidebar-r10k
+    properties:
+# https://github.com/puppetlabs/r10k
+
+- property:
+    name: sidebar-rpm
+    properties:
+      # rpmbuild, rpmlint, rpmlint troubleshooting
+# https://github.com/rpm-software-management/rpmlint
+# https://fedoraproject.org/wiki/Common_Rpmlint_issues
+# http://linux.die.net/man/1/rpmlint
+# http://linux.die.net/man/8/rpmbuild
+
+# ruby
+#https://www.ruby-lang.org/en/
+
+# yaml
+# http://yaml.org/
+# yamllint https://github.com/adrienverge/yamllint
+
+###
+### Sidebar link groups
+###
+
+- property:
+    name: sidebar-CMake
+    properties:
+      - 'sidebar-c':
+      - 'sidebar-make':
+
+- property:
+    name: sidebar-JavaMaven
+    properties:
+
+- property:
+    name: sidebar-NodeGulp
+    properties:
+      - 'sidebar-node':
+      - 'sidebar-gulp':
