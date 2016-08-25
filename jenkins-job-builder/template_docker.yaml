@@ -1,0 +1,212 @@
+# Split into 3 jobs: analysis, package, validate
+
+- job-template:
+    name: "{project}-{name}_analysis_Docker"
+    # name: "{project}-{name}_analysis_Docker_{github-branch}"
+    defaults: global
+    description: |
+      <p><b>This job is managed by JJB and will be overwritten.</b></p>
+      <p><b>Do not edit this job through the web</b></p>
+      lint:ignore:HardcodedScriptChecker
+    node: "{node}"
+    properties:
+      - github:
+          url: "{github-url}/{github-org}/{github-repo}"
+      #- 'custom-icon':
+      #    custom-icon: xxx.png
+      # Setup sidebars for Docker and test tools
+      #- 'sidebar-python':
+      #- 'sidebar-python-analysis':
+    scm:
+      #- 'github-branch-credentials':
+      - 'github-credentials':
+          github-url: "{github-url}"
+          github-org: "{github-org}"
+          github-repo: "{github-repo}"
+          #github-branch: "{github-branch}"
+          github-cred: "{github-cred}"
+    builders:
+      - 'build-docker-pre':
+      - 'static-analysis-dockerfile':
+      - 'dockerbuilder-build':
+          repoName: "{github-org}/{github-repo}"
+          dockerfilePath: ./Dockerfile
+          buildArgs: '${{FILE,path=&quot;tmp/dockerBuildArgs&quot;}}'
+      - 'static-analysis-docker-image':
+      - 'build-docker-tracking':
+      - shell: |
+          echo " === Start docker push ==="
+          AWS_REGION=us-west-2
+          AWS_ECR="dkr.ecr.${{AWS_REGION}}.amazonaws.com"
+          AWS_ID=111111111111
+          HOME=$WORKSPACE
+          #env | sort
+          mkdir -p .aws
+          cd .aws
+          cat <<"CONFIG" > config
+          [profile ECR]
+          region = us-west-2
+          CONFIG
+          cat <<"CRED" > credentials
+          [ECR]
+          aws_access_key_id = XXX
+          aws_secret_access_key = XXX
+          CRED
+          cd $WORKSPACE
+          docker tag {github-org}/{github-repo} ${{AWS_ID}}.${{AWS_ECR}}/{github-org}/{github-repo}:latest
+          cmd=$(aws ecr get-login --profile ECR)
+          $cmd
+          docker push ${{AWS_ID}}.${{AWS_ECR}}/{github-org}/{github-repo}
+      #- 'dockerbuilder-publish':
+      #    repoName: {github-repo}
+      #    repoTag: latest
+      #    regURL:
+      #    regCredentials:
+    publishers:
+      - 'pragmatic-programmer-tips':
+      - warnings:
+          workspace-file-scanners:
+            - file-pattern: 'reports/dockerfile-lint-*.warnings'
+              scanner: 'Custom-dockerfile-lint'
+            - file-pattern: 'reports/analysis-*.warnings'
+              scanner: 'Custom-hyperclair'
+            - file-pattern: 'reports/lynis-*.dat'
+              scanner: 'Custom-lynis'
+            - file-pattern: 'reports/whale-linter.warnings'
+              scanner: 'Custom-whale-linter'
+          run-always: true
+      - html-publisher:
+          name: 'Hyperclair Vulnerability Reports'
+          dir: 'reports/html/'
+          files: 'analysis-*.html'
+      #- 'anchorchain':
+      #    anchorchain-file: anchor
+      #- 'email-template':
+      #    email-template: emailext-template-1460666142913
+      #- 'hipchat':
+      #    hipchat-token: "{hipchat-token}"
+      #    hipchat-room-id: "{hipchat-room-id}"
+#      - trigger-parameterized-builds:
+#          project: "{project}-{name}_package_Docker"
+#          condition: 'STABLE'
+#          property-file: $WORKSPACE/parameters.txt
+#          fail-on-missing: true
+    triggers:
+      - pollscm:
+          cron:  'H/10 * * * *'
+    wrappers:
+      #- 'project-desc':
+      #    desc-file: project_description
+      - 'build-name-setter':
+          template: '${{FILE,path=&quot;tmp/buildName&quot;}}'
+          runAtStart: false
+          runAtEnd: true
+      - 'build-timeout':
+          timeout: 180
+      #- credentials-binding:
+      #    - username-password:
+      #        credential-id: XXX
+      #        username: AWS_USER
+      #        password: AWS_PSWD
+          #- amazon-web-services:
+          #    credential-id: XXX
+          #    access-key: AWS_ACCESS_KEY
+          #    secret-key: AWS_SECRET_KEY
+      - timestamps
+
+- job-template:
+    name: "{project}-{name}_package_Docker"
+    defaults: global
+    description: |
+      <p><b>This job is managed by JJB and will be overwritten.</b></p>
+      <p><b>Do not edit this job through the web</b></p>
+      lint:ignore:HardcodedScriptChecker
+    node: "{node}"
+    properties:
+      - github:
+          url: "{github-url}/{github-org}/{github-repo}"
+      #- 'custom-icon':
+      #    custom-icon: xxx.png
+      # Setup sidebars for Docker and test tools
+    scm:
+      #- 'github-branch-credentials':
+      - 'github-credentials':
+          github-url: "{github-url}"
+          github-org: "{github-org}"
+          github-repo: "{github-repo}"
+          #github-branch: "{github-branch}"
+    builders:
+      - 'build-docker-pre':
+      - 'dockerbuilder-build':
+          repoName: "{github-org}/{github-repo}"
+          dockerfilePath: ./Dockerfile
+          buildArgs: '${{FILE,path=&quot;tmp/dockerBuildArgs&quot;}}'
+      # create parameters.txt for next job
+      #- 'build-docker-tracking':
+    publishers:
+      - 'pragmatic-programmer-tips':
+      #- 'anchorchain':
+      #    anchorchain-file: anchor
+      #- 'email-template':
+      #    email-template: emailext-template-1460666142913
+      #- 'hipchat':
+      #    hipchat-token: "{hipchat-token}"
+      #    hipchat-room-id: "{hipchat-room-id}"
+#      - trigger-parameterized-builds:
+#          project: "{project}-{name}_validate_Docker"
+#          condition: 'STABLE'
+#          property-file: $WORKSPACE/parameters.txt
+#          fail-on-missing: true
+#          node-parameters: true
+    wrappers:
+      - 'build-timeout':
+          timeout: 180
+      - timestamps
+
+- job-template:
+    name: "{project}-{name}_validate_Docker"
+    defaults: global
+    description: |
+      <p><b>This job is managed by JJB and will be overwritten.</b></p>
+      <p><b>Do not edit this job through the web</b></p>
+      lint:ignore:HardcodedScriptChecker
+    node: "{node}"
+    properties:
+      - github:
+          url: "{github-url}/{github-org}/{github-repo}"
+      #- 'custom-icon':
+      #    custom-icon: xxx.png
+      # Setup sidebars for Docker and test tools
+    builders:
+      # ?? No Dockerfile, check what is needed and create script to generate
+      #  - 'build-docker-pre':
+      - 'static-analysis-docker-image':
+      #- 'build-docker-tracking':
+      #- 'dockerbuilder-publish':
+      #    repoName:
+      #    regURL:
+      #    regCredentials:
+    publishers:
+      - 'pragmatic-programmer-tips':
+      - warnings:
+          workspace-file-scanners:
+            - file-pattern: 'reports/dockerfile-lint-*.warnings'
+              scanner: 'Custom-dockerfile-lint'
+            - file-pattern: 'reports/analysis-*.warnings'
+              scanner: 'Custom-hyperclair'
+          run-always: true
+      - html-publisher:
+          name: 'Hyperclair Vulnerability Reports'
+          dir: 'reports/html/'
+          files: 'analysis-*.html'
+      #- 'anchorchain':
+      #    anchorchain-file: anchor
+      #- 'email-template':
+      #    email-template: emailext-template-1460666142913
+      #- 'hipchat':
+      #    hipchat-token: "{hipchat-token}"
+      #    hipchat-room-id: "{hipchat-room-id}"
+    wrappers:
+      - 'build-timeout':
+          timeout: 180
+      - timestamps

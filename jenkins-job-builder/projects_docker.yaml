@@ -1,0 +1,17 @@
+#
+# Docker projects
+#
+
+- project:
+    name: repo
+    project: DEVOPS
+    github-repo: repo
+    github-url: https://github.com
+    github-org: devops-workflow
+    github-cred: ''
+    node: Docker
+    trigger-token: ""
+    jobs:
+      - '{project}-{name}_analysis_Docker'
+      #- '{project}-{name}_package_Docker'
+      #- '{project}-{name}_validate_Docker'

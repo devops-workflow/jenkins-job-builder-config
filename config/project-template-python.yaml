@@ -1,0 +1,15 @@
+- project:
+    name: project
+    project: DEVOPS
+    github-repo: project
+    github-branch: master
+    github-url: https://github.com
+    github-org: devops-workflow
+    github-cred: ''
+    node: slave
+    checkmarx-run: false
+    checkmarx-teamID: ""
+    python_version: '2.7.10'
+    python_virt_env: 'analysis_2_7'
+    jobs:
+      - '{project}-{name}_analysis_Python'

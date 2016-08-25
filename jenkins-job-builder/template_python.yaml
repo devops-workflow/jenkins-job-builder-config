@@ -1,0 +1,113 @@
+
+- job-template:
+    name: "{project}-{name}_analysis_Python"
+    # name: "{project}-{name}_analysis_Python_{github-branch}"
+    defaults: global
+    description: |
+      <p><b>This job is managed by JJB and will be overwritten.</b></p>
+      <p><b>Do not edit this job through the web</b></p>
+      lint:ignore:HardcodedScriptChecker
+    node: "{node}"
+    parameters:
+      - bool:
+          name: checkmarx_run
+          default: "{checkmarx-run}"
+          description: "Should Checkmarx run?"
+    properties:
+      - github:
+          url: "{github-url}/{github-org}/{github-repo}"
+      #- 'custom-icon':
+      #    custom-icon: xxx.png
+      - 'sidebar-python':
+      - 'sidebar-python-analysis':
+    scm:
+      #- 'github-branch-credentials':
+      - 'github-credentials':
+          github-url: "{github-url}"
+          github-org: "{github-org}"
+          github-repo: "{github-repo}"
+          #github-branch: "{github-branch}"
+          github-cred: "{github-cred}"
+    builders:
+      - 'syntax-bash':
+      - trigger-builds:
+        - project: "Tool-Python-Analysis"
+          block: true
+          same-node: true
+          predefined-parameters: |
+            python_ver=$python_ver
+            venv=$venv
+      - 'syntax-py':
+      - 'static-analysis-python':
+      - 'dependency-check':
+          data_dir: /Users/build/NVD_data
+          scan_path: ""
+          out_dir: reports-analysis
+          suppression_file: ""
+      - conditional-step:
+          condition-kind: boolean-expression
+          condition-expression: $checkmarx_run
+          on-evaluation-failure: dont-run
+          steps:
+              - 'checkmarx':
+                  checkmarx-teamID: "{checkmarx-teamID}"
+                  checkmarx-presetID: 1
+                  checkmarx-add-filters: ""
+                  checkmarx-excl-dirs: ""
+                  name: "{name}"
+                  project: "{project}"
+    publishers:
+      - 'pragmatic-programmer-tips':
+      #- github-notifier
+      #- claim-build
+      - 'dependency-check-macro':
+          pattern: '**/dependency-check-report.xml'
+          can-run-on-failed: true
+      - warnings:
+          workspace-file-scanners:
+            - file-pattern: '**/flake8.txt'
+              scanner: 'Custom-Flake8'
+          run-always: true
+      - xunit:
+          types:
+              - junit:
+                  pattern: '**/*_junit.xml'
+                  stoponerror: false
+                  requireupdate: false
+      - html-publisher:
+          name: 'Bandit'
+          dir: ''
+          files: 'reports-analysis/bandit.html'
+      - html-publisher:
+          name: 'Dependency Vulnerability Check'
+          dir: ''
+          files: 'reports-analysis/dependency-check-*.html'
+      - html-publisher:
+          name: 'Flake8'
+          dir: ''
+          files: 'reports-analysis/flake8.html'
+      - 'anchorchain':
+          anchorchain-file: anchor
+      #- 'email-template':
+      #    email-template: emailext-template-1460666142913
+      #- 'hipchat':
+      #    hipchat-token: "{hipchat-token}"
+      #    hipchat-room-id: "{hipchat-room-id}"
+#      - trigger-parameterized-builds:
+#          project: 'test'
+#          condition: 'STABLE'
+#          property-file: $WORKSPACE/parameters.txt
+#          fail-on-missing: true
+    triggers:
+      - pollscm:
+          cron:  'H/10 * * * *'
+    wrappers:
+      - inject:
+          properties-content: |
+            python_ver={python_version}
+            venv={python_virt_env}
+      - 'project-desc':
+          desc-file: project_description
+      - 'build-timeout':
+          timeout: 180
+      - timestamps
