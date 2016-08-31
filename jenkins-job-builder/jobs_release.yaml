@@ -1,0 +1,387 @@
+
+###
+### Release Engineering Jobs
+###
+
+###
+### Macros specific to this set of jobs
+###
+
+- parameter:
+    name: integration-analysis-parameters
+    parameters:
+      - validating-string:
+          name: branchSrc
+          default: ""
+          description: "Repository branch of the source files"
+          regex: .+
+          msg: Parameters are required
+      - validating-string:
+          name: project
+          default: ""
+          description: "Project Team"
+          regex: .+
+          msg: Parameters are required
+      - validating-string:
+          name: repoSrc
+          default: ""
+          description: "Source repository files are coming from"
+          regex: .+
+          msg: Parameters are required
+      - validating-string:
+          name: repoSrcOrg
+          default: ""
+          description: "Organization of the source repository"
+          regex: .+
+          msg: Parameters are required
+      - validating-string:
+          name: rootJob
+          default: ""
+          description: "Initial job that triggered this job"
+          regex: .+
+          msg: Parameters are required
+      - validating-string:
+          name: upstreamJob
+          default: ""
+          description: "Upstream job that triggered this job"
+          regex: .+
+          msg: Parameters are required
+- parameter:
+    name: integration-parameters
+    # Variables:
+    parameters:
+      - 'integration-analysis-parameters':
+      - validating-string:
+          name: branchDest
+          default: ""
+          description: "Branch in the destination repository to integrate the files into"
+          regex: .+
+          msg: Parameters are required
+      - validating-string:
+          name: repoDestSite
+          default: ""
+          description: "Dedicated Puppet site repository for the project"
+          regex: .+
+          msg: Parameters are required
+- publisher:
+    name: email-var
+    publishers:
+      - email-ext:
+          subject: Variable Changes for $project from $repoSrc
+          attachments: variables.diff,CHANGELOG.html
+          body: |
+            ${DEFAULT_CONTENT}
+
+            Variable Changes for ${ENV,var="project"} from ${ENV,var="repoSrc"}
+            ------------------------
+            diff variableOrig.list variableNew.list
+            ${FILE,path="variables.diff"}
+          always: true
+          send-to:
+            - culprits
+            - developers
+            - requester
+            - recipients
+
+- publisher:
+    name: hipchat-default
+    # Notify on: Start, Failure
+    publishers:
+      - raw:
+          xml: |
+            <jenkins.plugins.hipchat.HipChatNotifier plugin="hipchat@1.0.0">
+              <token></token>
+              <room></room>
+              <notifications>
+                <jenkins.plugins.hipchat.model.NotificationConfig>
+                  <notifyEnabled>true</notifyEnabled>
+                  <textFormat>false</textFormat>
+                  <notificationType>STARTED</notificationType>
+                  <color>GREEN</color>
+                  <messageTemplate></messageTemplate>
+                </jenkins.plugins.hipchat.model.NotificationConfig>
+                <jenkins.plugins.hipchat.model.NotificationConfig>
+                  <notifyEnabled>true</notifyEnabled>
+                  <textFormat>false</textFormat>
+                  <notificationType>FAILURE</notificationType>
+                  <color>RED</color>
+                  <messageTemplate></messageTemplate>
+                </jenkins.plugins.hipchat.model.NotificationConfig>
+              </notifications>
+              <startJobMessage></startJobMessage>
+              <completeJobMessage></completeJobMessage>
+            </jenkins.plugins.hipchat.HipChatNotifier>
+- publisher:
+    name: hipchat-var
+    publishers:
+      - raw:
+          xml: |
+            <jenkins.plugins.hipchat.HipChatNotifier plugin="hipchat@1.0.0">
+              <token></token>
+              <room></room>
+              <notifications>
+                <jenkins.plugins.hipchat.model.NotificationConfig>
+                  <notifyEnabled>true</notifyEnabled>
+                  <textFormat>false</textFormat>
+                  <notificationType>SUCCESS</notificationType>
+                  <color>RED</color>
+                  <messageTemplate>$JOB_NAME #$BUILD_NUMBER $STATUS: Variables Changed (&lt;a href=&quot;$URL&quot;&gt;Open&lt;/a&gt;)</messageTemplate>
+                </jenkins.plugins.hipchat.model.NotificationConfig>
+                <jenkins.plugins.hipchat.model.NotificationConfig>
+                  <notifyEnabled>true</notifyEnabled>
+                  <textFormat>false</textFormat>
+                  <notificationType>FAILURE</notificationType>
+                  <color>RED</color>
+                  <messageTemplate>$JOB_NAME #$BUILD_NUMBER $STATUS: Variables Changed (&lt;a href=&quot;$URL&quot;&gt;Open&lt;/a&gt;)</messageTemplate>
+                </jenkins.plugins.hipchat.model.NotificationConfig>
+                <jenkins.plugins.hipchat.model.NotificationConfig>
+                  <notifyEnabled>true</notifyEnabled>
+                  <textFormat>false</textFormat>
+                  <notificationType>UNSTABLE</notificationType>
+                  <color>RED</color>
+                  <messageTemplate>$JOB_NAME #$BUILD_NUMBER $STATUS: Variables Changed (&lt;a href=&quot;$URL&quot;&gt;Open&lt;/a&gt;)</messageTemplate>
+                </jenkins.plugins.hipchat.model.NotificationConfig>
+              </notifications>
+              <startJobMessage></startJobMessage>
+              <completeJobMessage></completeJobMessage>
+            </jenkins.plugins.hipchat.HipChatNotifier>
+
+###
+### Jobs
+###
+
+- job:
+    name: REL-repo_analysis_erb
+    description: |
+        <p><b>Validate erb templates from development and prepare to integrate into Puppet setup</b></p>
+    node: master
+    concurrent: true
+    parameters:
+      - 'integration-analysis-parameters':
+    properties:
+      - 'custom-icon':
+          custom-icon: jenkins.png
+      - copyartifact:
+          projects: REL-site_integrate_erb
+    scm:
+      - 'github-branch-credentials':
+          github-repo: $repoSrc
+          github-url: https://github.com
+          github-org: $repoSrcOrg
+          github-cred: ''
+          github-branch: $branchSrc
+    builders:
+      - 'syntax-erb':
+      - 'integration-setup-params':
+    publishers:
+      - 'pragmatic-programmer-tips':
+      - archive:
+          artifacts: 'config/**/*.erb'
+          fingerprint: true
+          only-if-success: true
+      - trigger-parameterized-builds:
+          - project: REL-site_integrate_erb
+            condition: 'SUCCESS'
+            property-file: 'parameters.properties'
+            fail-on-missing: true
+      - 'email-template':
+          # Global
+          email-template: emailext-template-1460666142913
+#      - 'email-template':
+#          # Committers Always
+#          email-template: emailext-template-1462560321603
+      - 'hipchat-default':
+    wrappers:
+      - 'build-timeout':
+          timeout: 60
+      - build-user-vars:
+      - timestamps
+
+- job:
+    name: REL-site_integrate_erb
+    description: |
+        <p><b>Integrate updated erb templates from development to Puppet site repositories</b></p>
+    node: master
+    parameters:
+      - 'integration-parameters':
+    properties:
+      - 'custom-icon':
+          custom-icon: jenkins.png
+    scm:
+      - git:
+          url: 'https://github.com/devops-workflow/$repoDestSite.git'
+          branches:
+            - '**'
+          #refspec:
+          name: origin
+          browser: githubweb
+          browser-url: 'https://github.com/devops-workflow/$repoDestSite/tree/$branchSrc'
+          credentials-id: ''
+          wipe-workspace: true
+          skip-tag: true
+    builders:
+      - 'integration-setup-erb':
+      - copyartifact:
+          project: $upstreamJob
+          which-build: upstream-build
+          filter: 'config/**/*.erb'
+          target: tmp
+      - 'integration-commit-erb':
+    publishers:
+      - 'pragmatic-programmer-tips':
+      - conditional-publisher:
+          - condition-kind: file-exists
+            condition-filename: variables.diff
+            on-evaluation-failure: dont-run
+            action:
+              - 'email-var':
+              - 'hipchat-var':
+      - git:
+          push-only-if-success: false
+          branches:
+            - branch:
+                name: $branchDest
+                remote: origin
+      - 'email-template':
+          # Global
+          email-template: emailext-template-1460666142913
+      - 'hipchat-default':
+    wrappers:
+      - 'build-timeout':
+          timeout: 60
+      - build-user-vars:
+      - timestamps
+
+- job:
+    name: REL-repo_analysis_hiera
+    description: |
+        <p><b>Validate hiera yaml files from development and prepare to integrate into Puppet setup</b></p>
+    node: master
+    concurrent: true
+    parameters:
+      - 'integration-analysis-parameters':
+    properties:
+      - 'custom-icon':
+          custom-icon: jenkins.png
+      - copyartifact:
+          projects: REL-puppet-control-fe_integrate_hiera
+    scm:
+      - 'github-branch-credentials':
+          github-repo: $repoSrc
+          github-url: https://github.com
+          github-org: $repoSrcOrg
+          github-cred: ''
+          github-branch: $branchSrc
+    builders:
+      - 'syntax-yaml':
+      - 'integration-setup-params':
+    publishers:
+      - 'pragmatic-programmer-tips':
+      - archive:
+          artifacts: 'config/hiera/**/*.yaml'
+          fingerprint: true
+          only-if-success: true
+      - trigger-parameterized-builds:
+          - project: REL-puppet-control-fe_integrate_hiera
+            condition: 'SUCCESS'
+            property-file: 'parameters.properties'
+            fail-on-missing: true
+      - 'email-template':
+          # Global
+          email-template: emailext-template-1460666142913
+      - 'hipchat-default':
+    wrappers:
+      - 'build-timeout':
+          timeout: 60
+      - build-user-vars:
+      - timestamps
+# same setup as erb
+# - syntax-yaml:
+# build params
+# archive config/hiera/**/*.yaml
+# trigger REL-puppet-control-fe_integrate_hiera
+
+- job:
+    name: REL-puppet-control-fe_integrate_hiera
+    description: |
+        <p><b>Integrate updated hiera yaml files from development to Puppet control repository</b></p>
+    node: master
+    parameters:
+      - 'integration-parameters':
+    properties:
+      - github:
+          url: https://github.com/devops-workflow/puppet-control/
+      - 'custom-icon':
+          custom-icon: jenkins.png
+    scm:
+      - git:
+          url: 'https://github.com/devops-workflow/puppet-control.git'
+          branches:
+            - '**'
+          #refspec:
+          name: origin
+          browser: githubweb
+          browser-url: 'https://github.com/devops-workflow/puppet-control'
+          credentials-id: ''
+          wipe-workspace: true
+          skip-tag: true
+    builders:
+      - 'integration-setup-hiera':
+      - copyartifact:
+          project: $upstreamJob
+          which-build: upstream-build
+          filter: 'config/hiera/**/*.yaml'
+          target: tmp
+      - 'integration-commit-hiera':
+    publishers:
+      - 'pragmatic-programmer-tips':
+      - conditional-publisher:
+          - condition-kind: file-exists
+            condition-filename: variables.diff
+            on-evaluation-failure: dont-run
+            action:
+              - 'email-var':
+              - 'hipchat-var':
+      - git:
+          push-only-if-success: false
+          branches:
+            - branch:
+                name: $branchDest
+                remote: origin
+      - 'email-template':
+          # Global
+          email-template: emailext-template-1460666142913
+      - 'hipchat-default':
+    wrappers:
+      - 'build-timeout':
+          timeout: 60
+      - build-user-vars:
+      - timestamps
+
+# Test job for TestingJenkins to kickoff the above workflows
+- job:
+    name: TEST-TestingJenkins_package_test_master
+    scm:
+      # May need to create new macro or not use one
+      - 'github-credentials':
+          github-repo: TestingJenkins
+          github-url: https://github.com
+          github-org: devops-workflow
+          github-cred: ''
+          # cred: cors-eng-lowsec-admi
+          # branch: $branchDest
+          # Wipe out and force clone
+    builders:
+      - 'integration-setup-params':
+    publishers:
+      - 'pragmatic-programmer-tips':
+      - trigger-parameterized-builds:
+          - project: REL-repo_analysis_erb,REL-repo_analysis_hiera
+            condition: 'SUCCESS'
+            property-file: 'parameters.properties'
+            fail-on-missing: true
+    wrappers:
+      - 'build-timeout':
+          timeout: 60
+      - build-user-vars:
+      - timestamps

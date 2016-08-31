@@ -11,16 +11,21 @@
     block-upstream: false
     disabled: false
     quiet-period: 5
-
+    build-discarder:
+      days-to-keep: -1
+      num-to-keep: 10
+      artifact-days-to-keep: -1
+      artifact-num-to-keep: -1
+    # Deprecated
+    #logrotate:
+    #  daysToKeep: -1
+    #  numToKeep: 10
+    #  artifactDaysToKeep: -1
+    #  artifactNumToKeep: -1
+    # raw:
     wrappers:
       - timeout:
           timeout: 60
           fail: true
           type: absolute
       - timestamps
-
-    logrotate:
-      daysToKeep: -1
-      numToKeep: 3
-      artifactDaysToKeep: -1
-      artifactNumToKeep: -1

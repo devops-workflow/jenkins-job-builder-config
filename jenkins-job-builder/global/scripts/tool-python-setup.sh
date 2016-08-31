@@ -12,6 +12,9 @@ set +x
 #   python_ver  python version
 #   venv        virtual environment name - Should name space with job name
 #     Look if can put in $WORKSPACE
+#   pkgs	python packages to ensure are installed
+#   pkgs_ver	Should packages always be the latest (present|latest)
+#   rebuild     Boolean - Rebuild virtual environment if true
 #
 
 if [ -f /usr/local/git/bin/git ]; then
@@ -55,18 +58,34 @@ eval "$(pyenv virtualenv-init -)"
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 ## Install Python version. If needed
-if [ $(pyenv versions | grep ${python_ver} | wc -l) = 0 ]; then
+if [ $(pyenv versions --skip-aliases --bare | grep ${python_ver} | wc -l) = 0 ]; then
   pyenv install ${python_ver}
-  if [ $(pyenv versions | grep ${python_ver} | wc -l) = 0 ]; then
+  if [ $(pyenv versions --skip-aliases --bare | grep ${python_ver} | wc -l) = 0 ]; then
     echo "ERROR: failed to install Python ${python_ver}"
     exit 1
   fi
 fi
 
 ## Create Virtual Environment. If needed
-# Look at creating in local workspace
-# FIX: need to make sure python version of venv is the one requested
-#   if not remove old and create new
+# TODO:
+#   Look at creating in local workspace
+found=''
+envs=$(pyenv virtualenvs --skip-aliases --bare)
+for E in ${envs}; do
+  if [ "${venv}" == "${E##*/}" ]; then
+    found=1
+    if [ $rebuild == "true" -o "${python_ver}" != ${E%%/*} ]; then
+      echo "Rebuilding virtual environment for: ${python_ver} ${venv}"
+      pyenv virtualenv-delete -f "${venv}"
+      pyenv virtualenv "${python_ver}" "${venv}"
+    fi
+  fi
+done
+if [ "${found}" != "1" ]; then
+  echo "Creating new virtual environment for: ${python_ver} ${venv}"
+  pyenv virtualenv "${python_ver}" "${venv}"
+fi
+
 if [ $(pyenv virtualenvs | grep ${venv} | wc -l) = 0 ]; then
   pyenv virtualenv "${python_ver}" "${venv}"
   if [ $(pyenv virtualenvs | grep ${venv} | wc -l) = 0 ]; then
@@ -76,9 +95,40 @@ if [ $(pyenv virtualenvs | grep ${venv} | wc -l) = 0 ]; then
 fi
 
 pyenv activate "${venv}"
-pip install --upgrade pip
+#pip install --upgrade pip
 
-## Validate
+###
+### Install and upgrade packages
+###
+# Ensure all requested packages are installed
+declare -A pkgs_installed pkgs_to_install
+for pkg in $(pip freeze); do
+  pkg_name=${pkg%%=*}
+  pkgs_installed[${pkg_name}]=1
+done
+# Build list of missing packages to install
+for pkg in ${pkgs}; do
+  if [ ! ${pkgs_installed[${pkg}]} ]; then
+    pkgs_to_install[${pkg}]=1
+  fi
+done
+if [ $(echo "${!pkgs_to_install[@]}" | wc -c) -gt 1 ]; then
+  pip install "${!pkgs_to_install[@]}"
+fi
+
+# If latest, update all outdated packages
+# This can causes some packages to be too new and cause others to fails
+# TODO: figure out better way
+if [ ${pkgs_ver} = 'latest' ]; then
+  pkgs_to_upgrade=$(pip list --outdated | awk '{ print $1 }')
+  if [ -n "${pkgs_to_upgrade}" ]; then
+    pip install --upgrade ${pkgs_to_upgrade}
+  fi
+fi
+
+###
+### Validate
+###
 echo "PyEnv Versions"
 pyenv versions
 echo "Current Versions:"

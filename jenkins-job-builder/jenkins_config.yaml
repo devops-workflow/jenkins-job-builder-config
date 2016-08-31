@@ -2,8 +2,7 @@
 # Jobs for configuring Jenkins itself - Not application build jobs
 
 - job:
-    # TODO: rename to Jenkins_DSL
-    name: Jenkins_UI_Views
+    name: Jenkins_DSL
     # TODO: Add url trigger
     description: |
         <p><b>Create all DSL defined Jenkins Views and Jobs</b></p>
@@ -44,14 +43,12 @@
           github-org: devops-workflow
     builders:
       - 'dsl-target':
-          dsl-target: DSLs/views*.dsl
-          # Change to 2 lines for 1 builder
-      #- 'dsl-target':
-      #    dsl-target: |
-      #        DSLs/views*.dsl
-      #        DSLs/jobs*.dsl
+          dsl-target: |
+              DSLs/views*.dsl
+              DSLs/jobs*.dsl
     triggers:
-      - pollscm: 'H/15 * * * *'
+      - pollscm:
+          cron: 'H/20 * * * *'
 
 - job:
     name: Jenkins_Job_Builder
@@ -124,7 +121,8 @@
       #    console-log-parsers:
       #      - "Custom Bash Syntax"
     triggers:
-      - pollscm: 'H/5 * * * *'
+      - pollscm:
+          cron: 'H/5 * * * *'
 
 - job:
     name: Jenkins_Display_icons

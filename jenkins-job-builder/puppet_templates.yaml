@@ -62,10 +62,14 @@
 #          property-file: $WORKSPACE/parameters.txt
 #          fail-on-missing: true
     triggers:
-      - pollscm: '*/4 * * * *'
+      - pollscm:
+          cron: '*/4 * * * *'
     wrappers:
       - 'project-desc':
           desc-file: project_description
+      - 'build-timeout':
+          timeout: 60
+      - timestamps
 
 - job-template:
     # TODO: Add sidebar links: puppetlabs, r10k, 
@@ -111,8 +115,12 @@
       - 'publishers-from':
           project: Puppet_Template_module
     triggers:
-      - pollscm: '*/4 * * * *'
+      - pollscm:
+          cron: '*/4 * * * *'
     wrappers:
       - 'project-desc':
           desc-file: project_description
+      - 'build-timeout':
+          timeout: 60
+      - timestamps
 

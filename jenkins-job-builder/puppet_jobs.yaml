@@ -50,7 +50,8 @@
 #          property-file: $WORKSPACE/parameters.txt
 #          fail-on-missing: true
 #    triggers:
-#      - pollscm: '*/4 * * * *'
+#      - pollscm:
+#          cron: '*/4 * * * *'
     wrappers:
       - 'project-desc':
           desc-file: project_description

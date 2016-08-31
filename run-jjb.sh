@@ -38,6 +38,8 @@ if [ ! -f "${jjb_config}" ]; then
   exit 1
 fi
 
+jenkins-jobs --version
+
 if [ $# -gt 0 ] && [ "$1" != "NO-JOB" ]; then
   # Job Mode
   job=$1

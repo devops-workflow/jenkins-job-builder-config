@@ -1,4 +1,11 @@
-# Macros for building/compiling languages
+# Macros for building/compiling languages/packages/containers
+
+- builder:
+    name: build-docker-pre
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/build-docker-pre.sh
 
 - builder:
     name: build-make
@@ -6,6 +13,20 @@
       - shell:
           !include-raw:
             - ./scripts/build-make.sh
+
+- builder:
+    name: build-rpmbuilder
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/build-rpmbuilder.sh
+
+- builder:
+    name: cleanup-rpms
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/cleanup-rpms.sh
 
 - builder:
     name: python-cleanup
@@ -20,4 +41,11 @@
       - shell:
           !include-raw:
             - ./scripts/tool-python-setup.sh
+
+- builder:
+    name: validate-rpm
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/validate-rpm.sh
 

@@ -4,7 +4,7 @@
 # Doc: pp, readme
 # Style: pp
 # Syntax: bash, erb, pp, puppetfile, rb, yaml
-# Other: cloc
+# Other: cloc, dependency-check, Dockerfile, docker images
 
 #-----------------------------
 # Check Documentation macros
@@ -36,11 +36,74 @@
             - ./scripts/static-analysis-c.sh
 
 - builder:
+    name: static-analysis-docker-compose
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/static-analysis-docker-compose.sh
+
+- builder:
+    name: static-analysis-dockerfile
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/static-analysis-dockerfile.sh
+
+- builder:
+    name: static-analysis-docker-image
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/static-analysis-docker-image.sh
+
+- builder:
+    name: static-analysis-python
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/static-analysis-py.sh
+
+- builder:
     name: cloc
     builders:
       - shell:
           !include-raw:
             - ./scripts/cloc.sh
+
+- builder:
+    name: dependency-check
+    # Variables: data_dir, scan_path, out_dir, suppression_file, 
+    # Define absolute: disable NVD update
+    builders:
+      - raw:
+          xml: |
+            <org.jenkinsci.plugins.DependencyCheck.DependencyCheckBuilder plugin="dependency-check-jenkins-plugin@1.3.6">
+              <skipOnScmChange>false</skipOnScmChange>
+              <skipOnUpstreamChange>false</skipOnUpstreamChange>
+              <scanpath>{scan_path}</scanpath>
+              <outdir>{out_dir}</outdir>
+              <datadir>{data_dir}</datadir>
+              <suppressionFile>{suppression_file}</suppressionFile>
+              <zipExtensions></zipExtensions>
+              <isAutoupdateDisabled>true</isAutoupdateDisabled>
+              <isVerboseLoggingEnabled>false</isVerboseLoggingEnabled>
+              <includeHtmlReports>true</includeHtmlReports>
+              <useMavenArtifactsScanPath>false</useMavenArtifactsScanPath>
+            </org.jenkinsci.plugins.DependencyCheck.DependencyCheckBuilder>
+
+- builder:
+    name: dependency-check-updater
+    # Variables: data_dir
+    builders:
+      - raw:
+          xml: |
+            <org.jenkinsci.plugins.DependencyCheck.DependencyCheckUpdateOnlyBuilder plugin="dependency-check-jenkins-plugin@1.3.6">
+              <skipOnScmChange>false</skipOnScmChange>
+              <skipOnUpstreamChange>false</skipOnUpstreamChange>
+              <datadir>{data_dir}</datadir>
+              <isVerboseLoggingEnabled>false</isVerboseLoggingEnabled>
+            </org.jenkinsci.plugins.DependencyCheck.DependencyCheckUpdateOnlyBuilder>
+
 
 #-----------------------------
 # Check Style macros
@@ -77,6 +140,13 @@
       - shell:
           !include-raw:
             - ./scripts/syntax-pp.sh
+
+- builder:
+    name: syntax-py
+    builders:
+      - shell:
+          !include-raw:
+            - ./scripts/syntax-py.sh
 
 - builder:
     name: syntax-puppetfile

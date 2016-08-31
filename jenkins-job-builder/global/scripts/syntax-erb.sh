@@ -5,8 +5,12 @@ set +x
 # - create output that can be parsed by Jenkins warnings plugin
 
 echo 'xxxxxxxxxxxxxxxxx';echo 'Executing the ERB Syntax check:'
-if [ -f /opt/puppet/bin/ruby ]; then
-  # Puppet Enterprise
+if [ -f /opt/puppetlabs/puppet/bin/ruby ]; then
+  # Puppet >= 4.x
+  ERB='/opt/puppetlabs/puppet/bin/erb'
+  RUBY='/opt/puppetlabs/puppet/bin/ruby'
+elif [ -f /opt/puppet/bin/ruby ]; then
+  # Puppet Enterprise < 4.x
   ERB='/opt/puppet/bin/erb'
   RUBY='/opt/puppet/bin/ruby'
 else
