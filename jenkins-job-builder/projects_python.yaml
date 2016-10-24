@@ -3,7 +3,7 @@
 #
 
 - project:
-    name: repo
+    name: pythonRepo
     project: DEVOPS
     github-repo: repo
     github-url: https://github.com
