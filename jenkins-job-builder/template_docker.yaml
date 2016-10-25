@@ -33,7 +33,7 @@
           dockerfilePath: ./Dockerfile
           buildArgs: '${{FILE,path=&quot;tmp/dockerBuildArgs&quot;}}'
       - 'static-analysis-docker-image':
-      - 'build-docker-tracking':
+      #- 'build-docker-tracking':
       - shell: |
           echo " === Start docker push ==="
           AWS_REGION=us-west-2
