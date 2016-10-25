@@ -14,12 +14,12 @@
           !include-raw:
             - build-make.sh
 
-- builder:
-    name: build-rpmbuilder
-    builders:
-      - shell:
-          !include-raw:
-            - build-rpmbuilder.sh
+#- builder:
+#    name: build-rpmbuilder
+#    builders:
+#      - shell:
+#          !include-raw:
+#            - build-rpmbuilder.sh
 
 - builder:
     name: cleanup-rpms
