@@ -166,12 +166,12 @@
               <additionalClasspath></additionalClasspath>
             </javaposse.jobdsl.plugin.ExecuteDslScripts>
 
-- builder:
-    name: get-rpm-version
-    builders:
-      - shell:
-          !include-raw:
-            - get-rpm-version.sh
+#- builder:
+#    name: get-rpm-version
+#    builders:
+#      - shell:
+#          !include-raw:
+#            - get-rpm-version.sh
 
 - builder:
     name: job-description
