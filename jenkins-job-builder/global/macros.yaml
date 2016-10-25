@@ -20,7 +20,7 @@
     builders:
       - shell:
           !include-raw:
-            - ./scripts/anchor-chain.sh
+            - anchor-chain.sh
 
 - builder:
     name: checkmarx
@@ -171,28 +171,28 @@
     builders:
       - shell:
           !include-raw:
-            - ./scripts/get-rpm-version.sh
+            - get-rpm-version.sh
 
 - builder:
     name: job-description
     builders:
       - shell:
           !include-raw:
-            - ./scripts/description.sh
+            - description.sh
 
 - builder:
     name: puppet-module-job-description
     builders:
       - shell:
           !include-raw:
-            - ./scripts/puppet-module-description.sh
+            - puppet-module-description.sh
 
 - builder:
     name: puppet-module-param-downstream
     builders:
       - shell:
           !include-raw:
-            - ./scripts/puppet-module-param-downstream.sh
+            - puppet-module-param-downstream.sh
 
 - builder:
     name: remote-jjb-definition

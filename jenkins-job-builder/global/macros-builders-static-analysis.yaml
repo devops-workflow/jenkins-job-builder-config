@@ -1,5 +1,5 @@
 # Macros for static analysis
-#   documentation, syntax, style, 
+#   documentation, syntax, style,
 
 # Doc: pp, readme
 # Style: pp
@@ -15,14 +15,14 @@
     builders:
       - shell:
           !include-raw:
-            - ./scripts/doc-pp.sh
+            - doc-pp.sh
 
 - builder:
     name: doc-readme
     builders:
       - shell:
           !include-raw:
-            - ./scripts/doc-readme.sh
+            - doc-readme.sh
 
 #-----------------------------
 # Static Code Analysis macros
@@ -33,46 +33,46 @@
     builders:
       - shell:
           !include-raw:
-            - ./scripts/static-analysis-c.sh
+            - static-analysis-c.sh
 
 - builder:
     name: static-analysis-docker-compose
     builders:
       - shell:
           !include-raw:
-            - ./scripts/static-analysis-docker-compose.sh
+            - static-analysis-docker-compose.sh
 
 - builder:
     name: static-analysis-dockerfile
     builders:
       - shell:
           !include-raw:
-            - ./scripts/static-analysis-dockerfile.sh
+            - static-analysis-dockerfile.sh
 
 - builder:
     name: static-analysis-docker-image
     builders:
       - shell:
           !include-raw:
-            - ./scripts/static-analysis-docker-image.sh
+            - static-analysis-docker-image.sh
 
 - builder:
     name: static-analysis-python
     builders:
       - shell:
           !include-raw:
-            - ./scripts/static-analysis-py.sh
+            - static-analysis-py.sh
 
 - builder:
     name: cloc
     builders:
       - shell:
           !include-raw:
-            - ./scripts/cloc.sh
+            - cloc.sh
 
 - builder:
     name: dependency-check
-    # Variables: data_dir, scan_path, out_dir, suppression_file, 
+    # Variables: data_dir, scan_path, out_dir, suppression_file,
     # Define absolute: disable NVD update
     builders:
       - raw:
@@ -114,7 +114,7 @@
     builders:
       - shell:
           !include-raw:
-            - ./scripts/style-pp.sh
+            - style-pp.sh
 
 #-----------------------------
 # Check Syntax macros
@@ -125,53 +125,52 @@
     builders:
       - shell:
           !include-raw:
-            - ./scripts/syntax-bash.sh
+            - syntax-bash.sh
 
 - builder:
     name: syntax-erb
     builders:
       - shell:
           !include-raw:
-            - ./scripts/syntax-erb.sh
+            - syntax-erb.sh
 
 - builder:
     name: syntax-pp
     builders:
       - shell:
           !include-raw:
-            - ./scripts/syntax-pp.sh
+            - syntax-pp.sh
 
 - builder:
     name: syntax-py
     builders:
       - shell:
           !include-raw:
-            - ./scripts/syntax-py.sh
+            - syntax-py.sh
 
 - builder:
     name: syntax-puppetfile
     builders:
       - shell:
           !include-raw:
-            - ./scripts/syntax-puppetfile.sh
+            - syntax-puppetfile.sh
 
 - builder:
     name: syntax-rb
     builders:
       - shell:
           !include-raw:
-            - ./scripts/syntax-rb.sh
+            - syntax-rb.sh
 
 - builder:
     name: syntax-yaml
     builders:
       - shell:
           !include-raw:
-            - ./scripts/syntax-yaml.sh
+            - syntax-yaml.sh
 
 #-----------------------------
 # Unit test  macros
 #-----------------------------
 #- builder:
 #    name: unittest-puppet
-

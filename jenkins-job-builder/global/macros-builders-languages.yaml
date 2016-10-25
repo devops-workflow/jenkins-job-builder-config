@@ -5,47 +5,46 @@
     builders:
       - shell:
           !include-raw:
-            - ./scripts/build-docker-pre.sh
+            - build-docker-pre.sh
 
 - builder:
     name: build-make
     builders:
       - shell:
           !include-raw:
-            - ./scripts/build-make.sh
+            - build-make.sh
 
 - builder:
     name: build-rpmbuilder
     builders:
       - shell:
           !include-raw:
-            - ./scripts/build-rpmbuilder.sh
+            - build-rpmbuilder.sh
 
 - builder:
     name: cleanup-rpms
     builders:
       - shell:
           !include-raw:
-            - ./scripts/cleanup-rpms.sh
+            - cleanup-rpms.sh
 
 - builder:
     name: python-cleanup
     builders:
       - shell:
           !include-raw:
-            - ./scripts/tool-python-cleanup.sh
+            - tool-python-cleanup.sh
 
 - builder:
     name: python-setup
     builders:
       - shell:
           !include-raw:
-            - ./scripts/tool-python-setup.sh
+            - tool-python-setup.sh
 
 - builder:
     name: validate-rpm
     builders:
       - shell:
           !include-raw:
-            - ./scripts/validate-rpm.sh
-
+            - validate-rpm.sh
