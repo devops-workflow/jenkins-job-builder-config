@@ -21,12 +21,12 @@
 #          !include-raw:
 #            - build-rpmbuilder.sh
 
-- builder:
-    name: cleanup-rpms
-    builders:
-      - shell:
-          !include-raw:
-            - cleanup-rpms.sh
+#- builder:
+#    name: cleanup-rpms
+#    builders:
+#      - shell:
+#          !include-raw:
+#            - cleanup-rpms.sh
 
 - builder:
     name: python-cleanup
