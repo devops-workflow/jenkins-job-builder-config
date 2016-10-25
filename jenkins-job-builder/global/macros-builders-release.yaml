@@ -39,9 +39,9 @@
 #-----------------------------
 # Tracking
 #-----------------------------
-- builder:
-    name: build-docker-tracking
-    builders:
-      - shell:
-          !include-raw:
-            - build-docker-tracking.sh
+#- builder:
+#    name: build-docker-tracking
+#    builders:
+#      - shell:
+#          !include-raw:
+#            - build-docker-tracking.sh
