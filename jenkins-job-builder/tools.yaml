@@ -52,7 +52,6 @@
       - node:
           name: node
           description: "Node to run on"
-          allowed-slaves:
           ignore-offline-nodes: true
           allow-multiselect: false
 
