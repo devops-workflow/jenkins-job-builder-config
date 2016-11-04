@@ -63,6 +63,22 @@
           text: Gulp
           icon: /userContent/customIcon/nodejs.png
 
+- property:
+    name: sidebar-icons
+    properties:
+      - sidebar:
+          url: http://images.google.com/
+          text: Google Images
+          icon: /userContent/customIcon/jenkins.png
+      - sidebar:
+          url: http://iconarchive.com/
+          text: Icon Archive
+          icon: /userContent/customIcon/jenkins.png
+      - sidebar:
+          url: http://iconfinder.com/
+          text: Icon Finder
+          icon: /userContent/customIcon/jenkins.png
+
 # java
 #https://www.java.com/en/
 

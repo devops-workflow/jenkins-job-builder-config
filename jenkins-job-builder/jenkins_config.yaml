@@ -12,30 +12,8 @@
           url: https://github.com/devops-workflow/jenkins-dsls/
       - 'custom-icon':
           custom-icon: jenkins.png
-      - sidebar:
-          url: https://jenkinsci.github.io/job-dsl-plugin/
-          text: DSL API Viewer
-          icon: /userContent/customIcon/jenkins.png
-      - sidebar:
-          url: http://job-dsl.herokuapp.com/
-          text: DSL Console
-          icon: /userContent/customIcon/jenkins.png
-      - sidebar:
-          url: https://github.com/jenkinsci/job-dsl-plugin/wiki
-          text: DSL Wiki
-          icon: /userContent/customIcon/jenkins.png
-      - sidebar:
-          url: http://www.groovy-lang.org/
-          text: Groovy
-          icon: /userContent/customIcon/jenkins.png
-      - sidebar:
-          url: https://groovyconsole.appspot.com/
-          text: Groovy Console
-          icon: /userContent/customIcon/jenkins.png
-      - sidebar:
-          url: http://www.groovy-lang.org/documentation.html
-          text: Groovy Documentation
-          icon: /userContent/customIcon/jenkins.png
+      - 'sidebar-dsl':
+      - 'sidebar-groovy':
     scm:
       - 'github':
           github-repo: jenkins-dsls
@@ -49,6 +27,8 @@
     triggers:
       - pollscm:
           cron: 'H/20 * * * *'
+    wrappers:
+      - timestamps
 
 - job:
     name: Jenkins_Job_Builder
@@ -76,10 +56,7 @@
           url: https://github.com/devops-workflow/jenkins-job-builder-config/
       - 'custom-icon':
           custom-icon: jenkins.png
-      - sidebar:
-          url: http://docs.openstack.org/infra/jenkins-job-builder/index.html
-          text: JJB Documentaion
-          icon: /userContent/customIcon/jenkins.png
+      - 'sidebar-jjb':
     scm:
       - 'github':
           github-repo: jenkins-job-builder-config
@@ -123,65 +100,37 @@
     triggers:
       - pollscm:
           cron: 'H/5 * * * *'
+    wrappers:
+      - timestamps
 
 - job:
-    name: Jenkins_Display_icons
+    name: Jenkins_Icons
     description: |
-        Display all the available icons for use in jobs
+        Update icons from git repo and display all the available icons for use in jobs
     node: master
     properties:
       - github:
-          url: https://github.com/devops-workflow/jenkins-display-icons/
+          url: https://github.com/devops-workflow/jenkins-icons/
       - 'custom-icon':
           custom-icon: jenkins.png
+      - 'sidebar-icons':
     scm:
       - 'github':
-          github-repo: jenkins-display-icons
+          github-repo: jenkins-icons
           github-url: https://github.com
           github-org: devops-workflow
     builders:
       - syntax-bash:
-      - shell: ./generate-icons-page.sh
+      - shell: ./update-icons.sh
     publishers:
       - html-publisher:
           name: "Icons"
           dir: "."
           files: "icons.html"
     triggers:
-      - 'files-found-folder':
-          cron: "H * * * *"
-          path: "$JENKINS_HOME/userContent/customIcon"
-          include: "*.png"
-
-# TODO: Enable once control of these is removed from puppet
-# TODO: Move icons to new repo and put update & display scripts there. As they will no longer be managed by puppet
-# TODO: Have update also display the icons.
-# TODO: add links for icon sources: images.google.com, iconarchive.com, iconfinder.com
-#- job:
-#    name: Jenkins_Update_icons
-#    description: |
-#        Update icons in Jenkins from Git repo
-#    node: master
-#    properties:
-#      - github:
-#          url: https://github.com/devops-workflow/puppet_module_site_workflow/tree/master/files/jenkins/images
-#      - 'custom-icon':
-#          custom-icon: jenkins.png
-#    scm:
-#      - 'github':
-#          github-repo: puppet_module_site_workflow
-#          github-url: https://github.com
-#          github-org: devops-workflow
-#    builders:
-#      - shell:
-#          !include-raw:
-#            - ./global/scripts/update-icons.sh
-#    publishers:
-#      - trigger-parameterized-builds:
-#          - project: Jenkins_Display_Icons
-#            condition: 'SUCCESS'
-#            trigger-with-no-params: True
-#    triggers:
-#      - pollscm: 'H/20 * * * *'
+      - pollscm:
+          cron: 'H/20 * * * *'
+    wrappers:
+      - timestamps
 
 # name: Jenkins_Auto_Job_Builder
