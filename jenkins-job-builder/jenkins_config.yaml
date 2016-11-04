@@ -24,6 +24,8 @@
           dsl-target: |
               DSLs/views*.dsl
               DSLs/jobs*.dsl
+    publishers:
+      - 'pragmatic-programmer-tips':
     triggers:
       - pollscm:
           cron: 'H/20 * * * *'
@@ -92,6 +94,7 @@
       #            remote_job_name=$JOB_NAME
       #          block: false
     publishers:
+      - 'pragmatic-programmer-tips':
       - claim-build
       # Unknown issue with warnings
       #- warnings:
@@ -101,6 +104,8 @@
       - pollscm:
           cron: 'H/5 * * * *'
     wrappers:
+      - 'build-timeout':
+          timeout: 30
       - timestamps
 
 - job:
@@ -123,6 +128,7 @@
       - syntax-bash:
       - shell: ./update-icons.sh
     publishers:
+      - 'pragmatic-programmer-tips':
       - html-publisher:
           name: "Icons"
           dir: "."
