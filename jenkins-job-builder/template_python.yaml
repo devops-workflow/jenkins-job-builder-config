@@ -29,6 +29,7 @@
           #github-branch: "{github-branch}"
           github-cred: "{github-cred}"
     builders:
+      - 'inject-home':
       - 'syntax-bash':
       - trigger-builds:
         - project: "Tool-Python-Analysis"

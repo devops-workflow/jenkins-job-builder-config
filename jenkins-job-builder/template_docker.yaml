@@ -26,6 +26,7 @@
           #github-branch: "{github-branch}"
           github-cred: "{github-cred}"
     builders:
+      - 'inject-home':
       - 'build-docker-pre':
       - 'static-analysis-dockerfile':
       - 'dockerbuilder-build':
@@ -137,6 +138,7 @@
           github-repo: "{github-repo}"
           #github-branch: "{github-branch}"
     builders:
+      - 'inject-home':
       - 'build-docker-pre':
       - 'dockerbuilder-build':
           repoName: "{github-org}/{github-repo}"
@@ -180,6 +182,7 @@
       #    custom-icon: xxx.png
       # Setup sidebars for Docker and test tools
     builders:
+      - 'inject-home':
       # ?? No Dockerfile, check what is needed and create script to generate
       #  - 'build-docker-pre':
       - 'static-analysis-docker-image':

@@ -65,6 +65,7 @@
           github-url: https://github.com
           github-org: devops-workflow
     builders:
+      - 'inject-home':
       - syntax-bash:
       - shell: |
             ./run-jjb.sh $remote_job_name $jjb_cache

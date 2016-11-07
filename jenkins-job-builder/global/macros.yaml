@@ -172,6 +172,12 @@
 #      - shell:
 #          !include-raw:
 #            - get-rpm-version.sh
+- builder:
+    name: inject-home
+    # Setup HOME to jenkins directory and add $HOME/bin to path
+    builders:
+      - inject:
+          properties-file: tmp/env.properties
 
 - builder:
     name: job-description
@@ -600,7 +606,7 @@
       - inject:
           script-content:
             !include-raw:
-              - source-home.sh
+              - properties-home.sh
 
 - wrapper:
     name: project-desc

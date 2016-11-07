@@ -27,6 +27,7 @@
           github-org: "{github-org}"
           github-repo: "{github-repo}"
     builders:
+      - 'inject-home':
       - 'static-analysis-c'
       - 'build-make'
     publishers:
