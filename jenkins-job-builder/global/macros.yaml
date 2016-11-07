@@ -594,6 +594,15 @@
           fail: true
 
 - wrapper:
+    name: inject-home
+    # Setup HOME to jenkins directory and add $HOME/bin to path
+    wrappers:
+      - inject:
+          script-content:
+            !include-raw:
+              - source-home.sh
+
+- wrapper:
     name: project-desc
     # Variables: desc-file
     wrappers:
