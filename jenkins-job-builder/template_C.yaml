@@ -77,4 +77,5 @@
           desc-file: project_description
       - 'build-timeout':
           timeout: 180
+      - 'inject-home':
       - timestamps

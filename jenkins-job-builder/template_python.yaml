@@ -102,6 +102,7 @@
       - pollscm:
           cron:  'H/10 * * * *'
     wrappers:
+      - 'inject-home':
       - inject:
           properties-content: |
             python_ver={python_version}

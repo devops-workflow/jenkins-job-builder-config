@@ -65,6 +65,7 @@
     wrappers:
       - 'build-timeout':
           timeout: 30
+      - 'inject-home':
       - timestamps
 
 - job:
@@ -123,6 +124,11 @@
           pyenv virtualenvs
           echo 'Packages Installed:'
           pip freeze
+    wrappers:
+      - 'build-timeout':
+          timeout: 30
+      - 'inject-home':
+      - timestamps
 
 - job:
     name: Tool-Python-Cleanup
@@ -141,6 +147,11 @@
           custom-icon: tools.png
     builders:
       - 'python-cleanup':
+    wrappers:
+      - 'build-timeout':
+          timeout: 30
+      - 'inject-home':
+      - timestamps
 
 - job:
     name: Tool-Python-Example
@@ -197,3 +208,8 @@
           pip --version
           echo "Virtual Envs:"
           pyenv virtualenvs
+    wrappers:
+      - 'build-timeout':
+          timeout: 30
+      - 'inject-home':
+      - timestamps

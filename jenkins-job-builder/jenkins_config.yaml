@@ -106,6 +106,7 @@
     wrappers:
       - 'build-timeout':
           timeout: 30
+      - 'inject-home':
       - timestamps
 
 - job:

@@ -103,6 +103,7 @@
           runAtEnd: true
       - 'build-timeout':
           timeout: 180
+      - 'inject-home':
       #- credentials-binding:
       #    - username-password:
       #        credential-id: XXX
@@ -161,6 +162,7 @@
     wrappers:
       - 'build-timeout':
           timeout: 180
+      - 'inject-home':
       - timestamps
 
 - job-template:
@@ -209,4 +211,5 @@
     wrappers:
       - 'build-timeout':
           timeout: 180
+      - 'inject-home':
       - timestamps
