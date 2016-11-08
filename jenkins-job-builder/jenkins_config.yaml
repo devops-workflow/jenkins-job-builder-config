@@ -36,7 +36,7 @@
     name: Jenkins_Job_Builder
     description: |
         Job to build all other jobs with Jenkins Job Builder
-    node: master
+    node: !master
     parameters:
       - string:
           name: remote_job_name
