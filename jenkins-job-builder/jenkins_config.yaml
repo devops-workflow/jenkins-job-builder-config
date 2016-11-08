@@ -68,7 +68,29 @@
       - 'inject-home':
       - syntax-bash:
       - shell: |
-            ./run-jjb.sh $remote_job_name $jjb_cache
+            venv=jjb
+            jjb_config=${WORKSPACE}/jjb_config
+            . ${HOME}/bin/source-python-virtual-env.sh
+            pyenv activate "${venv}"
+            # Run Jenkins Job Builder
+            . ./python-env.sh
+            # Setup JJB config file
+            cat <<CONFIG > ${jjb_config}
+            [job_builder]
+            keep_descriptions=False
+            #include_path=.:scripts:~/git/
+            include_path=.:${WORKSPACE}/jenkins-job-builder/global/scripts
+            recursive=True
+            #exclude=.*:manual:./development
+            allow_duplicates=False
+
+            [jenkins]
+            user=${jenkinsUser}
+            password=${jenkinsAPIKey}
+            url=${JENKINS_URL}
+            query_plugins_info=True
+            CONFIG
+            ./run-jjb.sh $remote_job_name $jjb_cache ${jjb_config}
       # If job and jjb made changes, trigger calling job
       # 1) if job and find text in console log
       # 2) tee jjb output to file (jjb.log). Grep text in file
@@ -107,6 +129,12 @@
     wrappers:
       - 'build-timeout':
           timeout: 30
+      - credential-bindings:
+          - username-password-separated:
+              # TODO: pass in as JJB parameter
+              credential-id: 6036e7ac-ed29-4dab-addb-c027f8bd1819
+              username: jenkinsUser
+              password: jenkinsAPIKey
       - 'inject-home':
       - timestamps
 
