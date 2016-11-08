@@ -129,7 +129,7 @@
     wrappers:
       - 'build-timeout':
           timeout: 30
-      - credential-bindings:
+      - credentials-binding:
           - username-password-separated:
               # TODO: pass in as JJB parameter
               credential-id: 6036e7ac-ed29-4dab-addb-c027f8bd1819
