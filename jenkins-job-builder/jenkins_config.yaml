@@ -2,6 +2,37 @@
 # Jobs for configuring Jenkins itself - Not application build jobs
 
 - job:
+    name: Jenkins_Config
+    description: |
+        <p><b>Copy global Jenkins configurations files from repo and install plugins</b></p>
+    node: master
+    properties:
+      - github:
+          url: https://github.com/devops-workflow/jenkins-config/
+      - 'custom-icon':
+          custom-icon: jenkins.png
+    scm:
+      - 'github':
+          github-repo: jenkins-config
+          github-url: https://github.com
+          github-org: devops-workflow
+    builders:
+      - 'inject-home':
+      - syntax-bash:
+      - shell: |
+            ./update-config.sh
+    publishers:
+      - 'pragmatic-programmer-tips':
+    triggers:
+      - pollscm:
+          cron: 'H/15 * * * *'
+    wrappers:
+      - 'build-timeout':
+          timeout: 30
+      - 'inject-home':
+      - timestamps
+
+- job:
     name: Jenkins_DSL
     # TODO: Add url trigger
     description: |
