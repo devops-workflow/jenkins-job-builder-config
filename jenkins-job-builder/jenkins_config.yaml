@@ -6,6 +6,7 @@
     description: |
         <p><b>Copy global Jenkins configurations files from repo and install plugins</b></p>
     node: master
+    disabled: true
     properties:
       - github:
           url: https://github.com/devops-workflow/jenkins-config/
