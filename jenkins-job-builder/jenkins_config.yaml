@@ -164,7 +164,8 @@
       - credentials-binding:
           - username-password-separated:
               # TODO: pass in as JJB parameter
-              credential-id: 6036e7ac-ed29-4dab-addb-c027f8bd1819
+              #credential-id: 6036e7ac-ed29-4dab-addb-c027f8bd1819
+              credential-id: user-JenkinsAPI
               username: jenkinsUser
               password: jenkinsAPIKey
       - 'inject-home':
