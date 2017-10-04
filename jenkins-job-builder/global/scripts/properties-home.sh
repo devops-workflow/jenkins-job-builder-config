@@ -10,12 +10,13 @@ envVars="${dirTmp}/env.properties"
 if [ -d "${JENKINS_HOME}" ]; then
   # or [ "${NODE_NAME}" = "master" ]
   # Jenkins master
-  HOME=${JENKINS_HOME}
+  NODE_HOME=${JENKINS_HOME}
 else
   # Jenkins build slave
-  HOME=${WORKSPACE%%/workspace*}
+  NODE_HOME=${WORKSPACE%%/workspace*}
 fi
-PATH=${PATH}:${HOME}/bin
+PATH=${PATH}:${NODE_HOME}/bin
 mkdir -p ${dirTmp}
-echo "HOME=${HOME}" > ${envVars}
+echo "NODE_HOME=${NODE_HOME}" > ${envVars}
+echo "HOME=${WORKSPACE}" >> ${envVars}
 echo "PATH=${PATH}" >> ${envVars}
