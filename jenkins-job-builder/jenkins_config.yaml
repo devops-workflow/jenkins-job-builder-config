@@ -102,7 +102,8 @@
       - shell: |
             venv=jjb
             jjb_config=${WORKSPACE}/jjb_config
-            . ${HOME}/bin/source-python-virtual-env.sh
+            #. ${HOME}/bin/source-python-virtual-env.sh
+            . source-python-virtual-env.sh
             pyenv activate "${venv}"
             # Run Jenkins Job Builder
             . ./python-env.sh
