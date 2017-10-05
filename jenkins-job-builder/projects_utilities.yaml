@@ -10,5 +10,6 @@
     github-repo: ansible-role-aws-ecr
     github-url: https://github.com
     github-org: devops-workflow
+    aws-region: us-west-2
     jobs:
       - '{project}+{nameRepo}+{appEnv}+Build+ECR_Create'
