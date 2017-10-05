@@ -39,7 +39,7 @@
           . source-python-virtual-env.sh
           pyenv activate "${{venv}}"
           cd tests
-          ansible-playbook -i inventory test.yml
+          ./test.sh
     publishers:
       - 'pragmatic-programmer-tips':
       - 'email-template':
