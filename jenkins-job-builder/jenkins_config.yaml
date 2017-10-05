@@ -156,6 +156,10 @@
       #- warnings:
       #    console-log-parsers:
       #      - "Custom Bash Syntax"
+      - trigger-parameterized-builds:
+        - project: Jenkins_DSL
+          condition: SUCCESS
+          trigger-with-no-params: true
     triggers:
       - pollscm:
           cron: 'H/5 * * * *'
