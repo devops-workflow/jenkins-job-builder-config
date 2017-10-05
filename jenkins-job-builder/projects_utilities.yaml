@@ -1,0 +1,14 @@
+###
+### Utility projects
+###
+
+- project:
+    name: ansible-role-aws-ecr
+    project: UTIL
+    nameRepo: ansible-role-aws-ecr
+    appEnv: DEV
+    github-repo: ansible-role-aws-ecr
+    github-url: https://github.com
+    github-org: devops-workflow
+    jobs:
+      - '{project}+{nameRepo}+{appEnv}+Build+ECR_Create'

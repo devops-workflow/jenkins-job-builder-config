@@ -1,0 +1,52 @@
+- job-template:
+    # AWS ECR repository create
+    name: "{project}+{nameRepo}+{appEnv}+Build+ECR_Create"
+    defaults: global
+    description: |
+      Create/maintain an AWS ECR repository
+
+      <p><b>This job is managed by JJB and will be overwritten.</b></p>
+      <p><b>Do not edit this job through the web</b></p>
+      lint:ignore:HardcodedScriptChecker
+    node: python-ansible && slave
+    #auth-token: "{auth-token}"
+    jdk: JDK_8u144
+    parameters:
+      - string:
+          name: GIT_TAG
+          default: ''
+          description: "Git tag to retreive"
+    properties:
+      - github:
+          url: "{github-url}/{github-org}/{github-repo}"
+      #- 'custom-icon':
+      #    custom-icon: aws-ecs.png
+      #- 'sidebar-aws-cli':
+      #- 'sidebar-aws-cli-ecs':
+      #TODO: add ansible and ansible ecr module
+    scm:
+      - 'github':
+          github-url: "{github-url}"
+          github-org: "{github-org}"
+          github-repo: "{github-repo}"
+    builders:
+      - 'inject-home':
+      - inject:
+          properties-content: |
+            AWS_DEFAULT_REGION={aws-region}
+      - shell: |
+          venv=ansible
+          . source-python-virtual-env.sh
+          pyenv activate "${venv}"
+          cd tests
+          ansible-playbook -i inventory test.yml
+    publishers:
+      - 'pragmatic-programmer-tips':
+      - 'email-template':
+          email-template: emailext-template-global-default
+    wrappers:
+      - ansicolor
+      - 'build-timeout':
+          timeout: 180
+      - 'inject-home':
+      - timestamps
