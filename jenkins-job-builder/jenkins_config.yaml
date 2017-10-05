@@ -123,6 +123,7 @@
             url=${JENKINS_URL}
             query_plugins_info=True
             CONFIG
+            echo "Accessing Jenkins master at ${JENKINS_URL} with user '${jenkinsUser}'"
             ./run-jjb.sh $remote_job_name $jjb_cache ${jjb_config}
       # If job and jjb made changes, trigger calling job
       # 1) if job and find text in console log
