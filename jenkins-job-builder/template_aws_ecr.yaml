@@ -37,7 +37,7 @@
       - shell: |
           venv=ansible
           . source-python-virtual-env.sh
-          pyenv activate "${venv}"
+          pyenv activate "${{venv}}"
           cd tests
           ansible-playbook -i inventory test.yml
     publishers:
