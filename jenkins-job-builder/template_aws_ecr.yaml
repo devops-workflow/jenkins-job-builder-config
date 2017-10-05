@@ -11,11 +11,11 @@
     node: python-ansible && slave
     #auth-token: "{auth-token}"
     jdk: JDK_8u144
-    parameters:
-      - string:
-          name: GIT_TAG
-          default: ''
-          description: "Git tag to retreive"
+    #parameters:
+    #  - string:
+    #      name: GIT_TAG
+    #      default: ''
+    #      description: "Git tag to retreive"
     properties:
       - github:
           url: "{github-url}/{github-org}/{github-repo}"
