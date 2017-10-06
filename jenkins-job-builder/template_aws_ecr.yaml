@@ -11,11 +11,32 @@
     node: python-ansible && slave
     #auth-token: "{auth-token}"
     jdk: JDK_8u144
-    #parameters:
-    #  - string:
-    #      name: GIT_TAG
-    #      default: ''
-    #      description: "Git tag to retreive"
+    #ecr_owner: ""            # validate \d{12}
+    parameters:
+      - validating-string:
+          name: aws_region
+          default: us-west-2
+          description: "AWS Region"
+          regex: [0-9a-z-]+
+          msg: Only characters allowed are: 0-9, a-z, -
+      - validating-string:
+          name: aws_RO_accounts
+          default: Account0000x,Account0000y
+          description: "AWS account IDs to grant RO access to ECR repo"
+          regex: [0-9]{12}
+          msg: Must be a list of AWS 12 digit account IDs seperated by commas
+      - validating-string:
+          name: image_name
+          default: image
+          description: "Name of Docker image"
+          regex: [0-9a-z-]+
+          msg: Only characters allowed are: 0-9, a-z, -
+      - validating-string:
+          name: namespace
+          default: test
+          description: "Namespace to put ECR image repo in"
+          regex: [0-9a-z-]+
+          msg: Only characters allowed are: 0-9, a-z, -
     properties:
       - github:
           url: "{github-url}/{github-org}/{github-repo}"
@@ -33,13 +54,12 @@
       - 'inject-home':
       - inject:
           properties-content: |
-            AWS_DEFAULT_REGION={aws-region}
+            AWS_DEFAULT_REGION=${{aws-region}}
       - shell: |
           venv=ansible
           . source-python-virtual-env.sh
           pyenv activate "${{venv}}"
-          cd tests
-          ./test.sh
+          ./run.sh
     publishers:
       - 'pragmatic-programmer-tips':
       - 'email-template':

@@ -3,13 +3,13 @@
 ###
 
 - project:
-    name: ansible-role-aws-ecr
+    name: ansible-playbook-ecr
     project: UTIL
-    nameRepo: ansible-role-aws-ecr
+    nameRepo: ansible-playbook-ecr
     appEnv: DEV
-    github-repo: ansible-role-aws-ecr
+    github-repo: ansible-playbook-ecr
     github-url: https://github.com
     github-org: devops-workflow
-    aws-region: us-west-2
+    #aws-region: us-west-2
     jobs:
       - '{project}+{nameRepo}+{appEnv}+Build+ECR_Create'
