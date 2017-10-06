@@ -12,13 +12,13 @@
     #auth-token: "{auth-token}"
     jdk: JDK_8u144
     #ecr_owner: ""            # validate \d{12}
-    #parameters:
-    #  - validating-string:
-    #      name: aws_region
-    #      default: us-west-2
-    #      description: "AWS Region"
-    #      regex: [0-9a-z-]+
-    #      msg: "Only characters allowed are: 0-9, a-z, -"
+    parameters:
+      - validating-string:
+          name: "aws_region"
+          default: "us-west-2"
+          description: "AWS Region"
+          regex: ^[0-9a-z-]+$
+          msg: "Only characters allowed are: 0-9, a-z, -"
     #  - validating-string:
     #      name: aws_RO_accounts
     #      default: Account0000x,Account0000y
