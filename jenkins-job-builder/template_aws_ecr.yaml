@@ -54,7 +54,7 @@
       - 'inject-home':
       - inject:
           properties-content: |
-            AWS_DEFAULT_REGION=${{aws-region}}
+            AWS_DEFAULT_REGION={aws-region}
       - shell: |
           venv=ansible
           . source-python-virtual-env.sh
