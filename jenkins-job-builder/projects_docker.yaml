@@ -12,6 +12,7 @@
     node: Docker
     trigger-token: ""
     jobs:
-      - '{project}-{name}_analysis_Docker'
+      - '{project}-{nameRepo}+{appEnv}+Package_Docker'
+      #- '{project}-{name}_analysis_Docker'
       #- '{project}-{name}_package_Docker'
       #- '{project}-{name}_validate_Docker'
